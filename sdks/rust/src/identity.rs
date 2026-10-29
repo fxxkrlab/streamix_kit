@@ -87,6 +87,8 @@ impl RequestIdentity {
         } else {
             format!("StreamixKit/{}", env!("CARGO_PKG_VERSION"))
         };
+        let client = format!("{}/{}",build.product,build.version);
+        if client.len() > 128 { return Err(Error::InvalidInput); }
         let ua = format!("{}/{} ({} {}; {}; build {}; {}) {}", build.product, build.version, build.system, build.system_version, build.model_or_arch, build.build, build.channel, suffix);
         let encoded: String = device.display_name.bytes().map(|byte| {
             if byte.is_ascii_alphanumeric() || b"-._~".contains(&byte) { (byte as char).to_string() }
@@ -96,7 +98,7 @@ impl RequestIdentity {
             if !label(text, 256) || !text.bytes().all(|b| b.is_ascii_alphanumeric() || b"-,;= .".contains(&b)) { return Err(Error::InvalidInput); }
             value(text)
         }).transpose()?;
-        Ok(Self { user_agent:value(&ua)?,client:value(&format!("{}/{}",build.product,build.version))?,device_id:value(&device.installation_id.hyphenated().to_string())?,device_name:value(&encoded)?,language })
+        Ok(Self { user_agent:value(&ua)?,client:value(&client)?,device_id:value(&device.installation_id.hyphenated().to_string())?,device_name:value(&encoded)?,language })
     }
 
     pub(crate) fn headers(&self, purpose: RequestPurpose) -> HeaderMap {

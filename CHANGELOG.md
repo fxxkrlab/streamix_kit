@@ -7,3 +7,4 @@
 - Require the new header-only ticket server contract. Final upstream source and minimum server release remain unbound.
 - Add build/client/device headers, per-install UUIDs, tracing, separate prefetch labels, explicit protocol/port parsing and public-server identity models. Document the RC.9 discovery target; UDP client networking is not included.
 - TypeScript, Swift and Kotlin are deferred. Server CI, real test-server acceptance, Draft PR review and publication are not complete.
+- Preserve validated Retry-After errors, carry prefetch purpose through short-ticket renewal, and enforce the complete client-label length bound. Regression sources are added; execution remains pending server CI.

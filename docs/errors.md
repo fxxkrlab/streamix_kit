@@ -15,4 +15,6 @@ SXAPI errors use `{"error":{"code":"…","message":"…"}}`. The synchronized sp
 
 The SDK does not blindly retry login, preparation, progress, ticket issue or session termination. The player must decide bounded retries for safe reads. A ticket renewal request may fail after logout, expiry, source change or revocation; none permits a permissive fallback.
 
+For errors such as 429/503, `Error::retry_after` exposes a validated `RetryAfter::DelaySeconds` or normalized `RetryAfter::HttpDate`. The raw header is never retained or printed. Duplicate, oversized, malformed or numerically overflowing values produce no backoff metadata. The SDK neither shortens a valid delay nor automatically sleeps/replays a request; the caller applies its bounded cancellation-aware policy and respects the supplied minimum/deadline.
+
 Local SDK errors distinguish invalid origin/path, unsupported header contract, malformed response, oversized body, range mismatch and changed representation. Display a safe summary; never print a token-bearing structure in a bug report.

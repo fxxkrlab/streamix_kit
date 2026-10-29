@@ -436,7 +436,6 @@ fn parse_retry_after(headers: &header::HeaderMap) -> Option<RetryAfter> {
     let value = raw.trim_matches(|character| character == ' ' || character == '\t');
     if value.is_empty() { return None; }
     if value.bytes().all(|byte|byte.is_ascii_digit()) {
-        if value.len() > 20 { return None; }
         return value.parse().ok().map(RetryAfter::DelaySeconds);
     }
     httpdate::parse_http_date(value).ok().map(RetryAfter::HttpDate)

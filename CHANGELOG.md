@@ -2,7 +2,8 @@
 
 ## 0.1.0-rc.1 — unreleased
 
-- Build 20261029.003 groups the login fixture's concatenation expression for `json!`; its synthetic token value is unchanged. This addresses the first designated-server cargo-check macro error; compilation and downstream checks still require their actual rerun.
+- Build 20261029.004 uses eq_ignore_ascii_case for the mock server's required-header comparison, preserving ASCII case-insensitive matching and addressing the designated-server strict Clippy diagnostic without a lint allowance. This is a source-only correction; strict Clippy and downstream checks require the designated-server rerun.
+- Build 20261029.003 groups the login fixture's concatenation expression for `json!`; its synthetic token value is unchanged. This addresses the first designated-server cargo-check macro error. The subsequent designated-server cargo check passed for that build.
 - Freeze Cargo.lock exactly as produced by the first designated-server dependency resolver (exit 0), with Cargo manifests unchanged. Resolver success is not compilation or test success.
 - Prepare the public repository, proprietary integration license, protocol guides, header-only curl example and spec synchronization checks.
 - Add a Rust SDK and CLI source candidate for login, browsing, original-file playback, bounded Range reads, ticket renewal, progress and session cleanup.

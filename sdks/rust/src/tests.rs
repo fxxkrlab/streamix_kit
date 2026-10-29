@@ -147,6 +147,8 @@ fn retry_after_is_bounded_normalized_and_rejects_ambiguous_values() {
     let mut headers = header::HeaderMap::new();
     headers.insert(header::RETRY_AFTER,HeaderValue::from_static("120"));
     assert_eq!(parse_retry_after(&headers),Some(RetryAfter::DelaySeconds(120)));
+    headers.insert(header::RETRY_AFTER,HeaderValue::from_static("00000000000000000000017"));
+    assert_eq!(parse_retry_after(&headers),Some(RetryAfter::DelaySeconds(17)));
     headers.insert(header::RETRY_AFTER,HeaderValue::from_static("Wed, 21 Oct 2015 07:28:00 GMT"));
     assert_eq!(parse_retry_after(&headers),Some(RetryAfter::HttpDate(SystemTime::UNIX_EPOCH+Duration::from_secs(1_445_412_480))));
     for value in ["", "-1", "+1", "1.5", "18446744073709551616", "not-a-date", "Wed, 99 Oct 2015 07:28:00 GMT"] {

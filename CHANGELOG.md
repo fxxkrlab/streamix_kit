@@ -2,6 +2,8 @@
 
 ## 0.1.0-rc.1 — unreleased
 
+- Build 20261029.003 groups the login fixture's concatenation expression for `json!`; its synthetic token value is unchanged. This addresses the first designated-server cargo-check macro error; compilation and downstream checks still require their actual rerun.
+- Freeze Cargo.lock exactly as produced by the first designated-server dependency resolver (exit 0), with Cargo manifests unchanged. Resolver success is not compilation or test success.
 - Prepare the public repository, proprietary integration license, protocol guides, header-only curl example and spec synchronization checks.
 - Add a Rust SDK and CLI source candidate for login, browsing, original-file playback, bounded Range reads, ticket renewal, progress and session cleanup.
 - Require the new header-only ticket server contract. Build 20261029.002 binds the exact full/client pair to server source `29f600eb47f0f2f893039b654e3b9f7d782576d7`, with minimum candidate 0.9.0-rc.9 and no published release reference.

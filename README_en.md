@@ -2,7 +2,7 @@
 
 SXAPI v1 integration documents and an asynchronous Rust SDK for player authors.
 
-**0.1.0-rc.1 · Build 20261029.002 — source candidate, not released or SDK server-validated.**
+**0.1.0-rc.1 · Build 20261029.003 — source candidate, not released or SDK server-validated.**
 
 The contracts are bound to server source `29f600eb47f0f2f893039b654e3b9f7d782576d7`, with minimum server candidate **0.9.0-rc.9**; see [SOURCE.json](spec/SOURCE.json). This records provenance only, not SDK CI, integration acceptance or a published server release. This candidate requires header-only tickets. It never falls back to credential URLs. Discovery must report `features.playback_ticket_header=true` and `features.credentials_in_urls=false`; protocol version `1.0` alone is insufficient.
 

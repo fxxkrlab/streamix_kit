@@ -45,7 +45,7 @@ fn server(steps: Vec<Step>) -> (Client, thread::JoinHandle<()>) {
             }
             for (name, value) in &step.headers {
                 let expected = format!("{}: {}", name.to_ascii_lowercase(), value);
-                assert!(head.lines().any(|line| line.to_ascii_lowercase() == expected.to_ascii_lowercase()), "required header missing");
+                assert!(head.lines().any(|line| line.eq_ignore_ascii_case(&expected)), "required header missing");
             }
             if step.path.ends_with("/stream") || step.path == "/nimbus-play/v1/sxapi" {
                 assert!(!head.to_ascii_lowercase().contains("authorization:"));

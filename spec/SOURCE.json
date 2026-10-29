@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "UNBOUND_AWAITING_FINAL_HEADER_CONTRACT",
+  "upstream_repository": "fxxkrlab/streamix_server",
+  "upstream_commit": null,
+  "upstream_release": null,
+  "intended_server_version": "0.9.0-rc.9",
+  "candidate_status": "UNRELEASED",
+  "compatibility_status": "NOT_VALIDATED",
+  "minimum_server_version": null,
+  "protocol_major": 1,
+  "required_ticket_transport": "headers",
+  "synchronized_at": null,
+  "files": {}
+}

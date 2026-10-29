@@ -1,8 +1,8 @@
 # Version and compatibility
 
-Kit version: **0.1.0-rc.1**. Build: **20261029.001**. Protocol: **SXAPI major 1**, base `/sxapi/v1`.
+Kit version: **0.1.0-rc.1**. Build: **20261029.002**. Protocol: **SXAPI major 1**, base `/sxapi/v1`.
 
-The intended minimum compatible server candidate is **0.9.0-rc.9**, with the exact final upstream commit still **unbound** in [SOURCE.json](../spec/SOURCE.json). This is a target, not validated compatibility or a publication claim. This candidate depends on the new header-only video and subtitle contract, not the old URL-ticket transport. Do not advertise compatibility with RC8 or a historical server from a version string alone.
+The minimum server source requirement is candidate **0.9.0-rc.9**, bound to upstream commit `29f600eb47f0f2f893039b654e3b9f7d782576d7` in [SOURCE.json](../spec/SOURCE.json). The full/client SHA256 values identify the exact synchronized bytes. No upstream release reference is supplied because this candidate is unpublished; compatibility remains NOT_VALIDATED. Source binding is not SDK CI or integration acceptance. This candidate depends on the new header-only video and subtitle contract, not the old URL-ticket transport. Do not advertise compatibility with RC8 or a historical server from a version string alone.
 
 Before usage require runtime capabilities `playback_ticket_header=true`, `credentials_in_urls=false` and the needed individual features. Missing capability keys are unsupported. No lenient legacy fallback is provided. A deployment can disable features even when the protocol/schema is present.
 

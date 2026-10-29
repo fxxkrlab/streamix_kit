@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "protocol_major": 1,
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/account/credentials",
+      "operation_id": "sxapi_own_list_credentials_get"
+    },
+    {
+      "method": "POST",
+      "path": "/account/credentials",
+      "operation_id": "sxapi_own_create_credential_post"
+    },
+    {
+      "method": "DELETE",
+      "path": "/account/credentials/{id}",
+      "operation_id": "sxapi_own_revoke_credential_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/account/credentials/{id}",
+      "operation_id": "sxapi_own_get_credential_get"
+    },
+    {
+      "method": "GET",
+      "path": "/capabilities",
+      "operation_id": "sxapi_capabilities_get"
+    },
+    {
+      "method": "GET",
+      "path": "/collections",
+      "operation_id": "sxapi_list_collections_get"
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{id}/members",
+      "operation_id": "sxapi_collection_members_get"
+    },
+    {
+      "method": "GET",
+      "path": "/libraries",
+      "operation_id": "sxapi_list_libraries_get"
+    },
+    {
+      "method": "GET",
+      "path": "/libraries/statistics",
+      "operation_id": "sxapi_library_statistics_get"
+    },
+    {
+      "method": "GET",
+      "path": "/libraries/{id}",
+      "operation_id": "sxapi_get_library_get"
+    },
+    {
+      "method": "GET",
+      "path": "/libraries/{id}/images/{image_type}",
+      "operation_id": "sxapi_get_current_library_image_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media",
+      "operation_id": "sxapi_catalog_list_media_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/facets/{kind}",
+      "operation_id": "sxapi_list_catalog_facets_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/pmms/facets/actresses",
+      "operation_id": "sxapi_list_pmms_actresses_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/pmms/facets/categories",
+      "operation_id": "sxapi_list_pmms_categories_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/pmms/facets/series",
+      "operation_id": "sxapi_list_pmms_series_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/pmms/facets/studios",
+      "operation_id": "sxapi_list_pmms_studios_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}",
+      "operation_id": "sxapi_catalog_get_media_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/children",
+      "operation_id": "sxapi_catalog_list_children_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/credits",
+      "operation_id": "sxapi_media_credits_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/descriptions",
+      "operation_id": "sxapi_descriptive_snapshots_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/images/{kind}",
+      "operation_id": "sxapi_get_image_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/media/{id}/images/{kind}",
+      "operation_id": "sxapi_get_image_head"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/pmms",
+      "operation_id": "sxapi_get_pmms_metadata_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/sample-images/{sample_id}",
+      "operation_id": "sxapi_get_sample_image_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/media/{id}/sample-images/{sample_id}",
+      "operation_id": "sxapi_get_sample_image_head"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/seasons",
+      "operation_id": "sxapi_catalog_list_seasons_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/subtitles",
+      "operation_id": "sxapi_inventory_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/tracks",
+      "operation_id": "sxapi_list_media_tracks_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/versions",
+      "operation_id": "sxapi_catalog_list_versions_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/versions/{version_id}",
+      "operation_id": "sxapi_catalog_get_version_get"
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}/images/profile",
+      "operation_id": "sxapi_get_person_image_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/persons/{id}/images/profile",
+      "operation_id": "sxapi_get_person_image_head"
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}/media",
+      "operation_id": "sxapi_person_media_get"
+    },
+    {
+      "method": "POST",
+      "path": "/playback/sessions",
+      "operation_id": "sxapi_create_playback_session_post"
+    },
+    {
+      "method": "DELETE",
+      "path": "/playback/sessions/{id}",
+      "operation_id": "sxapi_delete_playback_session_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/playback/sessions/{id}",
+      "operation_id": "sxapi_get_playback_session_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/playback/sessions/{id}/progress",
+      "operation_id": "sxapi_put_progress_put"
+    },
+    {
+      "method": "GET",
+      "path": "/playback/sessions/{id}/stream",
+      "operation_id": "sxapi_stream_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/playback/sessions/{id}/stream",
+      "operation_id": "sxapi_stream_head"
+    },
+    {
+      "method": "GET",
+      "path": "/playback/sessions/{id}/subtitles/{subtitle_id}",
+      "operation_id": "sxapi_read_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/playback/sessions/{id}/subtitles/{subtitle_id}",
+      "operation_id": "sxapi_read_head"
+    },
+    {
+      "method": "POST",
+      "path": "/playback/sessions/{id}/subtitles/{subtitle_id}/tickets",
+      "operation_id": "sxapi_issue_post"
+    },
+    {
+      "method": "POST",
+      "path": "/playback/sessions/{id}/tickets",
+      "operation_id": "sxapi_create_playback_ticket_post"
+    },
+    {
+      "method": "GET",
+      "path": "/series",
+      "operation_id": "sxapi_list_series_get"
+    },
+    {
+      "method": "GET",
+      "path": "/series/{id}",
+      "operation_id": "sxapi_get_series_get"
+    },
+    {
+      "method": "GET",
+      "path": "/series/{id}/seasons/{season}",
+      "operation_id": "sxapi_get_series_season_get"
+    },
+    {
+      "method": "POST",
+      "path": "/sessions",
+      "operation_id": "sxapi_create_session_post"
+    },
+    {
+      "method": "DELETE",
+      "path": "/sessions/current",
+      "operation_id": "sxapi_delete_current_session_delete"
+    },
+    {
+      "method": "POST",
+      "path": "/sessions/refresh",
+      "operation_id": "sxapi_own_refresh_credential_post"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "operation_id": "sxapi_current_user_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/account",
+      "operation_id": "sxapi_get_account_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/favorites",
+      "operation_id": "sxapi_favorites_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/history",
+      "operation_id": "sxapi_history_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/history/legacy",
+      "operation_id": "sxapi_get_legacy_history_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/media/{id}/state",
+      "operation_id": "sxapi_get_state_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/media/{id}/state",
+      "operation_id": "sxapi_put_state_put"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/password",
+      "operation_id": "sxapi_change_password_put"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/preferences/libraries",
+      "operation_id": "sxapi_get_libraries_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/preferences/libraries",
+      "operation_id": "sxapi_put_libraries_put"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/preferences/libraries/order",
+      "operation_id": "sxapi_reorder_libraries_put"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/preferences/player",
+      "operation_id": "sxapi_get_player_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/preferences/player",
+      "operation_id": "sxapi_put_player_put"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/recommendations",
+      "operation_id": "sxapi_recommendations_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/settings",
+      "operation_id": "sxapi_list_account_settings_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/settings",
+      "operation_id": "sxapi_patch_account_settings_put"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/settings/{key}",
+      "operation_id": "sxapi_patch_account_setting_put"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/streams",
+      "operation_id": "sxapi_list_get"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/streams/{domain}/{id}",
+      "operation_id": "sxapi_terminate_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/usage",
+      "operation_id": "sxapi_usage_get"
+    }
+  ],
+  "typed_sdk_schema_sha256": {
+    "SessionRequest": "dce0d18d6afd35becd699333b21675add7dec7bc2d626802a688189bbe81b2fb",
+    "Session": "78b1f9b58a054b57ca4c402770694bb340009b465de5f52614168965b5f661f4",
+    "OwnCredentialRefresh": "3e3320194b1b313ec2507161dd8efbc950dd7d243dac9dc74248cf4093e6e0b7",
+    "OwnCredentialRefreshed": "fd6c2bb22774089768cdaefa0a108f1d883e139e3c69d9f1061ccc070c710837",
+    "User": "ab663f5eee9e24a583bf3ea2188e1273bb183e1dac63711d1022b692815ceec6",
+    "Library": "ac606588e1b7b78faee259be1107ec8f9978fc7ce520c329dd5eedc125f706e8",
+    "Media": "5f6a1eded3a7e36a49ea1ad6f81914fd72cf3b09148130d4505006e1fb86d0c2",
+    "MediaPage": "4d07723cdfe26dd563831c4e6cc146c748e3fde4508b4904a840237f906a7247",
+    "Version": "16285b04613b2778d739a8259addf659b1ff7845a06f41b204b2a1313d13b8f1",
+    "VersionPage": "ed0508a7cdbd5d19ba40c5880ac464fe4dfada1497737fe199a424aa07bfeda7",
+    "PlaybackProfile": "86c22fb6c1e53fe747498ccc7027b5476277de24f3d996d212ea458292212d26",
+    "PlaybackRequest": "bfff1298b24839873db907ab734b6f512d786eee15b0152438a25e12b7fd9a45",
+    "PlaybackSession": "9651b70b2adc65b26b50b97ea0026270eba5d91099a1a7134ef6076a2a099470",
+    "PreparedPlayback": "5bfb2493f10f8046471f3fdcfa9f4684407ea312e63ed12f086e857f2e8d6d60",
+    "StreamTicket": "f720abe71b7fbdf7de6d641c1860d839c346e0cf44daddaf100c7f16856f0a47",
+    "PlaybackProgress": "7c8a0021c33f9ef98c68636e918376b8eca06df444cf7612eceb74b306b4a0fc",
+    "ProgressAck": "cc77888575907c3acd79ae20776117a703e381358b3808cb8176e4b7d5ab1d6a",
+    "SubtitleInventory": "4de02fceadb43b0bef2fdf5892239c75111ec6e9b679b822254b3e1e7f4ffbc3",
+    "SubtitleTicket": "fec05e5556fe959566781ea8e4630b88a4e39b0010cc0592e294c3798056d7f8"
+  }
+}

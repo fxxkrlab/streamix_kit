@@ -1,6 +1,6 @@
 # LAN discovery integration guide
 
-This describes the RC.9 target server contract, awaiting final source binding and designated-server acceptance. StreamixKit does not implement a UDP client in this phase. A player can integrate the protocol into its existing LAN-discovery component.
+This describes the bound RC.9 server contract; designated-server and real-LAN acceptance remain separate. StreamixKit does not implement a UDP client in this phase. A player can integrate the protocol into its existing LAN-discovery component.
 
 Send UTF-8 `who is StreamixServer?` to UDP **7359** on the user's selected local network. The server trims surrounding whitespace and matches the whole question case-insensitively; other product questions are ignored. Requests are at most 64 bytes. Replies are unicast UTF-8 JSON of at most 512 bytes.
 

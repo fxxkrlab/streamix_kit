@@ -1,15 +1,24 @@
 {
   "schema_version": 1,
-  "status": "UNBOUND_AWAITING_FINAL_HEADER_CONTRACT",
+  "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": null,
+  "upstream_commit": "29f600eb47f0f2f893039b654e3b9f7d782576d7",
   "upstream_release": null,
   "intended_server_version": "0.9.0-rc.9",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
-  "minimum_server_version": null,
+  "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": null,
-  "files": {}
+  "synchronized_at": "2026-10-29T07:52:17.121779+00:00",
+  "files": {
+    "sxapi-v1.openapi.json": {
+      "sha256": "92f6102e4a2657cdb3f32758a6b600aa910977db27a2147598e6e40393586d52",
+      "bytes": 3067175
+    },
+    "sxapi-v1-client.openapi.json": {
+      "sha256": "95c86e1a04ef6feb617a1b22dd46f167bc3d75b9235767c461170a7a0b91ac46",
+      "bytes": 627568
+    }
+  }
 }

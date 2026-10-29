@@ -1,6 +1,6 @@
 # Rust SDK source candidate
 
-Crate `streamix-kit`; Rust library `streamix_kit`. **0.1.0-rc.1 / Build 20261029.001, unbuilt and untested until designated server CI.** No crates.io package is published; the manifest disables publication. See the commercial [LICENSE](../../LICENSE) before integration or binary redistribution.
+Crate `streamix-kit`; Rust library `streamix_kit`. **0.1.0-rc.1 / Build 20261029.002, unbuilt and untested until designated server CI.** The contract is source-bound in [SOURCE.json](../../spec/SOURCE.json); this is not SDK validation. No crates.io package is published; the manifest disables publication. See the commercial [LICENSE](../../LICENSE) before integration or binary redistribution.
 
 This is a bounded typed facade for the common player flow, not a wrapper for every public operation. It preserves unknown JSON response fields. The exact synchronized contract generates an operation/schema inventory; it is not generated using an unverified OpenAPI 3.1 general-purpose tool.
 

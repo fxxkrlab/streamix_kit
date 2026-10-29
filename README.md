@@ -6,9 +6,9 @@
 ![Protocol](https://img.shields.io/badge/protocol-SXAPI_v1-blue)
 ![License](https://img.shields.io/badge/license-commercial_proprietary-lightgrey)
 
-**当前版本：0.1.0-rc.1 · Build 20261029.001。尚未发布、尚未通过服务器验收。**
+**当前版本：0.1.0-rc.1 · Build 20261029.002。尚未发布、尚未通过 SDK 服务器验收。**
 
-最低服务器版本与源码绑定尚未冻结，见 [SOURCE.json](spec/SOURCE.json)。当前代码要求新的请求头取流契约；不能用于旧的 URL 票据接口。能力声明必须包含 `features.playback_ticket_header=true` 和 `features.credentials_in_urls=false`；协议版本 `1.0` 单独不能证明支持。
+规范已绑定服务器源码 `29f600eb47f0f2f893039b654e3b9f7d782576d7`，最低服务器候选版本为 **0.9.0-rc.9**，见 [SOURCE.json](spec/SOURCE.json)。这只是契约来源绑定，不代表 SDK CI、联调或正式发布通过。当前代码要求新的请求头取流契约；不能用于旧的 URL 票据接口。能力声明必须包含 `features.playback_ticket_header=true` 和 `features.credentials_in_urls=false`；协议版本 `1.0` 单独不能证明支持。
 
 本仓库不包含服务器源码、部署配置或运行数据。规范由服务器维护，同步完整规范和面向播放器的同源子集，禁止手改副本。
 

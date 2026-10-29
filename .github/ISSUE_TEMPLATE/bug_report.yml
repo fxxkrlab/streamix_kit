@@ -1,0 +1,25 @@
+name: Client integration bug
+description: Reproducible SDK or public contract problem; no credentials.
+title: "[Bug] "
+body:
+  - type: textarea
+    id: versions
+    attributes:
+      label: Kit and server versions
+      description: Version and Build only; no server addresses or credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction and expected behavior
+      description: Use fictional identifiers. Never paste headers, tickets, passwords, logs or signed links.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Sanitized result
+      description: HTTP status and error.code only. Separate source, CI and real-player outcomes.
+    validations:
+      required: true

@@ -40,7 +40,10 @@ fn server(steps: Vec<Step>) -> (Client, thread::JoinHandle<()>) {
             let head = raw.split("\r\n\r\n").next().unwrap();
             assert!(head.starts_with(&format!("{} {} HTTP/1.1\r\n", step.method, step.path)));
             assert!(!head.lines().next().unwrap().contains('?'));
-            for (name, value) in step.headers {
+            if !step.headers.iter().any(|(name,_)|name.eq_ignore_ascii_case("sec-purpose")) {
+                assert!(!head.to_ascii_lowercase().contains("\r\nsec-purpose:"));
+            }
+            for (name, value) in &step.headers {
                 let expected = format!("{}: {}", name.to_ascii_lowercase(), value);
                 assert!(head.lines().any(|line| line.to_ascii_lowercase() == expected.to_ascii_lowercase()), "required header missing");
             }
@@ -128,6 +131,36 @@ fn utf8_device_name_is_bounded_before_percent_encoding() {
 }
 
 #[test]
+fn assembled_client_label_respects_the_server_byte_bound() {
+    let mut build = build_info();
+    build.product = "p".repeat(63);
+    build.version = "v".repeat(64);
+    let device = DeviceIdentity { installation_id:Uuid::new_v4(),display_name:"Fixture".into() };
+    let accepted = RequestIdentity::new(build.clone(),device.clone(),None).unwrap();
+    assert_eq!(accepted.headers(RequestPurpose::Interaction).get("x-streamix-client").unwrap().as_bytes().len(),128);
+    build.product.push('p');
+    assert!(matches!(RequestIdentity::new(build,device,None),Err(Error::InvalidInput)));
+}
+
+#[test]
+fn retry_after_is_bounded_normalized_and_rejects_ambiguous_values() {
+    let mut headers = header::HeaderMap::new();
+    headers.insert(header::RETRY_AFTER,HeaderValue::from_static("120"));
+    assert_eq!(parse_retry_after(&headers),Some(RetryAfter::DelaySeconds(120)));
+    headers.insert(header::RETRY_AFTER,HeaderValue::from_static("Wed, 21 Oct 2015 07:28:00 GMT"));
+    assert_eq!(parse_retry_after(&headers),Some(RetryAfter::HttpDate(SystemTime::UNIX_EPOCH+Duration::from_secs(1_445_412_480))));
+    for value in ["", "-1", "+1", "1.5", "18446744073709551616", "not-a-date", "Wed, 99 Oct 2015 07:28:00 GMT"] {
+        headers.insert(header::RETRY_AFTER,HeaderValue::from_str(value).unwrap());
+        assert_eq!(parse_retry_after(&headers),None);
+    }
+    headers.insert(header::RETRY_AFTER,HeaderValue::from_str(&"x".repeat(65)).unwrap());
+    assert_eq!(parse_retry_after(&headers),None);
+    headers.insert(header::RETRY_AFTER,HeaderValue::from_static("1"));
+    headers.append(header::RETRY_AFTER,HeaderValue::from_static("2"));
+    assert_eq!(parse_retry_after(&headers),None);
+}
+
+#[test]
 fn installation_store_reuses_id_and_never_overwrites_invalid_data() {
     struct Directory(std::path::PathBuf);
     impl Drop for Directory { fn drop(&mut self) { let _ = std::fs::remove_dir_all(&self.0); } }
@@ -204,6 +237,25 @@ async fn login_redirect_is_not_followed() {
 }
 
 #[tokio::test]
+async fn http_errors_retain_backoff_without_automatic_retry_or_raw_text() {
+    let body = r#"{"error":{"code":"rate_limited","message":"private-body-sentinel"}}"#;
+    let failed = Step { method:"POST",path:"/sxapi/v1/sessions",response:format!("HTTP/1.1 429 Too Many Requests\r\nRetry-After: 17\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",body.len()),headers:vec![] };
+    let (client,task) = server(vec![discovery(),failed]);
+    let error = match client.login("fixture",Secret::new("private-fixture".into())).await { Err(error) => error,Ok(_) => panic!("expected failure") };
+    assert_eq!(error.retry_after(),Some(&RetryAfter::DelaySeconds(17)));
+    assert!(matches!(&error,Error::Http { status:429,.. }));
+    assert!(!format!("{error:?}").contains("private-body-sentinel"));
+    assert!(!error.to_string().contains("Retry-After"));
+    task.join().unwrap();
+    let failed = Step { method:"GET",path:"/sxapi/v1/capabilities",response:"HTTP/1.1 503 Service Unavailable\r\nRetry-After: Wed, 21 Oct 2015 07:28:00 GMT\r\nContent-Length: 0\r\nConnection: close\r\n\r\n".into(),headers:vec![] };
+    let (client,task) = server(vec![failed]);
+    let error = client.capabilities().await.unwrap_err();
+    assert_eq!(error.retry_after(),Some(&RetryAfter::HttpDate(SystemTime::UNIX_EPOCH+Duration::from_secs(1_445_412_480))));
+    assert!(matches!(&error,Error::Http { status:503,.. }));
+    task.join().unwrap();
+}
+
+#[tokio::test]
 async fn video_ticket_header_range_and_explicit_end() {
     let video = Step { method:"GET", path:"/sxapi/v1/playback/sessions/22222222-2222-4222-8222-222222222222/stream", response:"HTTP/1.1 206 Partial Content\r\nContent-Length: 4\r\nContent-Range: bytes 0-3/100\r\nETag: \"v1\"\r\nConnection: close\r\n\r\ndata".into(), headers:vec![(VIDEO_HEADER,"fixture-video-ticket".into()),("Range","bytes=0-3".into())] };
     let (client, task) = server(vec![discovery(),login_step(),discovery(),prepared(),video,end_step()]);
@@ -264,10 +316,32 @@ async fn near_expiry_renews_before_new_range() {
     let renewal = json_step("POST","/sxapi/v1/playback/sessions/22222222-2222-4222-8222-222222222222/tickets",serde_json::json!({"stream_path":"/nimbus-play/v1/sxapi","ticket":"renewed-fixture","header_name":VIDEO_HEADER,"expires_at":(Utc::now()+chrono::Duration::seconds(80)).to_rfc3339()}));
     let video = Step { method:"GET",path:"/nimbus-play/v1/sxapi",response:"HTTP/1.1 206 Partial Content\r\nContent-Length: 4\r\nContent-Range: bytes 0-3/100\r\nConnection: close\r\n\r\ndata".into(),headers:vec![(VIDEO_HEADER,"renewed-fixture".into())] };
     let (client,task) = server(vec![discovery(),login_step(),discovery(),prepared_path("/nimbus-play/v1/sxapi",5),renewal,video,end_step()]);
+    let seen = Arc::new(std::sync::Mutex::new(Vec::new()));
+    let capture = seen.clone();
+    let client = client.with_request_observer(move |request|capture.lock().unwrap().push(request.clone()));
     let login = client.login("fixture",Secret::new("private-fixture".into())).await.unwrap();
     let mut playback = login.prepare(&playback_request()).await.unwrap();
     playback.read_range(0,3,None).await.unwrap();
     playback.end().await.unwrap();
+    assert!(seen.lock().unwrap().iter().all(|request|matches!(request.purpose,RequestPurpose::Interaction)));
+    task.join().unwrap();
+}
+
+#[tokio::test]
+async fn prefetch_purpose_survives_automatic_ticket_renewal() {
+    let mut renewal = json_step("POST","/sxapi/v1/playback/sessions/22222222-2222-4222-8222-222222222222/tickets",serde_json::json!({"stream_path":"/nimbus-play/v1/sxapi","ticket":"renewed-fixture","header_name":VIDEO_HEADER,"expires_at":(Utc::now()+chrono::Duration::seconds(80)).to_rfc3339()}));
+    renewal.headers.push(("Sec-Purpose","prefetch".into()));
+    let video = Step { method:"GET",path:"/nimbus-play/v1/sxapi",response:"HTTP/1.1 206 Partial Content\r\nContent-Length: 4\r\nContent-Range: bytes 0-3/100\r\nConnection: close\r\n\r\ndata".into(),headers:vec![(VIDEO_HEADER,"renewed-fixture".into()),("Sec-Purpose","prefetch".into())] };
+    let (client,task) = server(vec![discovery(),login_step(),discovery(),prepared_path("/nimbus-play/v1/sxapi",5),renewal,video,end_step()]);
+    let seen = Arc::new(std::sync::Mutex::new(Vec::new()));
+    let capture = seen.clone();
+    let client = client.with_request_observer(move |request|capture.lock().unwrap().push(request.clone()));
+    let login = client.login("fixture",Secret::new("private-fixture".into())).await.unwrap();
+    let mut playback = login.prepare(&playback_request()).await.unwrap();
+    playback.read_range_with_purpose(0,3,None,RequestPurpose::Prefetch).await.unwrap();
+    playback.end().await.unwrap();
+    let methods: Vec<_> = seen.lock().unwrap().iter().filter(|request|matches!(request.purpose,RequestPurpose::Prefetch)).map(|request|request.method.clone()).collect();
+    assert_eq!(methods,vec!["POST","GET"]);
     task.join().unwrap();
 }
 

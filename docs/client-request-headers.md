@@ -29,7 +29,7 @@ Accept-Language: zh-CN, zh;q=0.9, en;q=0.8
 traceparent: 00-11111111111141118111111111111111-2222222222224222-01
 ```
 
-The UUID and trace above are fictional examples. Generate a random lowercase UUID once per installation, persist it locally and reuse it across logins. A reinstall/reset can deliberately create a new ID. Do not derive it from a hardware serial, MAC, account, server address or advertising identifier. `load_or_create_installation_id` uses an explicit app-private local file; the application chooses and protects its directory. The ID is a label, not a secret.
+The assembled `X-Streamix-Client` product/version is at most 128 ASCII bytes, including the separating slash. The UUID and trace above are fictional examples. Generate a random lowercase UUID once per installation, persist it locally and reuse it across logins. A reinstall/reset can deliberately create a new ID. Do not derive it from a hardware serial, MAC, account, server address or advertising identifier. `load_or_create_installation_id` uses an explicit app-private local file; the application chooses and protects its directory. The ID is a label, not a secret.
 
 The user can edit the device display name. Its UTF-8 encoding is at most **128 decoded bytes**, has no control characters, and is percent-encoded before entering the ASCII HTTP header. This is not a 128-character limit, and percent-encoded length can be up to 384 bytes.
 
@@ -46,5 +46,7 @@ Sec-Purpose: prefetch
 ```
 
 Keep UA and device identity unchanged between these requests. The server may lower priority or return 429/503 with Retry-After; honor it with bounded backoff. A label never relaxes authentication or guarantees a prioritization policy. Rust exposes explicit purpose-aware browsing and Range methods; defaults remain interaction. Server-side scheduling changes are outside this Kit.
+
+When a prefetch Range needs a fresh ticket, the automatic ticket POST and subsequent GET both retain prefetch purpose. Explicit `Playback::renew` remains an interaction request by default. The observer reports the same purpose that is sent; it does not turn a tag into authority.
 
 Emby/Jellyfin identity uses its own MediaBrowser-style convention and belongs to a separate adapter. SXAPI must not send its login secrets in those legacy headers. `X-SXAPI-*` holds SXAPI credentials/control; `X-Streamix-*` labels the client.

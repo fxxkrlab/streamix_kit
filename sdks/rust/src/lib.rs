@@ -12,7 +12,7 @@ use chrono::{DateTime, Utc};
 use reqwest::{header::{self, HeaderValue}, Method, RequestBuilder, Response, StatusCode, Url};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use serde_json::Value;
-use std::{fmt, sync::Arc, time::Duration};
+use std::{fmt, sync::Arc, time::{Duration, SystemTime}};
 use uuid::Uuid;
 use zeroize::Zeroizing;
 
@@ -52,13 +52,29 @@ pub enum Error {
     InvalidOrigin, InvalidPath, InvalidCredential, UnsupportedHeaderContract,
     UnsupportedFeature, InvalidInput, InvalidResponse, ResponseTooLarge,
     Transport, RepresentationChanged, RangeMismatch, SessionEnded,
-    CleanupFailed, Http { status: u16, code: Option<String> },
+    CleanupFailed, Http { status: u16, code: Option<String>, retry_after: Option<RetryAfter> },
+}
+
+/// Validated server backoff metadata, without retaining the raw header text.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum RetryAfter {
+    /// Nonnegative whole seconds; no automatic retry or clamping is performed.
+    DelaySeconds(u64),
+    /// Parsed HTTP date; the caller compares this deadline with its clock.
+    HttpDate(SystemTime),
+}
+
+impl Error {
+    /// Inspect a valid, unambiguous Retry-After value without replaying a request.
+    pub fn retry_after(&self) -> Option<&RetryAfter> {
+        match self { Self::Http { retry_after, .. } => retry_after.as_ref(), _ => None }
+    }
 }
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Http { status, code } => write!(f, "SXAPI HTTP {status} ({})", code.as_deref().unwrap_or("unclassified")),
+            Self::Http { status, code, .. } => write!(f, "SXAPI HTTP {status} ({})", code.as_deref().unwrap_or("unclassified")),
             other => write!(f, "StreamixKit {other:?}"),
         }
     }
@@ -293,15 +309,19 @@ impl Playback<'_> {
     pub fn session(&self) -> &PlaybackSession { &self.session }
     /// Refresh the grant through the original login; no automatic mutation retry.
     pub async fn renew(&mut self) -> Result<(), Error> {
+        self.renew_for(RequestPurpose::Interaction).await
+    }
+    async fn renew_for(&mut self, purpose: RequestPurpose) -> Result<(), Error> {
         if self.ended { return Err(Error::SessionEnded); }
-        let grant: VideoGrant = self.login.json(Method::POST, &format!("/playback/sessions/{}/tickets", self.session.session_id)).await?;
+        let request = self.login.request_for(Method::POST, &format!("/playback/sessions/{}/tickets", self.session.session_id),purpose)?;
+        let grant: VideoGrant = self.login.client.inner.json(request).await?;
         grant.validate(&self.session)?;
         self.grant = grant;
         Ok(())
     }
-    async fn current_grant(&mut self) -> Result<(), Error> {
+    async fn current_grant(&mut self, purpose: RequestPurpose) -> Result<(), Error> {
         if self.ended { return Err(Error::SessionEnded); }
-        if self.grant.expires_at <= Utc::now() + chrono::Duration::seconds(15) { self.renew().await?; }
+        if self.grant.expires_at <= Utc::now() + chrono::Duration::seconds(15) { self.renew_for(purpose).await?; }
         Ok(())
     }
     /// Read exactly one bounded range. A 200 fallback is never appended to fragments.
@@ -313,7 +333,7 @@ impl Playback<'_> {
     pub async fn read_range_with_purpose(&mut self, start: u64, end: u64, if_range: Option<&str>, purpose: RequestPurpose) -> Result<RangeData, Error> {
         let length = end.checked_sub(start).and_then(|n| n.checked_add(1)).ok_or(Error::InvalidInput)?;
         if length > RANGE_CAP { return Err(Error::InvalidInput); }
-        self.current_grant().await?;
+        self.current_grant(purpose).await?;
         let inner = &self.login.client.inner;
         let mut request = inner.request(Method::GET,&self.grant.stream_path,purpose)?
             .header(VIDEO_HEADER, self.grant.ticket.header()?).header(header::RANGE, format!("bytes={start}-{end}"))
@@ -339,7 +359,7 @@ impl Playback<'_> {
     }
     /// Recheck admission headers without downloading a video body.
     pub async fn head(&mut self) -> Result<(), Error> {
-        self.current_grant().await?;
+        self.current_grant(RequestPurpose::Interaction).await?;
         let inner = &self.login.client.inner;
         let response = inner.request(Method::HEAD,&self.grant.stream_path,RequestPurpose::Interaction)?.header(VIDEO_HEADER, self.grant.ticket.header()?).send().await.map_err(|_| Error::Transport)?;
         let response = success(response).await?;
@@ -397,12 +417,29 @@ async fn require_no_content(response: Response) -> Result<(), Error> {
 async fn success(response: Response) -> Result<Response, Error> {
     if response.status().is_success() { return Ok(response); }
     let status = response.status().as_u16();
+    let retry_after = parse_retry_after(response.headers());
     let code = bounded(response, 16 * 1024).await.ok().and_then(|raw| serde_json::from_slice::<Value>(&raw).ok())
         .and_then(|value| value.get("error")?.get("code")?.as_str().map(str::to_owned))
         .filter(|value| !value.is_empty() && value.len() <= 96 && !value.starts_with("stx_")
             && !(value.len() == 64 && value.bytes().all(|b| b.is_ascii_hexdigit()))
             && value.bytes().all(|b| b.is_ascii_alphanumeric() || b"_.-".contains(&b)));
-    Err(Error::Http { status, code })
+    Err(Error::Http { status, code, retry_after })
+}
+
+fn parse_retry_after(headers: &header::HeaderMap) -> Option<RetryAfter> {
+    let all = headers.get_all(header::RETRY_AFTER);
+    let mut values = all.iter();
+    let raw = values.next()?.to_str().ok()?;
+    // Reject duplicates and oversized/malformed input instead of echoing or
+    // making a shorter delay from ambiguous data. HTTP dates fit within 64 bytes.
+    if values.next().is_some() || raw.len() > 64 { return None; }
+    let value = raw.trim_matches(|character| character == ' ' || character == '\t');
+    if value.is_empty() { return None; }
+    if value.bytes().all(|byte|byte.is_ascii_digit()) {
+        if value.len() > 20 { return None; }
+        return value.parse().ok().map(RetryAfter::DelaySeconds);
+    }
+    httpdate::parse_http_date(value).ok().map(RetryAfter::HttpDate)
 }
 
 async fn bounded(mut response: Response, cap: usize) -> Result<Vec<u8>, Error> {

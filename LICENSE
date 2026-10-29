@@ -1,0 +1,30 @@
+StreamixKit Commercial Proprietary License
+
+Copyright © 2026 NovaHelix Corporation & SAKAKIBARA. All rights reserved.
+
+This repository is publicly readable. Public availability does not place the
+software in the public domain and does not grant an open-source license.
+
+Subject to applicable service authorization and this license, you may read this
+source and documentation, use the documented HTTP APIs, and privately compile
+and execute the unmodified SDK and examples to develop or operate an authorized
+client integration with Streamix Server. You may write your own client against
+the documented API. These permissions do not grant access to a server, account,
+media file or other resource without that resource owner's authorization.
+
+Except for the permissions expressly granted above or a separate written
+agreement from the copyright holders, you may not modify, distribute, publish,
+redistribute (including SDK binaries), sublicense, relicense, sell or offer this
+software or derivative works. Integration that requires SDK modification or
+SDK binary redistribution requires separate written permission. No trademark,
+patent or other intellectual-property license is implied.
+
+Copyright notices and this license must remain intact in permitted private
+copies. Third-party components are governed by their respective licenses;
+this license does not restrict rights granted by those components' licensors.
+
+THE SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE OR NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW,
+THE COPYRIGHT HOLDERS SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY ARISING FROM THE SOFTWARE, DOCUMENTATION OR THEIR USE.

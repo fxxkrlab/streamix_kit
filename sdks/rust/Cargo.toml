@@ -1,0 +1,20 @@
+[package]
+name = "streamix-kit"
+version.workspace = true
+edition.workspace = true
+license-file = "../../LICENSE"
+repository.workspace = true
+description = "Typed SXAPI v1 player integration source candidate"
+publish = false
+
+[dependencies]
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+zeroize.workspace = true
+httpdate.workspace = true
+
+[dev-dependencies]
+tokio.workspace = true

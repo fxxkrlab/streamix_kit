@@ -1,0 +1,12 @@
+/target/
+**/__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+/artifacts/
+/.ci-cargo/
+/.ci-venv/

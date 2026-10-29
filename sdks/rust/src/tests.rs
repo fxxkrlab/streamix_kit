@@ -69,7 +69,7 @@ fn discovery() -> Step {
 }
 
 fn login_step() -> Step {
-    json_step("POST", "/sxapi/v1/sessions", serde_json::json!({"access_token": ["stx_sx_", "fixture"].concat(),"token_type":"Bearer","user":{"id":"11111111-1111-4111-8111-111111111111","username":"fixture","library_ids":[]}}))
+    json_step("POST", "/sxapi/v1/sessions", serde_json::json!({"access_token": (["stx_sx_", "fixture"].concat()),"token_type":"Bearer","user":{"id":"11111111-1111-4111-8111-111111111111","username":"fixture","library_ids":[]}}))
 }
 
 fn prepared() -> Step {

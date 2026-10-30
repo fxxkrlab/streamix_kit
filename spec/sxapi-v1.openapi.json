@@ -55633,6 +55633,8 @@
               "user_state",
               "administration",
               "integrations",
+              "stream_ticket_header",
+              "stream_query_ticket",
               "administration_read",
               "administration_sessions",
               "administration_core_write",
@@ -55717,6 +55719,16 @@
               "credentials_in_urls": {
                 "type": "boolean",
                 "const": false
+              },
+              "stream_ticket_header": {
+                "type": "boolean",
+                "const": true,
+                "description": "Additive alias of playback_ticket_header. Stream tickets are accepted only in the named request header; actual playback availability is reported separately."
+              },
+              "stream_query_ticket": {
+                "type": "boolean",
+                "const": false,
+                "description": "Always false. SXAPI does not accept stream tickets in URLs; this capability is not a configurable transition or fallback."
               },
               "administration_read": {
                 "type": "boolean",

@@ -2,9 +2,11 @@
 
 SXAPI v1 integration documents and an asynchronous Rust SDK for player authors.
 
-**0.1.0-rc.1 · Build 20261029.004 — source candidate, not released or SDK server-validated.**
+**0.1.0-rc.1 · Build 20261030.005 — specification-sync candidate, not released.**
 
-The contracts are bound to server source `29f600eb47f0f2f893039b654e3b9f7d782576d7`, with minimum server candidate **0.9.0-rc.9**; see [SOURCE.json](spec/SOURCE.json). This records provenance only, not SDK CI, integration acceptance or a published server release. This candidate requires header-only tickets. It never falls back to credential URLs. Discovery must report `features.playback_ticket_header=true` and `features.credentials_in_urls=false`; protocol version `1.0` alone is insufficient.
+The contracts are bound to server source `2b069a969f6e0ba8c45bc404671b740c1f057565`, with minimum server candidate **0.9.0-rc.9**; see [SOURCE.json](spec/SOURCE.json). This metadata-only child records the actual API review of `2db3276aa025f78145324e5e4b75a07c6033cd6f`; the specifications are byte-identical. The SDK still requires `features.playback_ticket_header=true` and `features.credentials_in_urls=false`. The server also exposes the additive aliases `features.stream_ticket_header=true` and `features.stream_query_ticket=false`. Protocol version `1.0` alone is insufficient; there is no credential-URL fallback.
+
+The original designated-server evidence for Build 20261029.004 (source `c8ee971b6660418bd4cb2836be0286fab76d29b6`) retains its identity: 21 Rust tests and a 1 MiB mock CLI flow passed. Rust source and Cargo inputs are unchanged; no SDK binary was rebuilt for Build 20261030.005. Its specification checks await the designated server. Provenance and retained evidence do not establish new real-player acceptance or publication.
 
 Start with the [quickstart](docs/quickstart.md), [header rules](docs/credentials-in-headers.md), [playback guide](docs/playback.md), [Rust SDK](sdks/rust/README.md), [curl example](examples/curl/README.md), or [Rust CLI](examples/rust-cli/README.md). The [versioning guide](docs/versioning.md) describes compatibility and acceptance status.
 

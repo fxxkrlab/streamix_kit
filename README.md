@@ -6,9 +6,11 @@
 ![Protocol](https://img.shields.io/badge/protocol-SXAPI_v1-blue)
 ![License](https://img.shields.io/badge/license-commercial_proprietary-lightgrey)
 
-**当前版本：0.1.0-rc.1 · Build 20261029.004。尚未发布、尚未通过 SDK 服务器验收。**
+**当前版本：0.1.0-rc.1 · Build 20261030.005。规范同步候选，尚未发布。**
 
-规范已绑定服务器源码 `29f600eb47f0f2f893039b654e3b9f7d782576d7`，最低服务器候选版本为 **0.9.0-rc.9**，见 [SOURCE.json](spec/SOURCE.json)。这只是契约来源绑定，不代表 SDK CI、联调或正式发布通过。当前代码要求新的请求头取流契约；不能用于旧的 URL 票据接口。能力声明必须包含 `features.playback_ticket_header=true` 和 `features.credentials_in_urls=false`；协议版本 `1.0` 单独不能证明支持。
+规范已绑定服务器源码 `2b069a969f6e0ba8c45bc404671b740c1f057565`，最低服务器候选版本为 **0.9.0-rc.9**，见 [SOURCE.json](spec/SOURCE.json)。该提交仅将实际通过 API 检查的 `2db3276aa025f78145324e5e4b75a07c6033cd6f` 补入审查清单，规范字节相同。SDK 继续要求 `features.playback_ticket_header=true` 和 `features.credentials_in_urls=false`；服务器同时提供 `features.stream_ticket_header=true` 和 `features.stream_query_ticket=false` 两个加法别名。协议版本 `1.0` 单独不能证明支持，不回退到 URL 票据。
+
+原 Build 20261029.004（源码 `c8ee971b6660418bd4cb2836be0286fab76d29b6`）的指定服务器 21 项 Rust 测试与 1 MiB mock CLI 证据保留原身份。本次未改变 Rust 源码或 Cargo 输入，未重新编译 SDK；Build 20261030.005 的规范检查仍待指定服务器执行。来源绑定与旧证据不代表本次真实播放器验收或正式发布。
 
 本仓库不包含服务器源码、部署配置或运行数据。规范由服务器维护，同步完整规范和面向播放器的同源子集，禁止手改副本。
 

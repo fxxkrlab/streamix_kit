@@ -1,6 +1,6 @@
 # Rust SDK source candidate
 
-Crate `streamix-kit`; Rust library `streamix_kit`. **0.1.0-rc.1 / Build 20261029.004, compilation and mock tests pending for this source.** The contract is source-bound in [SOURCE.json](../../spec/SOURCE.json); this is not SDK validation. No crates.io package is published; the manifest disables publication. See the commercial [LICENSE](../../LICENSE) before integration or binary redistribution.
+Crate `streamix-kit`; Rust library `streamix_kit`. **0.1.0-rc.1 / Build 20261030.005, specification-sync candidate.** The contract is source-bound in [SOURCE.json](../../spec/SOURCE.json). Rust source and Cargo inputs are unchanged. The 21 Rust tests and 1 MiB mock CLI evidence remain bound to source `c8ee971b6660418bd4cb2836be0286fab76d29b6` / Build 20261029.004; no SDK binary was rebuilt as Build 20261030.005. The new specification checks still require the designated server. No crates.io package or tag is published; the manifest disables package publication. See the commercial [LICENSE](../../LICENSE) before integration or binary redistribution.
 
 This is a bounded typed facade for the common player flow, not a wrapper for every public operation. It preserves unknown JSON response fields. The exact synchronized contract generates an operation/schema inventory; it is not generated using an unverified OpenAPI 3.1 general-purpose tool.
 
@@ -20,7 +20,7 @@ async fn libraries(origin: &str, identity: RequestIdentity, username: &str, pass
 }
 ```
 
-Capabilities must explicitly enable header tickets and forbid URL credentials. Authenticated API operations keep the Bearer internal; video and subtitle grant credentials are private fields with redacted Debug. Redirects, query-bearing grant paths, cross-origin paths, malformed grants and old transports fail closed. There is no raw URL credential accessor or generic authenticated arbitrary-URL method.
+Capabilities must explicitly enable `playback_ticket_header` and forbid `credentials_in_urls`. The synchronized server schema also declares the additive `stream_ticket_header=true` and `stream_query_ticket=false` aliases; the SDK retains its existing capability checks. Authenticated API operations keep the Bearer internal; video and subtitle grant credentials are private fields with redacted Debug. Redirects, query-bearing grant paths, cross-origin paths, malformed grants and old transports fail closed. There is no raw URL credential accessor or generic authenticated arbitrary-URL method.
 
 `Playback` owns the session and current grant. It renews before new Range/HEAD requests when the grant is within 15 seconds of expiry. The default bounded range limit is 16 MiB; the CLI requests 1 MiB. The helper accepts only matching 206 responses, checks the actual length, and reads no full body after a 200 range fallback. The caller must discard an existing fragment after `RepresentationChanged`.
 

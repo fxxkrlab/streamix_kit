@@ -2,41 +2,35 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "2b069a969f6e0ba8c45bc404671b740c1f057565",
+  "upstream_commit": "b39a328f245471d7746542619d024c3ce768266a",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.9",
+  "intended_server_version": "0.9.0-rc.10",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-10-30T01:30:31.447848+00:00",
+  "synchronized_at": "2026-11-10T05:44:36.036358+00:00",
   "files": {
     "sxapi-v1.openapi.json": {
-      "sha256": "baa0547a3deeb819fd40407371a20d90ba4d38e479a93ea9fdbbd5c059922ece",
-      "bytes": 3067841
+      "sha256": "6d60c37b4379cf1133b7e39d593ee198cd195ab7e82df5eee2b4813686a86fea",
+      "bytes": 3068591
     },
     "sxapi-v1-client.openapi.json": {
-      "sha256": "c22da553d238ae24f5616b12c1c41346403dd43314acc97c9fc71b93ef284ab5",
-      "bytes": 628234
+      "sha256": "8596f4d5d620747753bf6757093ec847e07b9de82d52c28415ca4044a82ff290",
+      "bytes": 628984
     }
   },
-  "kit_build": "20261030.005",
+  "kit_build": "20261110.006",
   "upstream_api_review": {
-    "actual_validation_source": "2db3276aa025f78145324e5e4b75a07c6033cd6f",
-    "actual_validation_tree": "fdd702c38fe4169eb4634868563834e807b0dea4",
-    "final_metadata_source": "2b069a969f6e0ba8c45bc404671b740c1f057565",
-    "final_metadata_tree": "4fa89a2a6b8e39f49224037341dc9e6ee7eaf957",
-    "metadata_child_changed_paths": [
-      "docs/api/review-manifest.json"
-    ],
-    "review_manifest_sha256": "19cdd4b2af3d16c1d5f5e66a74c75d435f66ecd4a3e709fb2a057e490a8d2b2d",
-    "result_sha256": "55f7c796ce09d4e54f2eb9973372096f7143fd4dd8f88255f0186693f2d7898d",
-    "native_checks_passed": 5,
-    "affected_unit_cases_passed": 7,
-    "mounted_operations": 1365,
-    "source_fingerprints": 1003,
-    "scope": "Server API documents and affected static checks only; not new Kit compilation, image or database validation."
+    "actual_validation_source": "b39a328f245471d7746542619d024c3ce768266a",
+    "actual_validation_tree": "e6c0cca567330f5b179e87bf03a22c9a815439de",
+    "final_metadata_source": "b39a328f245471d7746542619d024c3ce768266a",
+    "final_metadata_tree": "e6c0cca567330f5b179e87bf03a22c9a815439de",
+    "metadata_child_changed_paths": [],
+    "review_manifest_sha256": "162271a1401aaf6c5506c199604668a3da7a376582469ae99ef5021a060e0b19",
+    "spec_delta_from_previous_binding": "info.version and the descriptions of PUT /users/me/media/{id}/state and PUT /playback/sessions/{id}/progress only; no path, operation, parameter, schema, capability or typed SDK schema change.",
+    "scope": "The bound server commit itself passed the server repository's API documentation contract and release verification checks; not new Kit compilation, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
@@ -49,10 +43,11 @@
     "mock_cli_bytes": 1048576,
     "receipt_sha256": "36fa39170651933816d3d38ba41f9472c178e1382a32e95bafe56450acb6a868",
     "cli_elf_sha256": "58332d4064af03567e988e8aea65fd7b459b6a6c193d3ea7bc90c5b9b67ca9f4",
-    "scope": "Original Build 20261029.004 checks; not rerun or relabeled as Build 20261030.005."
+    "scope": "Original Build 20261029.004 checks; not rerun or relabeled as Build 20261030.005 or 20261110.006."
   },
   "current_build_validation": {
     "spec_sync": "COMPLETED_STATIC_SOURCE_GENERATION_ONLY",
+    "local_static_checks": "PASSED_SPEC_SDK_CONTRACT_CREDENTIALS_LINKS_OAS31_NOT_DESIGNATED_SERVER",
     "designated_server_static_checks": "NOT_RUN",
     "sdk_binary_compiled": false,
     "rust_sources_and_cargo_inputs_changed": false,

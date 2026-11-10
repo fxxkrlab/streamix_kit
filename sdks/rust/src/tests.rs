@@ -369,3 +369,12 @@ async fn oversized_json_is_rejected_from_headers() {
     assert!(matches!(login.libraries().await,Err(Error::ResponseTooLarge)));
     task.join().unwrap();
 }
+
+#[test]
+fn page_total_follows_the_optional_count_contract() {
+    let skipped: Page<Media> = serde_json::from_value(serde_json::json!({"data": [], "total": null, "next_cursor": null})).unwrap();
+    assert_eq!(skipped.total, None);
+    let counted: Page<Media> = serde_json::from_value(serde_json::json!({"data": [], "total": 3, "next_cursor": "c"})).unwrap();
+    assert_eq!(counted.total, Some(3));
+    assert_eq!(counted.next_cursor.as_deref(), Some("c"));
+}

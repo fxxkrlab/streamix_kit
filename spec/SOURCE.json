@@ -2,55 +2,50 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "b39a328f245471d7746542619d024c3ce768266a",
+  "upstream_commit": "205a05937ea19b390e62770f87e126b3fec4578a",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.10",
+  "intended_server_version": "0.9.0-rc.11",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-10T05:44:36.036358+00:00",
+  "synchronized_at": "2026-11-10T23:04:32.500433+00:00",
   "files": {
     "sxapi-v1.openapi.json": {
-      "sha256": "6d60c37b4379cf1133b7e39d593ee198cd195ab7e82df5eee2b4813686a86fea",
-      "bytes": 3068591
+      "sha256": "9ba92bc7059fee8caa7c7060e87c7c412d290820b3d761a0d36b2735d1ded8ee",
+      "bytes": 3237831
     },
     "sxapi-v1-client.openapi.json": {
-      "sha256": "8596f4d5d620747753bf6757093ec847e07b9de82d52c28415ca4044a82ff290",
-      "bytes": 628984
+      "sha256": "968297864f1a604dbcfa6819da44e718bf0362cf763d3ecf020b90a82f87ffa8",
+      "bytes": 798224
     }
   },
-  "kit_build": "20261110.006",
+  "kit_build": "20261111.007",
   "upstream_api_review": {
-    "actual_validation_source": "b39a328f245471d7746542619d024c3ce768266a",
-    "actual_validation_tree": "e6c0cca567330f5b179e87bf03a22c9a815439de",
-    "final_metadata_source": "b39a328f245471d7746542619d024c3ce768266a",
-    "final_metadata_tree": "e6c0cca567330f5b179e87bf03a22c9a815439de",
+    "actual_validation_source": "205a05937ea19b390e62770f87e126b3fec4578a",
+    "actual_validation_tree": "2cb2a92ccfd0262af3cb01aab2186e4de3827279",
+    "final_metadata_source": "205a05937ea19b390e62770f87e126b3fec4578a",
+    "final_metadata_tree": "2cb2a92ccfd0262af3cb01aab2186e4de3827279",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "162271a1401aaf6c5506c199604668a3da7a376582469ae99ef5021a060e0b19",
-    "spec_delta_from_previous_binding": "info.version and the descriptions of PUT /users/me/media/{id}/state and PUT /playback/sessions/{id}/progress only; no path, operation, parameter, schema, capability or typed SDK schema change.",
-    "scope": "The bound server commit itself passed the server repository's API documentation contract and release verification checks; not new Kit compilation, image or database validation."
+    "review_manifest_sha256": "68c7f8461a5146cff75c2574c9e731c15f6a546500ecdc596aa84c832e0f301a",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.10: client operations 70 -> 77 (GET /users/me/resume, GET /users/me/next-up, GET /media/initials and POST forms of logout, session end, credential revocation and stream termination); capability features list_user_state, watch_queues, media_initials, subtitle_match; new fields and query options. MediaPage.total becomes integer|null for GET /media include_total=false.",
+    "scope": "The bound server commit passed the server repository's API documentation contract and release verification checks; this is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
     "source": "c8ee971b6660418bd4cb2836be0286fab76d29b6",
-    "tree": "62ee6c11893ae952778a250f34cda6ef591eec8d",
     "build": "20261029.004",
-    "job": "kit-rc9-c8ee971b6660-57b958f2fea54ed9",
-    "rust_unit_tests_passed": 21,
-    "unit_stdout_sha256": "666506626d084fc706bd76c3d94178e6539f5f13d677ef7c20ab6dd22d9ad8e5",
-    "mock_cli_bytes": 1048576,
-    "receipt_sha256": "36fa39170651933816d3d38ba41f9472c178e1382a32e95bafe56450acb6a868",
-    "cli_elf_sha256": "58332d4064af03567e988e8aea65fd7b459b6a6c193d3ea7bc90c5b9b67ca9f4",
-    "scope": "Original Build 20261029.004 checks; not rerun or relabeled as Build 20261030.005 or 20261110.006."
+    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261111.007."
   },
   "current_build_validation": {
-    "spec_sync": "COMPLETED_STATIC_SOURCE_GENERATION_ONLY",
-    "local_static_checks": "PASSED_SPEC_SDK_CONTRACT_CREDENTIALS_LINKS_OAS31_NOT_DESIGNATED_SERVER",
+    "spec_sync": "COMPLETED",
+    "local_static_checks": "PASSED_SPEC_SDK_CONTRACT_CREDENTIALS_LINKS_WORKSTATION",
+    "local_rust_tests": "PASSED_22_WORKSTATION",
+    "local_strict_clippy": "PASSED_WORKSTATION",
     "designated_server_static_checks": "NOT_RUN",
-    "sdk_binary_compiled": false,
-    "rust_sources_and_cargo_inputs_changed": false,
+    "sdk_binary_compiled": "WORKSTATION_TEST_BUILD_ONLY",
+    "rust_sources_and_cargo_inputs_changed": true,
     "real_player_acceptance": "NOT_RUN",
     "package_or_tag_published": false
   }

@@ -6,11 +6,11 @@
 ![Protocol](https://img.shields.io/badge/protocol-SXAPI_v1-blue)
 ![License](https://img.shields.io/badge/license-commercial_proprietary-lightgrey)
 
-**当前版本：0.1.0-rc.1 · Build 20261110.006。规范同步候选，尚未发布。**
+**当前版本：0.1.0-rc.2 · Build 20261111.007。规范同步候选，尚未发布。**
 
-规范已绑定服务器源码 `b39a328f245471d7746542619d024c3ce768266a`（0.9.0-rc.10 候选，尚未正式发布），最低服务器候选版本仍为 **0.9.0-rc.9**，见 [SOURCE.json](spec/SOURCE.json)。RC10 规范相对 RC9 只改了 `info.version` 和 `PUT /users/me/media/{id}/state`、`PUT /playback/sessions/{id}/progress` 两个操作的说明：服务器按条目归属给跨会话的进度上报排序，被取代的旧上报不会覆盖更新的会话或手动修改的已看/进度。路径、参数、字段、能力声明和 SDK 类型都没有变化。SDK 继续要求 `features.playback_ticket_header=true` 和 `features.credentials_in_urls=false`；服务器同时提供 `features.stream_ticket_header=true` 和 `features.stream_query_ticket=false` 两个加法别名。协议版本 `1.0` 单独不能证明支持，不回退到 URL 票据。
+规范已绑定服务器源码 `205a05937ea19b390e62770f87e126b3fec4578a`（0.9.0-rc.11 候选，尚未正式发布），最低服务器候选版本仍为 **0.9.0-rc.9**，见 [SOURCE.json](spec/SOURCE.json)。RC11 规范相对 RC10 只增不删：播放器子集从 70 个操作增至 77 个（新增 `GET /users/me/resume`、`GET /users/me/next-up`、`GET /media/initials`，以及 `POST /sessions/current/logout`、`POST /playback/sessions/{id}/end`、`POST /account/credentials/{id}/revoke`、`POST /users/me/streams/{domain}/{id}/terminate` 四个 POST 写法），能力声明新增 `features.list_user_state`、`features.watch_queues`、`features.media_initials`、`features.subtitle_match`，列表和详情新增 `user_state`、`external_ids.tvdb`、`has_logo`，字幕新增 `match`、`other_version`，`/media` 新增外部编号、首字母、类型多选、继续观看筛选、更多排序和 `include_total`，JSON 读取支持 ETag/304。唯一影响 SDK 类型的是 `GET /media` 可带 `include_total=false`，此时 `total` 为 null，所以 `Page.total` 改为 `Option<i64>`；SDK 自己的请求不带这个参数，服务器仍返回数字。SDK 不依赖其他新接口，最低服务器候选版本仍为 **0.9.0-rc.9**。SDK 继续要求 `features.playback_ticket_header=true` 和 `features.credentials_in_urls=false`；服务器同时提供 `features.stream_ticket_header=true` 和 `features.stream_query_ticket=false` 两个加法别名。协议版本 `1.0` 单独不能证明支持，不回退到 URL 票据。
 
-原 Build 20261029.004（源码 `c8ee971b6660418bd4cb2836be0286fab76d29b6`）的指定服务器 21 项 Rust 测试与 1 MiB mock CLI 证据保留原身份。本次未改变 Rust 源码或 Cargo 输入，未重新编译 SDK；Build 20261110.006 的规范静态检查已在本机通过，指定服务器检查仍待执行。来源绑定与旧证据不代表本次真实播放器验收或正式发布。
+Build 20261111.007 改了 Rust 源码（`Page.total`）并新增一项测试，SDK 版本升到 0.1.0-rc.2。本机工作站上 22 项 Rust 测试和严格 Clippy 通过，规范、类型契约、凭据和链接静态检查通过；指定服务器检查、真实播放器验收和发布都未执行。原 Build 20261029.004（源码 `c8ee971b6660418bd4cb2836be0286fab76d29b6`）的指定服务器 21 项测试与 1 MiB mock CLI 证据只属于那次源码。
 
 本仓库不包含服务器源码、部署配置或运行数据。规范由服务器维护，同步完整规范和面向播放器的同源子集，禁止手改副本。
 

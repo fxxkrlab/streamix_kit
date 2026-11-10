@@ -68,7 +68,10 @@ pub struct Media {
 #[derive(Debug, Deserialize)]
 pub struct Page<T> {
     pub data: Vec<T>,
-    pub total: i64,
+    /// Exact total, or `None` when the request skipped counting (`GET /media` with
+    /// `include_total=false`, server 0.9.0-rc.11). The SDK never asks for that, so a server
+    /// answering its own requests always sends a number; the type follows the contract.
+    pub total: Option<i64>,
     pub next_cursor: Option<String>,
     #[serde(flatten)]
     pub extra: Extra,

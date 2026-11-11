@@ -44,6 +44,11 @@
     },
     {
       "method": "GET",
+      "path": "/episodes",
+      "operation_id": "sxapi_search_search_episodes_get"
+    },
+    {
+      "method": "GET",
       "path": "/libraries",
       "operation_id": "sxapi_list_libraries_get"
     },
@@ -166,6 +171,11 @@
       "method": "GET",
       "path": "/media/{id}/versions/{version_id}",
       "operation_id": "sxapi_catalog_get_version_get"
+    },
+    {
+      "method": "GET",
+      "path": "/persons",
+      "operation_id": "sxapi_search_search_persons_get"
     },
     {
       "method": "GET",

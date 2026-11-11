@@ -2,6 +2,9 @@
 
 ## 0.1.0-rc.2 — unreleased
 
+- Build 20261111.008 按服务器提交 `39ef59f62d4f2a0bdeb477cac885c4764f04fbd6`（目标版本 0.9.0-rc.12，尚未正式发布）同步完整规范和播放器子集。RC12 规范相对 RC11 只增不删：播放器子集从 77 个操作增至 79 个（新增 `GET /persons` 人物搜索和 `GET /episodes` 单集搜索），能力声明新增 `features.media_quality_filters`、`features.collection_quality_summary`、`features.person_search`、`features.episode_search`，限制新增 `limits.search_candidates_max`、`limits.search_page_size_max`；`GET /media` 和 `GET /media/initials` 新增 `official_ratings`、`resolutions`、`dynamic_ranges`、`audio_formats`、`audio_languages`、`subtitle_languages` 筛选，分面新增这六类和年份；合集成员的 `resource` 新增 `quality_summary`。SDK 类型契约、Rust 源码和 Cargo 输入都没有变化，SDK 版本仍为 0.1.0-rc.2，最低服务器候选版本仍为 **0.9.0-rc.9**。
+- 子集检查：`tools/contract.py` 的播放器根路径加入 `episodes`（服务器把单集搜索放在 `/episodes`），新增一项检查测试，管理路径照样拒绝。
+- 本机工作站：22 项 Rust 测试、严格 Clippy、规范、类型契约、凭据和链接检查、10 项检查测试通过。指定服务器检查、真实播放器验收和发布都未执行。
 - 流程：用户在 2026-11-11 统一批准合并到默认分支，CI 通过后可以直接合并，有冲突先解决，不再逐次申请授权（`AGENTS.md`）。打 tag、发布、发布软件包和生产变更仍要单独授权。SDK、规范和版本号都没有变化。
 - Build 20261111.007 按服务器提交 `205a05937ea19b390e62770f87e126b3fec4578a`（目标版本 0.9.0-rc.11，尚未正式发布）同步完整规范和播放器子集。RC11 规范相对 RC10 只增不删：播放器子集从 70 个操作增至 77 个（新增 `GET /users/me/resume`、`GET /users/me/next-up`、`GET /media/initials`，以及 `POST /sessions/current/logout`、`POST /playback/sessions/{id}/end`、`POST /account/credentials/{id}/revoke`、`POST /users/me/streams/{domain}/{id}/terminate` 四个 POST 写法），能力声明新增 `features.list_user_state`、`features.watch_queues`、`features.media_initials`、`features.subtitle_match`，列表和详情新增 `user_state`、`external_ids.tvdb`、`has_logo`，字幕新增 `match`、`other_version`，`/media` 新增外部编号、首字母、类型多选、继续观看筛选、更多排序和 `include_total`，JSON 读取支持 ETag/304。唯一影响 SDK 类型的是 `GET /media` 可带 `include_total=false`，此时 `total` 为 null，所以 `Page.total` 改为 `Option<i64>`；SDK 自己的请求不带这个参数，服务器仍返回数字。SDK 不依赖其他新接口，最低服务器候选版本仍为 **0.9.0-rc.9**。
 - SDK 版本 0.1.0-rc.1 → 0.1.0-rc.2：`Page.total` 从 `i64` 改为 `Option<i64>`（类型契约检查同步改为 `integer:int64|null`），新增反序列化测试。这是预发布版本上的类型变化，使用 `page.total` 的调用方需要处理 `None`。

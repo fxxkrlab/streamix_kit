@@ -10,4 +10,5 @@ StreamixKit is a public client-integration repository under its commercial propr
 - Bearer, video and subtitle credentials stay in defined headers. No credential-in-URL fallback; deny credential-bearing redirects.
 - Keep docs, CHANGELOG, VERSION and BUILD consistent. Source, CI, integration, merge, deployment and real-client acceptance are distinct.
 - No local Docker, product builds or tests. Only the dedicated registered server Runner coordinated by the release owner; no cross-job copies or caches.
-- No merge, tag, release, package publication or production change without specific authorization.
+- Merges to the default branch have standing authorization from the user (2026-11-11): merge once CI passes, resolving any conflicts first; no per-merge approval is needed.
+- No tag, release, package publication or production change without specific authorization.

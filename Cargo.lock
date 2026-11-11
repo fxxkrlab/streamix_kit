@@ -833,7 +833,7 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "streamix-kit"
-version = "0.1.0-rc.1"
+version = "0.1.0-rc.2"
 dependencies = [
  "chrono",
  "httpdate",
@@ -847,7 +847,7 @@ dependencies = [
 
 [[package]]
 name = "streamix-kit-example"
-version = "0.1.0-rc.1"
+version = "0.1.0-rc.2"
 dependencies = [
  "serde_json",
  "streamix-kit",

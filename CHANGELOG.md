@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-rc.2 — unreleased
+
+- Build 20261111.007 按服务器提交 `205a05937ea19b390e62770f87e126b3fec4578a`（目标版本 0.9.0-rc.11，尚未正式发布）同步完整规范和播放器子集。RC11 规范相对 RC10 只增不删：播放器子集从 70 个操作增至 77 个（新增 `GET /users/me/resume`、`GET /users/me/next-up`、`GET /media/initials`，以及 `POST /sessions/current/logout`、`POST /playback/sessions/{id}/end`、`POST /account/credentials/{id}/revoke`、`POST /users/me/streams/{domain}/{id}/terminate` 四个 POST 写法），能力声明新增 `features.list_user_state`、`features.watch_queues`、`features.media_initials`、`features.subtitle_match`，列表和详情新增 `user_state`、`external_ids.tvdb`、`has_logo`，字幕新增 `match`、`other_version`，`/media` 新增外部编号、首字母、类型多选、继续观看筛选、更多排序和 `include_total`，JSON 读取支持 ETag/304。唯一影响 SDK 类型的是 `GET /media` 可带 `include_total=false`，此时 `total` 为 null，所以 `Page.total` 改为 `Option<i64>`；SDK 自己的请求不带这个参数，服务器仍返回数字。SDK 不依赖其他新接口，最低服务器候选版本仍为 **0.9.0-rc.9**。
+- SDK 版本 0.1.0-rc.1 → 0.1.0-rc.2：`Page.total` 从 `i64` 改为 `Option<i64>`（类型契约检查同步改为 `integer:int64|null`），新增反序列化测试。这是预发布版本上的类型变化，使用 `page.total` 的调用方需要处理 `None`。
+- 本机工作站：22 项 Rust 测试、严格 Clippy、规范、类型契约、凭据和链接检查通过。指定服务器检查、真实播放器验收和发布都未执行。
+
 ## 0.1.0-rc.1 — unreleased
 
 - Build 20261110.006 按服务器提交 `b39a328f245471d7746542619d024c3ce768266a`（目标版本 0.9.0-rc.10，尚未正式发布）同步完整规范和播放器子集。相对 RC9 只有 `info.version` 和两个操作的说明变化：`PUT /users/me/media/{id}/state` 写明显式修改已看/进度会挡住同一用户、同一条目更早的播放上报，只改收藏不影响播放归属；`PUT /playback/sessions/{id}/progress` 写明服务器按条目归属给跨会话的上报排序，被取代或未绑定的旧上报只留诊断审计，不覆盖更新的会话或手动修改。路径、参数、字段、能力声明和 SDK 类型指纹都没有变化，`OPERATIONS.json` 字节不变。

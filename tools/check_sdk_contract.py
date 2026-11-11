@@ -12,7 +12,7 @@ EXPECTED = {
     "Library": {"id": "string:uuid", "name": "string", "library_type": "string", "library_kind": "string"},
     "Media": {"id": "string:uuid", "name": "string", "media_type": "null|string"},
     "Version": {"id": "string:uuid", "media_id": "string:uuid", "episode_id": "null|string:uuid", "technical_status": "string", "duration_secs": "null|number", "video_codec": "null|string", "audio_codec": "null|string"},
-    "MediaPage": {"data": "array:ref:Media", "total": "integer:int64", "next_cursor": "null|string"},
+    "MediaPage": {"data": "array:ref:Media", "total": "integer:int64|null", "next_cursor": "null|string"},
     "VersionPage": {"data": "array:ref:Version", "total": "integer:int64", "next_cursor": "null|string"},
     "PlaybackProfile": {"containers": "array:string", "video_codecs": "array:string", "audio_codecs": "array:string", "max_bitrate_bps": "integer:int64|null", "allow_unverified": "boolean"},
     "PlaybackRequest": {"media_id": "string:uuid", "episode_id": "null|string:uuid", "version_id": "null|string:uuid", "profile": "ref:PlaybackProfile", "device_id": "null|string"},

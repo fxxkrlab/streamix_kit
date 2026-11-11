@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options", "trace"}
-PLAYER_ROOTS = {"capabilities", "sessions", "users", "libraries", "media", "playback", "series", "collections", "persons", "account"}
+PLAYER_ROOTS = {"capabilities", "sessions", "users", "libraries", "media", "playback", "series", "collections", "persons", "episodes", "account"}
 FULL_NAME = "sxapi-v1.openapi.json"
 CLIENT_NAME = "sxapi-v1-client.openapi.json"
 

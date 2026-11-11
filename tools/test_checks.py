@@ -47,6 +47,15 @@ class ContractChecks(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_pair(doc, doc)
 
+    def test_search_roots_accepted_and_admin_root_rejected(self):
+        doc = fixture()
+        for path in ["/persons", "/episodes"]:
+            doc["paths"][path] = {"get": {"operationId": path[1:], "responses": {}}}
+        validate_pair(doc, copy.deepcopy(doc))
+        doc["paths"]["/admin"] = {"get": {"operationId": "admin", "responses": {}}}
+        with self.assertRaises(ValueError):
+            validate_pair(doc, copy.deepcopy(doc))
+
     def test_unused_schema_rejected(self):
         doc = fixture()
         doc["components"]["schemas"]["Unneeded"] = {"type": "string"}

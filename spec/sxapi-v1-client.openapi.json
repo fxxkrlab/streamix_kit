@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1 — Player",
-    "version": "0.9.0-rc.13",
+    "version": "0.9.0-rc.14",
     "description": "Generated player-only view of the same release SXAPI v1 contract. Retained operations and referenced components are unchanged. OpenAPI info.version identifies the server release; capabilities.version identifies the SXAPI protocol. Presence is not runtime feature availability.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -817,7 +817,7 @@
       "get": {
         "operationId": "sxapi_catalog_list_media_get",
         "summary": "Filtered ordered actual media inventory",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Literal case-insensitive name search; escapes %,_,backslash. Typed filters AND together; language case-normalized lowercase, country uppercase with current stored country entries compared case-insensitively; studio matches both legacy integer IDs and TMDB object IDs; missing favorite/watched row treated false for only this account/item season0. No remote discovery/catalog union or metadata-only pseudo-playability. Six controlled sort orders with UUID tie breaker, year/rating missing last for descending sort. Version2 keyset cursor <=8192 bound to current account, all normalized filters and sort, not authorization; changing limit is allowed. Earlier draft name/ID cursors are replaced and must be restarted from first page. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. RC11 #156 sorts: year_asc and rating_asc put unknown values last. runtime_asc/runtime_desc use the local TMDB discovery runtime minutes of the same TMDB ID and type, premiere_date_asc/premiere_date_desc its YYYY-MM-DD release date (movies) or first air date (series); unknown or invalid values sort last in both directions. last_played_desc orders by the latest state-row updated_at of this account on the work or any of its episodes (played, positive position or play count), play_count_desc by the summed played_count of those rows; works without activity follow, by UUID. random orders by md5 of the required seed and the work UUID: stable for one seed, different seeds give different orders, and the cursor binds the seed. Every order keeps the UUID tie breaker and the signed keyset cursor. Folder and PMMS relation selections accept comma-separated nonnil UUIDs, 1..50 per parameter and at most50 UUIDs combined after normalization; values sort/deduplicate. Folder IDs use the existing Native live directory/source-root precedence and same-source ancestry. Include values OR within a field; distinct fields AND, excludes use NOT EXISTS/AND-NOT. Metadata source include/exclude uses the current ScraperId values and canonical jav-to-pmms alias; exclusions retain SQL NULL rows. Unknown/empty/invalid values400. PMMS relation filters never grant adult/domain/account/library access or file availability. All normalized selections bind the existing signed cursor; omitted selections preserve the prior cursor shape. No unconsumable cursor above the existing8192 bound is returned; an oversized selection/key combination returns400. Each item carries user_state: the requesting account's own stored favourite/played flags and progress, read in one statement per page after the authorized page selection (no per-item query). Other accounts' rows never participate; absent rows are false/0/null. RC11 #154: sort_name_asc/sort_name_desc order by the name key in byte order (COLLATE \"C\"), the order that initial partitions; name_asc/name_desc keep the database collation of the displayed title. Name key: the stored full pinyin of the title (Chinese characters as toneless pinyin, accented and full-width letters folded to ASCII, spaces and punctuation dropped), else the lower-cased title until the pinyin backfill has computed it; the backfill recomputes renamed titles within minutes. The initial is a..z when the key starts with an ASCII letter, else # (digits, symbols, kana, hangul and other scripts). There is no separate manual sort name. RC12 #158: official_ratings, resolutions, dynamic_ranges, audio_formats, audio_languages and subtitle_languages filter by rating, picture and sound; GET /media/facets/{kind} of the same name lists the values present in the visible inventory. Unknown resolution, SDR and untagged tracks match none of them. #191: has_poster=true lists only works with a poster (Media.has_poster), with an exact total and cursor, for a poster wall. RC13 #189 (ECAL parity): last_added_desc orders by when a work last gained a file: the newest created_at of its current file versions (episode files count for their series), or the work row created_at when that is later; newest first, UUID tie breaker, signed keyset cursor. A series moves to the front when a new episode file arrives, as ECAL SortBy=DateLastContentAdded does. tag_ids/tag_exclude_ids filter by work tags, and every item carries tags. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Literal case-insensitive name search; escapes %,_,backslash. Typed filters AND together; language case-normalized lowercase, country uppercase with current stored country entries compared case-insensitively; studio matches both legacy integer IDs and TMDB object IDs; missing favorite/watched row treated false for only this account/item season0. No remote discovery/catalog union or metadata-only pseudo-playability. Six controlled sort orders with UUID tie breaker, year/rating missing last for descending sort. Version2 keyset cursor <=8192 bound to current account, all normalized filters and sort, not authorization; changing limit is allowed. Earlier draft name/ID cursors are replaced and must be restarted from first page. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. RC11 #156 sorts: year_asc and rating_asc put unknown values last. runtime_asc/runtime_desc use the local TMDB discovery runtime minutes of the same TMDB ID and type, premiere_date_asc/premiere_date_desc its YYYY-MM-DD release date (movies) or first air date (series); unknown or invalid values sort last in both directions. last_played_desc orders by the latest state-row updated_at of this account on the work or any of its episodes (played, positive position or play count), play_count_desc by the summed played_count of those rows; works without activity follow, by UUID. random orders by md5 of the required seed and the work UUID: stable for one seed, different seeds give different orders, and the cursor binds the seed. Every order keeps the UUID tie breaker and the signed keyset cursor. Folder and PMMS relation selections accept comma-separated nonnil UUIDs, 1..50 per parameter and at most50 UUIDs combined after normalization; values sort/deduplicate. Folder IDs use the existing Native live directory/source-root precedence and same-source ancestry. Include values OR within a field; distinct fields AND, excludes use NOT EXISTS/AND-NOT. Metadata source include/exclude uses the current ScraperId values and canonical jav-to-pmms alias; exclusions retain SQL NULL rows. Unknown/empty/invalid values400. PMMS relation filters never grant adult/domain/account/library access or file availability. All normalized selections bind the existing signed cursor; omitted selections preserve the prior cursor shape. No unconsumable cursor above the existing8192 bound is returned; an oversized selection/key combination returns400. Each item carries user_state: the requesting account's own stored favourite/played flags and progress, read in one statement per page after the authorized page selection (no per-item query). Other accounts' rows never participate; absent rows are false/0/null. RC11 #154: sort_name_asc/sort_name_desc order by the name key in byte order (COLLATE \"C\"), the order that initial partitions; name_asc/name_desc keep the database collation of the displayed title. Name key: the stored full pinyin of the title (Chinese characters as toneless pinyin, accented and full-width letters folded to ASCII, spaces and punctuation dropped), else the lower-cased title until the pinyin backfill has computed it; the backfill recomputes renamed titles within minutes. The initial is a..z when the key starts with an ASCII letter, else # (digits, symbols, kana, hangul and other scripts). There is no separate manual sort name. RC12 #158: official_ratings, resolutions, dynamic_ranges, audio_formats, audio_languages and subtitle_languages filter by rating, picture and sound; GET /media/facets/{kind} of the same name lists the values present in the visible inventory. Unknown resolution, SDR and untagged tracks match none of them. #191: has_poster=true lists only works with a poster (Media.has_poster), with an exact total and cursor, for a poster wall. RC13 #189 (ECAL parity): last_added_desc orders by when a work last gained a file: the newest created_at of its current file versions (episode files count for their series), or the work row created_at when that is later; newest first, UUID tie breaker, signed keyset cursor. A series moves to the front when a new episode file arrives, as ECAL SortBy=DateLastContentAdded does. tag_ids/tag_exclude_ids filter by work tags, and every item carries tags. #198: updated_since lists only works changed at or after an instant (Media.updated_at), for incremental sync; GET /media/ids lists the ID and updated_at of the same works to find removals. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -1502,7 +1502,7 @@
             },
             "style": "form",
             "explode": false,
-            "description": "Some version has one of these dynamic ranges (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Dynamic range of a version comes from its stored hdr_type label: the file name before probing (Dolby Vision, HDR10+, HDR) and the probed video range afterwards (HDR10, HLG, HDR, SDR). dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer named alongside it, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. Labels are not yet stream-verified: actual Dolby Vision detection is #170. These labels are read whether or not the technical facts are current, unlike the hdr_type field of /media/{id}/versions, which is null until they are.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+            "description": "Some version has one of these dynamic ranges (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Dynamic range of a version comes from its stored hdr_type label, which follows the measured facts (#170): Dolby Vision when the Dolby Vision scan of the current file detected it, otherwise the probed video range (HDR10, HLG, HDR, SDR) once the file is probed, and only before that the file name (Dolby Vision, HDR10+, HDR); a scan that finds no Dolby Vision removes a file-name Dolby Vision label. dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. File-name labels of unprobed, unscanned files are read too, unlike the hdr_type field of /media/{id}/versions, which is null until the facts are measured.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
           },
           {
             "name": "audio_formats",
@@ -1609,6 +1609,17 @@
             "style": "form",
             "explode": false,
             "description": "Works carrying none of these tags. Explicit work-level tags (the ECAL Tags inventory, edited by PUT /admin/media/{id}/tags or ECAL /Items/{Id}/Tags/Add); an episode tag never makes its series match. Comma-separated tag UUIDs as GET /media/facets/tags returns them; sorted, deduplicated and bound to the signed cursor. They count toward the 50-UUID budget shared by the other UUID selections; invalid, empty or nil values 400."
+          },
+          {
+            "name": "updated_since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 64
+            },
+            "description": "#198: only works whose Media.updated_at is at or after this instant (inclusive). RFC 3339 with an offset (Z or +hh:mm), at most 64 bytes, years 1..9999; a date without time, a local time or any other value is 400. Compared in UTC at microsecond precision, the precision of updated_at: a finer instant rounds up, so the result is exactly the works at or after it. Media.updated_at is the last change of the work row itself. Since migration 255 (#198) every UPDATE that really changes the row refreshes it (an explicit updated_at in the statement wins; rewriting the same values, or only the TMDB refresh time or the derived pinyin name keys, does not), so title, overview, year, type, TMDB binding, poster/backdrop/logo paths, rating, genres, studios, language, countries, collection and status changes all move it. It does not move for data stored elsewhere: the account's own user_state, tags, episode_count and file inventory, TMDB discovery fields (runtime_minutes, community_rating_count, official_rating, external_ids.imdb), external_ids.tvdb and PMMS posters. Removed works (deleted, without files, or outside the account's libraries now) are never listed, so a change feed cannot name them; compare IDs with GET /media/ids for that. updated_at is the start time of the writing transaction: use the server Date header of your previous sync minus an overlap (10 minutes is ample) and deduplicate by id. ANDs with every other filter and works with every sort; total and the signed cursor count only the matching works. Bound to the signed cursor: a cursor from another instant or from none is 400. Omitted, nothing changes and earlier cursors keep their shape. When few works changed, membership is checked per work instead of catalogue-wide; results are identical either way."
           },
           {
             "name": "If-None-Match",
@@ -6213,7 +6224,7 @@
             },
             "style": "form",
             "explode": false,
-            "description": "Some version has one of these dynamic ranges (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Dynamic range of a version comes from its stored hdr_type label: the file name before probing (Dolby Vision, HDR10+, HDR) and the probed video range afterwards (HDR10, HLG, HDR, SDR). dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer named alongside it, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. Labels are not yet stream-verified: actual Dolby Vision detection is #170. These labels are read whether or not the technical facts are current, unlike the hdr_type field of /media/{id}/versions, which is null until they are.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+            "description": "Some version has one of these dynamic ranges (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Dynamic range of a version comes from its stored hdr_type label, which follows the measured facts (#170): Dolby Vision when the Dolby Vision scan of the current file detected it, otherwise the probed video range (HDR10, HLG, HDR, SDR) once the file is probed, and only before that the file name (Dolby Vision, HDR10+, HDR); a scan that finds no Dolby Vision removes a file-name Dolby Vision label. dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. File-name labels of unprobed, unscanned files are read too, unlike the hdr_type field of /media/{id}/versions, which is null until the facts are measured.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
           },
           {
             "name": "audio_formats",
@@ -6320,6 +6331,17 @@
             "style": "form",
             "explode": false,
             "description": "Works carrying none of these tags. Explicit work-level tags (the ECAL Tags inventory, edited by PUT /admin/media/{id}/tags or ECAL /Items/{Id}/Tags/Add); an episode tag never makes its series match. Comma-separated tag UUIDs as GET /media/facets/tags returns them; sorted, deduplicated and bound to the signed cursor. They count toward the 50-UUID budget shared by the other UUID selections; invalid, empty or nil values 400."
+          },
+          {
+            "name": "updated_since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 64
+            },
+            "description": "#198: only works whose Media.updated_at is at or after this instant (inclusive). RFC 3339 with an offset (Z or +hh:mm), at most 64 bytes, years 1..9999; a date without time, a local time or any other value is 400. Compared in UTC at microsecond precision, the precision of updated_at: a finer instant rounds up, so the result is exactly the works at or after it. Media.updated_at is the last change of the work row itself. Since migration 255 (#198) every UPDATE that really changes the row refreshes it (an explicit updated_at in the statement wins; rewriting the same values, or only the TMDB refresh time or the derived pinyin name keys, does not), so title, overview, year, type, TMDB binding, poster/backdrop/logo paths, rating, genres, studios, language, countries, collection and status changes all move it. It does not move for data stored elsewhere: the account's own user_state, tags, episode_count and file inventory, TMDB discovery fields (runtime_minutes, community_rating_count, official_rating, external_ids.imdb), external_ids.tvdb and PMMS posters. Removed works (deleted, without files, or outside the account's libraries now) are never listed, so a change feed cannot name them; compare IDs with GET /media/ids for that. updated_at is the start time of the writing transaction: use the server Date header of your previous sync minus an overlap (10 minutes is ample) and deduplicate by id. ANDs with every other filter and works with every sort; total and the signed cursor count only the matching works. Bound to the signed cursor: a cursor from another instant or from none is 400. Omitted, nothing changes and earlier cursors keep their shape. When few works changed, membership is checked per work instead of catalogue-wide; results are identical either way."
           },
           {
             "name": "If-None-Match",
@@ -8751,7 +8773,7 @@
       "get": {
         "operationId": "sxapi_list_catalog_facets_get",
         "summary": "Current visible file-inventory facet observations",
-        "description": "Independent current stx_sx_ original login/account/UHD and actual selected public active library/file membership, ordinary/adult domain guard. No discovery union, metadata-only item, superseded/missing/deleted/folder/disabled-source or cross-parent episode file counted. Counts are distinct media per facet, not array occurrences, episodes, bytes or verified remote/client playability; catalog_only=true. One repeatable-read read-only SQL count/page/invalid flag/clock with15s statement/5s lock and2MiB response cap; current identity/auth-version/login actual expiry/UHD and captured library/policy grants rechecked after materialization/waits. Per-request live membership and counts may change across signed pages. q<=200scalars/800UTF8bytes NFKC/whitespace/ASCII lower<=1024bytes/up to8 literal AND terms, no percent/underscore/backslash wildcards; it filters facet keys/names while media_count retains all visible items for that key. kind typed enum/unknown kind or query/duplicate fields400; media_type movie/tv/porn matches stored field, optional library hidden404, limit1..100/default30. Signed cursor<=4096 binds original actor/login/kind/all normalized filters/last key; changing limit allowed, other domain/filter/login/tamper400. Keys use C lexical order. Genre/studio IDs positive int32; 27 existing genre English labels, valid unknown ID name=null. Language lowercases ASCII alphanumeric/hyphen code<=16, excludes blank/xx; country uppercases two ASCII letters, does not invent country labels or infer geography from language. Native regions is a legacy language-to-country display mapping with merged language groups; SX languages preserves actual codes, native DTO unchanged. Studios accept integer or object{id,name?}, all extra JSON fields excluded from response, name<=1024UTF8bytes/no controls. Duplicate keys per media deduplicated; multiple distinct actual studio names yield name=null/name_conflict=true. SQL/JSON null/empty array means no facet; malformed visible metadata, arrays over128 elements or16384UTF8JSONbytes, invalid IDs/names/code reject whole409 facet_metadata_limit even outside requested page or q; invisible metadata does not poison scope. Never select raw facet JSON into Rust; only bounded entries/page values. Public capabilities reports media_facets and actual limits. Studio and case-normalized country keys round-trip to media filters; supports legacy integer and TMDB object studio IDs. No writes/readiness claim/native handler forwarding/new migration; three existing column type guards. Four related native operations do not imply wire/client migration or full acceptance. RC12 #158 kinds list the values of the matching GET /media filters, and each key round-trips: resolutions/dynamic_ranges/audio_formats/audio_languages/subtitle_languages/official_ratings=key (years: year_min=year_max=key) returns media_count works. media_count of resolutions is the works whose best tier is the key, so the counts partition; of dynamic_ranges it is the works with at least one version of that type, and hdr counts every work with any HDR version. A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Resolution tier of a version: the higher of its stored resolution label and, when its technical facts are current (the rule under which /media/{id}/tracks returns tracks), its first internal video track that is not cover art. 4k: width at least 3200 or height at least 1800 (labels 2160p, 4K, UHD, 8K); hd: width at least 1200 or height at least 700 (720p to 1440p, including cropped widescreen); sd: anything smaller that is known. A work's tier is its best version's tier, so the tiers partition works with a known resolution: a work with a 4K and a 1080p file is 4k only. Dynamic range of a version comes from its stored hdr_type label: the file name before probing (Dolby Vision, HDR10+, HDR) and the probed video range afterwards (HDR10, HLG, HDR, SDR). dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer named alongside it, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. Labels are not yet stream-verified: actual Dolby Vision detection is #170. These labels are read whether or not the technical facts are current, unlike the hdr_type field of /media/{id}/versions, which is null until they are. atmos: the stored audio codec label names Atmos (file name), or a current internal audio track's profile or title names Atmos. Track languages are the lower-cased language tags of current internal tracks as the file records them (usually ISO 639-2, for example jpn, eng, chi or zho; codes are not merged). Sidecar subtitle files (GET /media/{id}/subtitles) are not included, and tracks of files whose technical facts are not current do not count. official_ratings match the certification of the local TMDB discovery row of the same TMDB ID and type, the source of official_rating; only ordinary movies and series have one. Values are exact and case-sensitive, as GET /media/facets/official_ratings lists them. Values outside these rules (unknown resolution, SDR, und or malformed track languages, blank or malformed certifications, years outside 1880..2200) are left out rather than rejected with 409; only the earlier kinds keep the facet_metadata_limit budget. The signed cursor key bound is 64 bytes for official_ratings and 16 for every other kind. RC13 #189: tags lists the explicit work-level tags of visible works with the number of visible works carrying each; keys are tag UUIDs in byte order. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Independent current stx_sx_ original login/account/UHD and actual selected public active library/file membership, ordinary/adult domain guard. No discovery union, metadata-only item, superseded/missing/deleted/folder/disabled-source or cross-parent episode file counted. Counts are distinct media per facet, not array occurrences, episodes, bytes or verified remote/client playability; catalog_only=true. One repeatable-read read-only SQL count/page/invalid flag/clock with15s statement/5s lock and2MiB response cap; current identity/auth-version/login actual expiry/UHD and captured library/policy grants rechecked after materialization/waits. Per-request live membership and counts may change across signed pages. q<=200scalars/800UTF8bytes NFKC/whitespace/ASCII lower<=1024bytes/up to8 literal AND terms, no percent/underscore/backslash wildcards; it filters facet keys/names while media_count retains all visible items for that key. kind typed enum/unknown kind or query/duplicate fields400; media_type movie/tv/porn matches stored field, optional library hidden404, limit1..100/default30. Signed cursor<=4096 binds original actor/login/kind/all normalized filters/last key; changing limit allowed, other domain/filter/login/tamper400. Keys use C lexical order. Genre/studio IDs positive int32; 27 existing genre English labels, valid unknown ID name=null. Language lowercases ASCII alphanumeric/hyphen code<=16, excludes blank/xx; country uppercases two ASCII letters, does not invent country labels or infer geography from language. Native regions is a legacy language-to-country display mapping with merged language groups; SX languages preserves actual codes, native DTO unchanged. Studios accept integer or object{id,name?}, all extra JSON fields excluded from response, name<=1024UTF8bytes/no controls. Duplicate keys per media deduplicated; multiple distinct actual studio names yield name=null/name_conflict=true. SQL/JSON null/empty array means no facet; malformed visible metadata, arrays over128 elements or16384UTF8JSONbytes, invalid IDs/names/code reject whole409 facet_metadata_limit even outside requested page or q; invisible metadata does not poison scope. Never select raw facet JSON into Rust; only bounded entries/page values. Public capabilities reports media_facets and actual limits. Studio and case-normalized country keys round-trip to media filters; supports legacy integer and TMDB object studio IDs. No writes/readiness claim/native handler forwarding/new migration; three existing column type guards. Four related native operations do not imply wire/client migration or full acceptance. RC12 #158 kinds list the values of the matching GET /media filters, and each key round-trips: resolutions/dynamic_ranges/audio_formats/audio_languages/subtitle_languages/official_ratings=key (years: year_min=year_max=key) returns media_count works. media_count of resolutions is the works whose best tier is the key, so the counts partition; of dynamic_ranges it is the works with at least one version of that type, and hdr counts every work with any HDR version. A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Resolution tier of a version: the higher of its stored resolution label and, when its technical facts are current (the rule under which /media/{id}/tracks returns tracks), its first internal video track that is not cover art. 4k: width at least 3200 or height at least 1800 (labels 2160p, 4K, UHD, 8K); hd: width at least 1200 or height at least 700 (720p to 1440p, including cropped widescreen); sd: anything smaller that is known. A work's tier is its best version's tier, so the tiers partition works with a known resolution: a work with a 4K and a 1080p file is 4k only. Dynamic range of a version comes from its stored hdr_type label, which follows the measured facts (#170): Dolby Vision when the Dolby Vision scan of the current file detected it, otherwise the probed video range (HDR10, HLG, HDR, SDR) once the file is probed, and only before that the file name (Dolby Vision, HDR10+, HDR); a scan that finds no Dolby Vision removes a file-name Dolby Vision label. dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. File-name labels of unprobed, unscanned files are read too, unlike the hdr_type field of /media/{id}/versions, which is null until the facts are measured. atmos: the stored audio codec label names Atmos (file name), or a current internal audio track's profile or title names Atmos. Track languages are the lower-cased language tags of current internal tracks as the file records them (usually ISO 639-2, for example jpn, eng, chi or zho; codes are not merged). Sidecar subtitle files (GET /media/{id}/subtitles) are not included, and tracks of files whose technical facts are not current do not count. official_ratings match the certification of the local TMDB discovery row of the same TMDB ID and type, the source of official_rating; only ordinary movies and series have one. Values are exact and case-sensitive, as GET /media/facets/official_ratings lists them. Values outside these rules (unknown resolution, SDR, und or malformed track languages, blank or malformed certifications, years outside 1880..2200) are left out rather than rejected with 409; only the earlier kinds keep the facet_metadata_limit budget. The signed cursor key bound is 64 bytes for official_ratings and 16 for every other kind. RC13 #189: tags lists the explicit work-level tags of visible works with the number of visible works carrying each; keys are tag UUIDs in byte order. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -18031,6 +18053,815 @@
         }
       ]
     },
+    "/media/ids": {
+      "get": {
+        "operationId": "sxapi_list_media_ids_get",
+        "summary": "IDs and updated_at of listed works",
+        "description": "#198: exactly the works GET /media lists with the same filters (current library membership, file inventory, adult/domain isolation and every filter, including updated_since), as {id, updated_at} only: no descriptive enrichment, no user state. Ordered by UUID ascending (a client can merge it with its own sorted IDs); sort and seed are rejected with 400. A work the client holds that this list no longer has was deleted, lost its files or left the account's libraries; a newer updated_at marks a work to refetch through GET /media?updated_since= or GET /media/{id}. Each row is about 70 bytes, so a whole catalogue takes a few pages. include_total=false skips the count. Credentials only in the Authorization header. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/catalog/ids.rs",
+          "handler": "list_media_ids"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaIdPage"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "library_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "media_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "movie",
+                "tv",
+                "porn"
+              ]
+            }
+          },
+          {
+            "name": "year_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1880,
+              "maximum": 2200
+            }
+          },
+          {
+            "name": "year_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1880,
+              "maximum": 2200
+            }
+          },
+          {
+            "name": "genre_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16,
+              "pattern": "^[A-Za-z0-9-]+$"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2,
+              "pattern": "^[A-Za-z]{2}$"
+            }
+          },
+          {
+            "name": "studio_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "collection_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "min_rating",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            }
+          },
+          {
+            "name": "favorite",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "watched",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5000,
+              "default": 1000
+            },
+            "description": "Page size 1..5000, default 1000."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 8192
+            },
+            "description": "Opaque next_cursor of GET /media/ids, bound to the account, login and every filter; a GET /media cursor, another login or changed filters are 400."
+          },
+          {
+            "name": "folder_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "folder_exclude_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_actress_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_actress_exclude_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_studio_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_studio_exclude_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_category_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_category_exclude_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_series_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "pmms_series_exclude_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated canonical UUID selection; at most50 UUIDs combined across the extra selections. Sorted/deduplicated and bound to the original signed cursor; invalid/empty/nil values400."
+          },
+          {
+            "name": "metadata_source",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 5,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "tmdb",
+                  "mvdb",
+                  "pmms",
+                  "musicbrainz",
+                  "none",
+                  "jav"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated known scraper IDs. jav canonicalizes to pmms as in Native; no provider activation. Exclude is NULL-safe. Unknown/empty values400; normalized values bind the cursor."
+          },
+          {
+            "name": "metadata_source_exclude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 5,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "tmdb",
+                  "mvdb",
+                  "pmms",
+                  "musicbrainz",
+                  "none",
+                  "jav"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated known scraper IDs. jav canonicalizes to pmms as in Native; no provider activation. Exclude is NULL-safe. Unknown/empty values400; normalized values bind the cursor."
+          },
+          {
+            "name": "external_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "maxLength": 40,
+                "pattern": "^([Tt][Mm][Dd][Bb]:[0-9]{1,10}|[Ii][Mm][Dd][Bb]:[Tt][Tt][0-9]{1,30}|[Tt][Vv][Dd][Bb]:[0-9]{1,20})$"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Exact provider IDs (#149): comma-separated provider:id, 1..50 per request, raw value at most 2048 bytes. Providers tmdb, imdb, tvdb are case-insensitive; tmdb is a positive 32-bit integer, imdb is tt plus digits (prefix case-insensitive, normalized to tt), tvdb is digits. IDs OR together; the parameter ANDs with every other filter. TMDB matches the work tmdb_id, IMDb the local TMDB discovery row of the same TMDB ID and type (the external_ids.imdb source), TVDB the stored media_external_ids tvdb rows. Only ordinary movie/TV works match; a movie and a series that share a TMDB number are both returned unless media_type narrows the type. Authorization, adult/domain isolation and file inventory are unchanged; no match is an empty page, never 404. Unknown provider, malformed or empty items, or more than 50 IDs return 400. Normalized IDs sort/deduplicate per provider and bind the signed cursor; omitting the parameter keeps the earlier cursor shape."
+          },
+          {
+            "name": "genre_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Comma-separated TMDB genre numbers (#156); a work matches when it has any of them. ANDs with genre_id and every other filter. 1..20 positive values, raw value at most 256 bytes; sorted, deduplicated and bound to the signed cursor. Empty, zero, non-numeric or more than 20 values return 400."
+          },
+          {
+            "name": "in_progress",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "true: only works this account has started and not finished (#156): a movie or other non-series work whose own state row has a saved position and is not played, or a series with such an episode row. false: only the other works. hide_from_resume does not apply. Bound to the signed cursor."
+          },
+          {
+            "name": "include_total",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "description": "false skips the exact total count; total is then null. Items, ordering and next_cursor are unchanged, and the cursor does not bind this flag."
+          },
+          {
+            "name": "initial",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1,
+              "pattern": "^[A-Za-z#]$"
+            },
+            "description": "One A-Z initial (case-insensitive) or # (send %23) of the name key (#154); ANDs with every other filter and binds the signed cursor. Name key: the stored full pinyin of the title (Chinese characters as toneless pinyin, accented and full-width letters folded to ASCII, spaces and punctuation dropped), else the lower-cased title until the pinyin backfill has computed it; the backfill recomputes renamed titles within minutes. The initial is a..z when the key starts with an ASCII letter, else # (digits, symbols, kana, hangul and other scripts). There is no separate manual sort name."
+          },
+          {
+            "name": "official_ratings",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Certifications (#158). official_ratings match the certification of the local TMDB discovery row of the same TMDB ID and type, the source of official_rating; only ordinary movies and series have one. Values are exact and case-sensitive, as GET /media/facets/official_ratings lists them. Each value 1..64 bytes, no surrounding spaces or control characters, no commas. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+          },
+          {
+            "name": "resolutions",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "4k",
+                  "hd",
+                  "sd"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Best resolution tier (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Resolution tier of a version: the higher of its stored resolution label and, when its technical facts are current (the rule under which /media/{id}/tracks returns tracks), its first internal video track that is not cover art. 4k: width at least 3200 or height at least 1800 (labels 2160p, 4K, UHD, 8K); hd: width at least 1200 or height at least 700 (720p to 1440p, including cropped widescreen); sd: anything smaller that is known. A work's tier is its best version's tier, so the tiers partition works with a known resolution: a work with a 4K and a 1080p file is 4k only.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+          },
+          {
+            "name": "dynamic_ranges",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "hdr",
+                  "dolby_vision",
+                  "hdr10_plus",
+                  "hdr10",
+                  "hlg"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Some version has one of these dynamic ranges (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Dynamic range of a version comes from its stored hdr_type label, which follows the measured facts (#170): Dolby Vision when the Dolby Vision scan of the current file detected it, otherwise the probed video range (HDR10, HLG, HDR, SDR) once the file is probed, and only before that the file name (Dolby Vision, HDR10+, HDR); a scan that finds no Dolby Vision removes a file-name Dolby Vision label. dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. File-name labels of unprobed, unscanned files are read too, unlike the hdr_type field of /media/{id}/versions, which is null until the facts are measured.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+          },
+          {
+            "name": "audio_formats",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "atmos"
+                ]
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Some version carries this audio format (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. atmos: the stored audio codec label names Atmos (file name), or a current internal audio track's profile or title names Atmos.  Case-insensitive, sorted and deduplicated; any other or empty value is 400. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+          },
+          {
+            "name": "audio_languages",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16,
+                "pattern": "^[A-Za-z0-9-]{1,16}$"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Some version has a current internal audio track in one of these languages (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Track languages are the lower-cased language tags of current internal tracks as the file records them (usually ISO 639-2, for example jpn, eng, chi or zho; codes are not merged). Sidecar subtitle files (GET /media/{id}/subtitles) are not included, and tracks of files whose technical facts are not current do not count. ASCII letters, digits and hyphens, lower-cased. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+          },
+          {
+            "name": "subtitle_languages",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 20,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16,
+                "pattern": "^[A-Za-z0-9-]{1,16}$"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Some version has a current internal subtitle track in one of these languages (#158). A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Track languages are the lower-cased language tags of current internal tracks as the file records them (usually ISO 639-2, for example jpn, eng, chi or zho; codes are not merged). Sidecar subtitle files (GET /media/{id}/subtitles) are not included, and tracks of files whose technical facts are not current do not count. ASCII letters, digits and hyphens, lower-cased. Values OR within the parameter; the parameter ANDs with every other filter, works with every sort and binds the signed cursor (omitting it keeps the earlier cursor shape). 1..20 comma-separated values, raw value at most 1024 bytes."
+          },
+          {
+            "name": "has_poster",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "#191: true keeps only works with a poster, false only works without one, under the Media.has_poster rule. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference. ANDs with every other filter (library_id, search, media_type and so on) and works with every sort; total and the signed cursor count only the matching works. Bound to the signed cursor: a cursor from another value or from no value is 400. Omitted, nothing changes and earlier cursors keep their shape. Values other than true/false are 400."
+          },
+          {
+            "name": "tag_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Works carrying at least one of these tags. Explicit work-level tags (the ECAL Tags inventory, edited by PUT /admin/media/{id}/tags or ECAL /Items/{Id}/Tags/Add); an episode tag never makes its series match. Comma-separated tag UUIDs as GET /media/facets/tags returns them; sorted, deduplicated and bound to the signed cursor. They count toward the 50-UUID budget shared by the other UUID selections; invalid, empty or nil values 400."
+          },
+          {
+            "name": "tag_exclude_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 50,
+              "items": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Works carrying none of these tags. Explicit work-level tags (the ECAL Tags inventory, edited by PUT /admin/media/{id}/tags or ECAL /Items/{Id}/Tags/Add); an episode tag never makes its series match. Comma-separated tag UUIDs as GET /media/facets/tags returns them; sorted, deduplicated and bound to the signed cursor. They count toward the 50-UUID budget shared by the other UUID selections; invalid, empty or nil values 400."
+          },
+          {
+            "name": "updated_since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 64
+            },
+            "description": "#198: only works whose Media.updated_at is at or after this instant (inclusive). RFC 3339 with an offset (Z or +hh:mm), at most 64 bytes, years 1..9999; a date without time, a local time or any other value is 400. Compared in UTC at microsecond precision, the precision of updated_at: a finer instant rounds up, so the result is exactly the works at or after it. Media.updated_at is the last change of the work row itself. Since migration 255 (#198) every UPDATE that really changes the row refreshes it (an explicit updated_at in the statement wins; rewriting the same values, or only the TMDB refresh time or the derived pinyin name keys, does not), so title, overview, year, type, TMDB binding, poster/backdrop/logo paths, rating, genres, studios, language, countries, collection and status changes all move it. It does not move for data stored elsewhere: the account's own user_state, tags, episode_count and file inventory, TMDB discovery fields (runtime_minutes, community_rating_count, official_rating, external_ids.imdb), external_ids.tvdb and PMMS posters. Removed works (deleted, without files, or outside the account's libraries now) are never listed, so a change feed cannot name them; compare IDs with GET /media/ids for that. updated_at is the start time of the writing transaction: use the server Date header of your previous sync minus an overlap (10 minutes is ample) and deduplicate by id. ANDs with every other filter and works with every sort; total and the signed cursor count only the matching works. Bound to the signed cursor: a cursor from another instant or from none is 400. Omitted, nothing changes and earlier cursors keep their shape. When few works changed, membership is checked per work instead of catalogue-wide; results are identical either way."
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
     "/libraries/{id}/images/{image_type}": {
       "get": {
         "operationId": "sxapi_get_current_library_image_get",
@@ -19988,6 +20819,9 @@
               "media_tags",
               "media_last_added_sort",
               "administration_media_tags",
+              "media_lookup_by_external_id",
+              "media_updated_since",
+              "media_ids",
               "administration_media_metadata",
               "administration_library_manual",
               "administration_playback_probe_policy",
@@ -20275,6 +21109,21 @@
                 "const": true,
                 "description": "GET/PUT /admin/media/{id}/tags."
               },
+              "media_lookup_by_external_id": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media external_ids filter (#149): works by TMDB/IMDb/TVDB ID, up to limits.media_external_ids_max per request; Media.external_ids carries the IDs to map results back (#198 announces it)."
+              },
+              "media_updated_since": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media and GET /media/initials updated_since (#198), with Media.updated_at refreshed on every real change of the work row (migration 255)."
+              },
+              "media_ids": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media/ids (#198): ID and updated_at of the works GET /media lists, for removal detection in incremental sync."
+              },
               "administration_media_metadata": {
                 "type": "boolean",
                 "const": true
@@ -20386,7 +21235,9 @@
               "series_played_episodes_max",
               "media_tags_max",
               "avatar_upload_bytes_max",
-              "avatar_edge_max"
+              "avatar_edge_max",
+              "media_external_ids_max",
+              "media_ids_page_size_max"
             ],
             "properties": {
               "media_page_size_max": {
@@ -20587,6 +21438,16 @@
               "avatar_edge_max": {
                 "type": "integer",
                 "const": 512
+              },
+              "media_external_ids_max": {
+                "type": "integer",
+                "const": 50,
+                "description": "Most IDs in one GET /media external_ids filter (#149)."
+              },
+              "media_ids_page_size_max": {
+                "type": "integer",
+                "const": 5000,
+                "description": "Largest GET /media/ids page (#198)."
               }
             }
           },
@@ -20828,7 +21689,7 @@
             "description": "Members with at least one Atmos version."
           }
         },
-        "description": "RC12 #161: picture and sound summary of the collection, under the same rules as the GET /media resolutions, dynamic_ranges and audio_formats filters. A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Resolution tier of a version: the higher of its stored resolution label and, when its technical facts are current (the rule under which /media/{id}/tracks returns tracks), its first internal video track that is not cover art. 4k: width at least 3200 or height at least 1800 (labels 2160p, 4K, UHD, 8K); hd: width at least 1200 or height at least 700 (720p to 1440p, including cropped widescreen); sd: anything smaller that is known. A work's tier is its best version's tier, so the tiers partition works with a known resolution: a work with a 4K and a 1080p file is 4k only. Dynamic range of a version comes from its stored hdr_type label: the file name before probing (Dolby Vision, HDR10+, HDR) and the probed video range afterwards (HDR10, HLG, HDR, SDR). dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer named alongside it, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. Labels are not yet stream-verified: actual Dolby Vision detection is #170. These labels are read whether or not the technical facts are current, unlike the hdr_type field of /media/{id}/versions, which is null until they are. atmos: the stored audio codec label names Atmos (file name), or a current internal audio track's profile or title names Atmos. "
+        "description": "RC12 #161: picture and sound summary of the collection, under the same rules as the GET /media resolutions, dynamic_ranges and audio_formats filters. A work's versions are its current file-backed versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work), so a series takes the facts of all its episode files. Resolution tier of a version: the higher of its stored resolution label and, when its technical facts are current (the rule under which /media/{id}/tracks returns tracks), its first internal video track that is not cover art. 4k: width at least 3200 or height at least 1800 (labels 2160p, 4K, UHD, 8K); hd: width at least 1200 or height at least 700 (720p to 1440p, including cropped widescreen); sd: anything smaller that is known. A work's tier is its best version's tier, so the tiers partition works with a known resolution: a work with a 4K and a 1080p file is 4k only. Dynamic range of a version comes from its stored hdr_type label, which follows the measured facts (#170): Dolby Vision when the Dolby Vision scan of the current file detected it, otherwise the probed video range (HDR10, HLG, HDR, SDR) once the file is probed, and only before that the file name (Dolby Vision, HDR10+, HDR); a scan that finds no Dolby Vision removes a file-name Dolby Vision label. dolby_vision (Dolby Vision, DoVi, DV), hdr10_plus, hdr10, hlg; hdr is every HDR version, including those without a specific type. Each version has at most one type and Dolby Vision wins over an HDR10 base layer, so a Dolby Vision profile 8 file is dolby_vision, not hdr10. File-name labels of unprobed, unscanned files are read too, unlike the hdr_type field of /media/{id}/versions, which is null until the facts are measured. atmos: the stored audio codec label names Atmos (file name), or a current internal audio track's profile or title names Atmos. "
       },
       "CompleteInternalTrack": {
         "type": "object",
@@ -20847,6 +21708,7 @@
           "channels",
           "channel_layout",
           "sample_rate_hz",
+          "dolby_vision_layer",
           "codec_long",
           "profile",
           "level",
@@ -20973,6 +21835,21 @@
               }
             ]
           },
+          "dolby_vision_layer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "base",
+                  "enhancement"
+                ],
+                "description": "Dolby Vision layer this video track holds when the current file has a detected observation: base, or enhancement for the separate EL track of a dual-track file (#170). Null otherwise."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "codec_long": {
             "anyOf": [
               {
@@ -21083,6 +21960,236 @@
             ]
           }
         }
+      },
+      "DolbyVisionFacts": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "state",
+          "reason",
+          "source",
+          "profile",
+          "level",
+          "bl_signal_compatibility_id",
+          "version_major",
+          "version_minor",
+          "rpu_present",
+          "el_present",
+          "bl_present",
+          "layout",
+          "base_layer_stream_index",
+          "enhancement_layer_stream_index",
+          "enhancement_layer_type",
+          "observed_at",
+          "base_layer_compatibility"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "detected",
+              "not_detected",
+              "inconclusive",
+              "unsupported"
+            ],
+            "description": "Feature-scan decision for the current file content: detected; not_detected (every applicable source of evidence was read); inconclusive (the read could not decide, see reason); unsupported (container outside the scan, e.g. MPEG-TS)."
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "description": "Stable Signum reason of a non-detected state, e.g. window_exhausted."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "container_record",
+                  "rpu_header"
+                ],
+                "description": "Detected only: the container DOVIDecoderConfigurationRecord, or an RPU header in the stream."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "profile": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 127
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "level": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 63
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bl_signal_compatibility_id": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 15
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version_major": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 255
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version_minor": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 255
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rpu_present": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "el_present": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bl_present": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "layout": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "single_layer",
+                  "dual_layer_single_track",
+                  "dual_layer_dual_track",
+                  "dual_layer"
+                ],
+                "description": "single_layer (profiles 5, 8.x, 10); dual_layer_single_track (EL NAL units inside the base track); dual_layer_dual_track (EL in its own track, enhancement_layer_stream_index); dual_layer (record declares an EL whose track was not observed)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "base_layer_stream_index": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Track index of the base layer."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "enhancement_layer_stream_index": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Track index of a separate enhancement-layer track (dual track only)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "enhancement_layer_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "fel",
+                  "mel"
+                ],
+                "description": "From the NLQ parameters of the first intact RPU read; null when none was read (for example MP4, where sample data is not read)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "base_layer_compatibility": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "hdr10",
+                  "sdr",
+                  "hlg"
+                ],
+                "description": "What a player without Dolby Vision gets from the base layer, for ranking versions (#170): none (no usable fallback, e.g. profile 5), hdr10 (compatibility 1 or 6), sdr (2) or hlg (4). From bl_signal_compatibility_id; without a configuration record profile 5 is none and profile 7 is hdr10, other profiles are not guessed (null). Null unless state is detected."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "Dolby Vision facts Streamix read from the start of the current file (#170). Null on Version when the current file content was never scanned. Reads are bounded: playback probes only reuse their inventory bytes; the dolby_vision_backfill task reads at most 8 MiB per file. Player ranking: when state is detected, profile is the Dolby Vision profile (5, 7, 8 ...) and base_layer_compatibility says whether an HDR10 (or SDR/HLG) base layer exists; otherwise fall back to Version.hdr_type. GET /media/{id}/versions returns the same object for every version."
       },
       "Episode": {
         "type": "object",
@@ -22281,7 +23388,8 @@
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Media.updated_at is the last change of the work row itself. Since migration 255 (#198) every UPDATE that really changes the row refreshes it (an explicit updated_at in the statement wins; rewriting the same values, or only the TMDB refresh time or the derived pinyin name keys, does not), so title, overview, year, type, TMDB binding, poster/backdrop/logo paths, rating, genres, studios, language, countries, collection and status changes all move it. It does not move for data stored elsewhere: the account's own user_state, tags, episode_count and file inventory, TMDB discovery fields (runtime_minutes, community_rating_count, official_rating, external_ids.imdb), external_ids.tvdb and PMMS posters."
           },
           "runtime_minutes": {
             "anyOf": [
@@ -22475,6 +23583,45 @@
           }
         }
       },
+      "MediaIdPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "total",
+          "next_cursor"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaStamp"
+            }
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Exact count for this request; may change between pages. null only when include_total=false."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
       "MediaInitialCount": {
         "type": "object",
         "additionalProperties": false,
@@ -22601,6 +23748,25 @@
             "format": "int64",
             "minimum": 0,
             "description": "Stored genre IDs the work shares with the target."
+          }
+        }
+      },
+      "MediaStamp": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "updated_at"
+        ],
+        "description": "#198: one listed work: its ID and Media.updated_at, nothing else.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -23058,7 +24224,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "description": "Latest use: GREATEST of the legacy column (written on refresh) and the rate-limited usage record (RC14+, migration 250). Every authenticated SXAPI, native and ECAL request is noted in memory and written at most once per 5 minutes, so it can lag by one interval. Null when no use is recorded."
               },
               {
                 "type": "null"
@@ -23069,7 +24236,8 @@
             "anyOf": [
               {
                 "type": "integer",
-                "minimum": 0
+                "minimum": 0,
+                "description": "Legacy count plus the rate-limited usage record (RC14+), capped at 2147483647; best effort, a crash can lose up to one interval. A usage write never changes revision or the collection revision, so it never invalidates expected_revision."
               },
               {
                 "type": "null"
@@ -27710,7 +28878,8 @@
           "frame_rate",
           "channels",
           "channel_layout",
-          "sample_rate_hz"
+          "sample_rate_hz",
+          "dolby_vision_layer"
         ],
         "properties": {
           "index": {
@@ -27830,6 +28999,21 @@
                 "type": "null"
               }
             ]
+          },
+          "dolby_vision_layer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "base",
+                  "enhancement"
+                ],
+                "description": "Dolby Vision layer this video track holds when the current file has a detected observation: base, or enhancement for the separate EL track of a dual-track file (#170). Null otherwise."
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -27871,6 +29055,8 @@
           "technical_status",
           "bitrate_bps",
           "hdr_type",
+          "hdr_type_source",
+          "dolby_vision",
           "source_quality",
           "release_group",
           "quality_score",
@@ -27973,7 +29159,34 @@
             "anyOf": [
               {
                 "type": "string",
-                "maxLength": 128
+                "maxLength": 128,
+                "description": "Measured dynamic range (#170): Dolby Vision when a Dolby Vision observation of the current file content detected it, otherwise the current technical inventory video range (HDR10, HLG, HDR, SDR or a provider label). Null when neither is current. A file-name label appears only when the current inventory lists no video track (hdr_type_source filename)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hdr_type_source": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "probe",
+                  "provider",
+                  "filename"
+                ],
+                "description": "Where hdr_type came from: probe (Streamix read the file: Dolby Vision observation or native inventory), provider (imported technical snapshot) or filename. Null exactly when hdr_type is null."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dolby_vision": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DolbyVisionFacts"
               },
               {
                 "type": "null"

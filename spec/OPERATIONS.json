@@ -94,6 +94,11 @@
     },
     {
       "method": "GET",
+      "path": "/media/ids",
+      "operation_id": "sxapi_list_media_ids_get"
+    },
+    {
+      "method": "GET",
       "path": "/media/initials",
       "operation_id": "sxapi_catalog_list_initials_get"
     },
@@ -545,9 +550,9 @@
     "OwnCredentialRefreshed": "fd6c2bb22774089768cdaefa0a108f1d883e139e3c69d9f1061ccc070c710837",
     "User": "ab663f5eee9e24a583bf3ea2188e1273bb183e1dac63711d1022b692815ceec6",
     "Library": "ac606588e1b7b78faee259be1107ec8f9978fc7ce520c329dd5eedc125f706e8",
-    "Media": "ec0a07717fbb8c10018639b568dd247faaf22621c10a6056ba3c6e6d01d02679",
+    "Media": "82fc8bfffda190ccf7b96bd35ab5ec085acf7d0311123dce39fcb0c6efe4627b",
     "MediaPage": "864e9ff6fb97e26bac17a7233d89fcae00f57d185e1dee996e2066ad26d957ab",
-    "Version": "2c317925414035da92a14fe389897e58f614dcba77bcada29dd66c9c1eac60b7",
+    "Version": "351be4c979786401e765eeb3f145063d7612fa5aa7ec38c7215b5b103287ff67",
     "VersionPage": "ed0508a7cdbd5d19ba40c5880ac464fe4dfada1497737fe199a424aa07bfeda7",
     "PlaybackProfile": "86c22fb6c1e53fe747498ccc7027b5476277de24f3d996d212ea458292212d26",
     "PlaybackRequest": "bfff1298b24839873db907ab734b6f512d786eee15b0152438a25e12b7fd9a45",

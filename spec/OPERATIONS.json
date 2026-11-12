@@ -49,6 +49,21 @@
     },
     {
       "method": "GET",
+      "path": "/episodes/missing",
+      "operation_id": "sxapi_episode_schedule_missing_get"
+    },
+    {
+      "method": "GET",
+      "path": "/episodes/upcoming",
+      "operation_id": "sxapi_episode_schedule_upcoming_get"
+    },
+    {
+      "method": "GET",
+      "path": "/folders",
+      "operation_id": "sxapi_list_folders_get"
+    },
+    {
+      "method": "GET",
       "path": "/libraries",
       "operation_id": "sxapi_list_libraries_get"
     },
@@ -151,6 +166,11 @@
       "method": "GET",
       "path": "/media/{id}/seasons",
       "operation_id": "sxapi_catalog_list_seasons_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/similar",
+      "operation_id": "sxapi_list_similar_get"
     },
     {
       "method": "GET",
@@ -293,9 +313,59 @@
       "operation_id": "sxapi_get_account_get"
     },
     {
+      "method": "DELETE",
+      "path": "/users/me/avatar",
+      "operation_id": "sxapi_avatar_delete_avatar_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/avatar",
+      "operation_id": "sxapi_avatar_get_avatar_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/users/me/avatar",
+      "operation_id": "sxapi_avatar_get_avatar_head"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/avatar",
+      "operation_id": "sxapi_avatar_put_avatar_put"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/avatar/delete",
+      "operation_id": "sxapi_avatar_delete_avatar_delete_post"
+    },
+    {
       "method": "GET",
       "path": "/users/me/favorites",
       "operation_id": "sxapi_favorites_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/favorites/persons",
+      "operation_id": "sxapi_favorite_persons_get"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/favorites/persons/{id}",
+      "operation_id": "sxapi_delete_favorite_person_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/favorites/persons/{id}",
+      "operation_id": "sxapi_get_favorite_person_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/favorites/persons/{id}",
+      "operation_id": "sxapi_put_favorite_person_put"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/favorites/persons/{id}/delete",
+      "operation_id": "sxapi_delete_favorite_person_delete_post"
     },
     {
       "method": "GET",
@@ -306,6 +376,21 @@
       "method": "GET",
       "path": "/users/me/history/legacy",
       "operation_id": "sxapi_get_legacy_history_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/media/{id}/played",
+      "operation_id": "sxapi_put_played_put"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/media/{id}/seasons/{season}/state",
+      "operation_id": "sxapi_get_season_state_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/media/{id}/seasons/{season}/state",
+      "operation_id": "sxapi_put_season_state_put"
     },
     {
       "method": "GET",
@@ -326,6 +411,56 @@
       "method": "PUT",
       "path": "/users/me/password",
       "operation_id": "sxapi_change_password_put"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/playlists",
+      "operation_id": "sxapi_list_playlists_get"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/playlists",
+      "operation_id": "sxapi_create_playlist_post"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/me/playlists/{id}",
+      "operation_id": "sxapi_delete_playlist_delete"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/playlists/{id}",
+      "operation_id": "sxapi_get_playlist_get"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/me/playlists/{id}",
+      "operation_id": "sxapi_update_playlist_put"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/playlists/{id}/delete",
+      "operation_id": "sxapi_delete_playlist_delete_post"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/playlists/{id}/entries",
+      "operation_id": "sxapi_list_entries_get"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/playlists/{id}/entries",
+      "operation_id": "sxapi_append_entries_post"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/playlists/{id}/entries/remove",
+      "operation_id": "sxapi_remove_entries_post"
+    },
+    {
+      "method": "POST",
+      "path": "/users/me/playlists/{id}/entries/{entry_id}/move",
+      "operation_id": "sxapi_move_entry_post"
     },
     {
       "method": "GET",
@@ -356,6 +491,11 @@
       "method": "GET",
       "path": "/users/me/recommendations",
       "operation_id": "sxapi_recommendations_get"
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/recommendations/recent-plays",
+      "operation_id": "sxapi_recent_play_groups_get"
     },
     {
       "method": "GET",
@@ -405,13 +545,13 @@
     "OwnCredentialRefreshed": "fd6c2bb22774089768cdaefa0a108f1d883e139e3c69d9f1061ccc070c710837",
     "User": "ab663f5eee9e24a583bf3ea2188e1273bb183e1dac63711d1022b692815ceec6",
     "Library": "ac606588e1b7b78faee259be1107ec8f9978fc7ce520c329dd5eedc125f706e8",
-    "Media": "e96029cccafb97770dfbd2e722be8bce5af481860d348b8f8f9ba4e92590ebd0",
+    "Media": "ec0a07717fbb8c10018639b568dd247faaf22621c10a6056ba3c6e6d01d02679",
     "MediaPage": "864e9ff6fb97e26bac17a7233d89fcae00f57d185e1dee996e2066ad26d957ab",
     "Version": "2c317925414035da92a14fe389897e58f614dcba77bcada29dd66c9c1eac60b7",
     "VersionPage": "ed0508a7cdbd5d19ba40c5880ac464fe4dfada1497737fe199a424aa07bfeda7",
     "PlaybackProfile": "86c22fb6c1e53fe747498ccc7027b5476277de24f3d996d212ea458292212d26",
     "PlaybackRequest": "bfff1298b24839873db907ab734b6f512d786eee15b0152438a25e12b7fd9a45",
-    "PlaybackSession": "9651b70b2adc65b26b50b97ea0026270eba5d91099a1a7134ef6076a2a099470",
+    "PlaybackSession": "1646cfec4547585c935a4b10874ab12442127b71780fc14359db688a5e91b985",
     "PreparedPlayback": "5bfb2493f10f8046471f3fdcfa9f4684407ea312e63ed12f086e857f2e8d6d60",
     "StreamTicket": "f720abe71b7fbdf7de6d641c1860d839c346e0cf44daddaf100c7f16856f0a47",
     "PlaybackProgress": "7c8a0021c33f9ef98c68636e918376b8eca06df444cf7612eceb74b306b4a0fc",

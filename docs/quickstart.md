@@ -1,6 +1,6 @@
 # Five-minute integration path
 
-This source candidate is bound to the unreleased 0.9.0-rc.12 server contract, with minimum server candidate 0.9.0-rc.9. [SOURCE.json](../spec/SOURCE.json) records exact provenance; designated-server SDK validation and integration acceptance remain pending.
+This source candidate is bound to the unreleased 0.9.0-rc.13 server contract, with minimum server candidate 0.9.0-rc.9. [SOURCE.json](../spec/SOURCE.json) records exact provenance; designated-server SDK validation and integration acceptance remain pending.
 
 1. Choose the trusted **origin**, normally HTTPS such as `https://streamix.example`. Trusted-local HTTP is an explicit opt-in, not a TLS fallback; see [connecting](connecting.md). API paths begin with `/sxapi/v1`. Resolve returned root-relative video paths against the origin, not the API prefix.
 2. Read `GET /sxapi/v1/capabilities`. Require `features.playback_ticket_header=true`, `features.credentials_in_urls=false` and the relevant feature such as `playback=true`. Do not infer support from protocol version alone.

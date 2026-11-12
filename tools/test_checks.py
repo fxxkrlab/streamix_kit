@@ -4,7 +4,7 @@ import copy
 import unittest
 
 from contract import read_document, validate_pair
-from check_credentials import QUERY_SECRET, PATH_SECRET, PRIVATE_PATH_SECRET, REAL_TOKEN, METADATA_HEADER, METADATA_SECRET
+from check_credentials import QUERY_SECRET, PATH_SECRET, PRIVATE_PATH_SECRET, PRIVATE_DATA, REAL_TOKEN, METADATA_HEADER, METADATA_SECRET
 from check_sdk_contract import wire_kind
 
 
@@ -47,14 +47,20 @@ class ContractChecks(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_pair(doc, doc)
 
-    def test_search_roots_accepted_and_admin_root_rejected(self):
+    def test_player_roots_accepted_and_admin_root_rejected(self):
         doc = fixture()
-        for path in ["/persons", "/episodes"]:
+        for path in ["/persons", "/episodes", "/folders"]:
             doc["paths"][path] = {"get": {"operationId": path[1:], "responses": {}}}
         validate_pair(doc, copy.deepcopy(doc))
         doc["paths"]["/admin"] = {"get": {"operationId": "admin", "responses": {}}}
         with self.assertRaises(ValueError):
             validate_pair(doc, copy.deepcopy(doc))
+
+    def test_home_directory_rejected_but_path_template_accepted(self):
+        # Built from parts so this file does not trip the credential scan itself.
+        for line in ["/Users/" + "fixture/project/spec.json", "see /" + "root/build", "/opt/" + "github-runners/one"]:
+            self.assertIsNotNone(PRIVATE_DATA.search(line))
+        self.assertIsNone(PRIVATE_DATA.search("ECAL serves it as /Users/{Id}/Images/Primary"))
 
     def test_unused_schema_rejected(self):
         doc = fixture()

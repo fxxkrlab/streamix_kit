@@ -2,41 +2,41 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "39ef59f62d4f2a0bdeb477cac885c4764f04fbd6",
+  "upstream_commit": "21b270068757d33cffcd9f02fde3f759f2d55706",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.12",
+  "intended_server_version": "0.9.0-rc.13",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-11T18:28:36.664149+00:00",
+  "synchronized_at": "2026-11-12T01:00:32.010162+00:00",
   "files": {
     "sxapi-v1.openapi.json": {
-      "sha256": "56462fd96a25954deac494b4cb42935347b67902acbb87edb8c9526c28dfda37",
-      "bytes": 3294630
+      "sha256": "6ce5958a6cc6874370025d9f790805a0d0897699003d4aeac9e2814e32c95a7c",
+      "bytes": 3539345
     },
     "sxapi-v1-client.openapi.json": {
-      "sha256": "e73a1bec147516ca441bb2f9c1c3f20dfc042f54761c5a784f972ee02b849fd3",
-      "bytes": 853726
+      "sha256": "8f693c5e4340da9e9153632054d8aa44e9f74e2b52812d2239731348c2cf2a62",
+      "bytes": 1084012
     }
   },
-  "kit_build": "20261111.008",
+  "kit_build": "20261112.009",
   "upstream_api_review": {
-    "actual_validation_source": "39ef59f62d4f2a0bdeb477cac885c4764f04fbd6",
-    "actual_validation_tree": "39ce99d11147c42a6f7c295c7ec6343266d9e147",
-    "final_metadata_source": "39ef59f62d4f2a0bdeb477cac885c4764f04fbd6",
-    "final_metadata_tree": "39ce99d11147c42a6f7c295c7ec6343266d9e147",
+    "actual_validation_source": "21b270068757d33cffcd9f02fde3f759f2d55706",
+    "actual_validation_tree": "1b9fc29fbac1080cd751c5f3f93edb0e417d5b92",
+    "final_metadata_source": "21b270068757d33cffcd9f02fde3f759f2d55706",
+    "final_metadata_tree": "1b9fc29fbac1080cd751c5f3f93edb0e417d5b92",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "528beac1053a2eb69d1779a591d10cd40afc3edfab7bebdd996db67e144fe2cf",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.11: client operations 77 -> 79 (GET /persons person search, GET /episodes episode search); capability features media_quality_filters, collection_quality_summary, person_search, episode_search and limits search_candidates_max, search_page_size_max; GET /media and GET /media/initials add official_ratings, resolutions, dynamic_ranges, audio_formats, audio_languages and subtitle_languages filters; facet kinds add those six plus years; collection member resources add quality_summary. No typed SDK schema change.",
+    "review_manifest_sha256": "97f638cf2f823422aa99fbb8d0a47297bf44915e8700bdd04cf1b8ba1ecd84bd",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.12: client operations 79 -> 107 (GET /folders folder statistics; /users/me/playlists list, create, read, update, delete and entries list, append, remove, move; /users/me/favorites/persons list, read, PUT, DELETE; GET /media/{id}/similar; GET /users/me/recommendations/recent-plays; GET /episodes/upcoming and /episodes/missing; PUT /users/me/media/{id}/played; GET and PUT /users/me/media/{id}/seasons/{season}/state; GET, HEAD, PUT, DELETE /users/me/avatar; POST .../delete aliases for the new DELETE operations). Media adds required tags and has_poster; PlaybackSession adds required file_size, bitrate_bps and content_revision; GET /media and GET /media/initials add has_poster, tag_ids and tag_exclude_ids; sort adds last_added_desc; facet kinds add tags. Capability features add user_playlists, folder_statistics, favorite_persons, media_has_poster, similar_media, recent_play_recommendations, episode_schedule, series_played_state, season_state, user_avatar, media_last_added_sort, media_tags and administration_media_tags, with 13 new limits. The Kit subset check accepts the new player root /folders. No typed SDK schema change.",
     "scope": "The bound server commit passed the server repository's API documentation contract and release verification checks; this is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
     "source": "c8ee971b6660418bd4cb2836be0286fab76d29b6",
     "build": "20261029.004",
-    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261111.008."
+    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261112.009."
   },
   "current_build_validation": {
     "spec_sync": "COMPLETED",

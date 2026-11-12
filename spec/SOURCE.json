@@ -30,7 +30,7 @@
     "metadata_child_changed_paths": [],
     "review_manifest_sha256": "4fb4681b08d320995cbfde1210a8866f6f4c07abf7fd215045268a67dac1b55a",
     "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.13: client operations 107 -> 108 (GET /media/ids: ID and updated_at of the works GET /media lists, ascending by ID, for incremental sync). GET /media and GET /media/initials add updated_since. Version adds required hdr_type_source and dolby_vision (nullable DolbyVisionFacts, including profile and base_layer_compatibility); TechnicalTrack and CompleteInternalTrack add required dolby_vision_layer. OwnCredential last_used_at and use_count descriptions include the RC14 usage record. Capability features add media_lookup_by_external_id, media_updated_since and media_ids, with limits media_external_ids_max and media_ids_page_size_max. No typed SDK schema change: the typed Version reads only its existing fields.",
-    "scope": "The bound server commit passed the server repository's API documentation contract checks; its integration release verification is pending on the server pull request. This is not Kit designated-server, image or database validation."
+    "scope": "The bound server commit passed the server repository's API documentation contract and release verification checks (integration pull request, merged to master with the same tree); this is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

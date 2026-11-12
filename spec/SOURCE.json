@@ -2,41 +2,41 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "21b270068757d33cffcd9f02fde3f759f2d55706",
+  "upstream_commit": "1af0be9505dc5aa930d2b37973188de7b6d23fde",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.13",
+  "intended_server_version": "0.9.0-rc.14",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-12T01:00:32.010162+00:00",
+  "synchronized_at": "2026-11-12T08:51:29.853723+00:00",
   "files": {
     "sxapi-v1.openapi.json": {
-      "sha256": "6ce5958a6cc6874370025d9f790805a0d0897699003d4aeac9e2814e32c95a7c",
-      "bytes": 3539345
+      "sha256": "efdf018887774542e7c601a7ada24017c4856c4eada2e1823a8066a49a0f73b3",
+      "bytes": 3597868
     },
     "sxapi-v1-client.openapi.json": {
-      "sha256": "8f693c5e4340da9e9153632054d8aa44e9f74e2b52812d2239731348c2cf2a62",
-      "bytes": 1084012
+      "sha256": "305c731b7c4d9de0a788a6251ddd6583d15a437f4386c51f47e09735ebe70670",
+      "bytes": 1140496
     }
   },
-  "kit_build": "20261112.009",
+  "kit_build": "20261112.010",
   "upstream_api_review": {
-    "actual_validation_source": "21b270068757d33cffcd9f02fde3f759f2d55706",
-    "actual_validation_tree": "1b9fc29fbac1080cd751c5f3f93edb0e417d5b92",
-    "final_metadata_source": "21b270068757d33cffcd9f02fde3f759f2d55706",
-    "final_metadata_tree": "1b9fc29fbac1080cd751c5f3f93edb0e417d5b92",
+    "actual_validation_source": "1af0be9505dc5aa930d2b37973188de7b6d23fde",
+    "actual_validation_tree": "b53826cc819d9c7e5d22864fa6cd5175e6942df8",
+    "final_metadata_source": "1af0be9505dc5aa930d2b37973188de7b6d23fde",
+    "final_metadata_tree": "b53826cc819d9c7e5d22864fa6cd5175e6942df8",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "97f638cf2f823422aa99fbb8d0a47297bf44915e8700bdd04cf1b8ba1ecd84bd",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.12: client operations 79 -> 107 (GET /folders folder statistics; /users/me/playlists list, create, read, update, delete and entries list, append, remove, move; /users/me/favorites/persons list, read, PUT, DELETE; GET /media/{id}/similar; GET /users/me/recommendations/recent-plays; GET /episodes/upcoming and /episodes/missing; PUT /users/me/media/{id}/played; GET and PUT /users/me/media/{id}/seasons/{season}/state; GET, HEAD, PUT, DELETE /users/me/avatar; POST .../delete aliases for the new DELETE operations). Media adds required tags and has_poster; PlaybackSession adds required file_size, bitrate_bps and content_revision; GET /media and GET /media/initials add has_poster, tag_ids and tag_exclude_ids; sort adds last_added_desc; facet kinds add tags. Capability features add user_playlists, folder_statistics, favorite_persons, media_has_poster, similar_media, recent_play_recommendations, episode_schedule, series_played_state, season_state, user_avatar, media_last_added_sort, media_tags and administration_media_tags, with 13 new limits. The Kit subset check accepts the new player root /folders. No typed SDK schema change.",
-    "scope": "The bound server commit passed the server repository's API documentation contract and release verification checks; this is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "4fb4681b08d320995cbfde1210a8866f6f4c07abf7fd215045268a67dac1b55a",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.13: client operations 107 -> 108 (GET /media/ids: ID and updated_at of the works GET /media lists, ascending by ID, for incremental sync). GET /media and GET /media/initials add updated_since. Version adds required hdr_type_source and dolby_vision (nullable DolbyVisionFacts, including profile and base_layer_compatibility); TechnicalTrack and CompleteInternalTrack add required dolby_vision_layer. OwnCredential last_used_at and use_count descriptions include the RC14 usage record. Capability features add media_lookup_by_external_id, media_updated_since and media_ids, with limits media_external_ids_max and media_ids_page_size_max. No typed SDK schema change: the typed Version reads only its existing fields.",
+    "scope": "The bound server commit passed the server repository's API documentation contract checks; its integration release verification is pending on the server pull request. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
     "source": "c8ee971b6660418bd4cb2836be0286fab76d29b6",
     "build": "20261029.004",
-    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261112.009."
+    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261112.010."
   },
   "current_build_validation": {
     "spec_sync": "COMPLETED",

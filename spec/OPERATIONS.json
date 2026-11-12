@@ -59,6 +59,11 @@
     },
     {
       "method": "GET",
+      "path": "/episodes/{id}",
+      "operation_id": "sxapi_catalog_get_episode_get"
+    },
+    {
+      "method": "GET",
       "path": "/folders",
       "operation_id": "sxapi_list_folders_get"
     },
@@ -144,6 +149,16 @@
     },
     {
       "method": "GET",
+      "path": "/media/{id}/extras",
+      "operation_id": "sxapi_catalog_list_extras_get"
+    },
+    {
+      "method": "GET",
+      "path": "/media/{id}/images",
+      "operation_id": "sxapi_list_gallery_get"
+    },
+    {
+      "method": "GET",
       "path": "/media/{id}/images/{kind}",
       "operation_id": "sxapi_get_image_get"
     },
@@ -199,8 +214,18 @@
     },
     {
       "method": "GET",
+      "path": "/media/{id}/videos",
+      "operation_id": "sxapi_list_videos_get"
+    },
+    {
+      "method": "GET",
       "path": "/persons",
       "operation_id": "sxapi_search_search_persons_get"
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}",
+      "operation_id": "sxapi_get_person_get"
     },
     {
       "method": "GET",
@@ -550,7 +575,7 @@
     "OwnCredentialRefreshed": "fd6c2bb22774089768cdaefa0a108f1d883e139e3c69d9f1061ccc070c710837",
     "User": "ab663f5eee9e24a583bf3ea2188e1273bb183e1dac63711d1022b692815ceec6",
     "Library": "ac606588e1b7b78faee259be1107ec8f9978fc7ce520c329dd5eedc125f706e8",
-    "Media": "82fc8bfffda190ccf7b96bd35ab5ec085acf7d0311123dce39fcb0c6efe4627b",
+    "Media": "8136a5a76b87db9b1564113381ba00762e02c12238c23d045e9aec94486a1671",
     "MediaPage": "864e9ff6fb97e26bac17a7233d89fcae00f57d185e1dee996e2066ad26d957ab",
     "Version": "351be4c979786401e765eeb3f145063d7612fa5aa7ec38c7215b5b103287ff67",
     "VersionPage": "ed0508a7cdbd5d19ba40c5880ac464fe4dfada1497737fe199a424aa07bfeda7",

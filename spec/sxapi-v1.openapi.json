@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1",
-    "version": "0.9.0-rc.14",
+    "version": "0.9.0-rc.15",
     "description": "Independent Streamix client protocol with login, current identity, typed file-backed filters/ordering, seasons and bounded revision-current technical inventory, minimal direct-file playback, user flags, session-bound progress private client-reported history bounded original artwork and exact external UTF-8 subtitle delivery. Playback preparation/bytes require initialized and enabled Nimbus; subtitle delivery also requires initialized enabled Nimbus; independent scoped administration sessions and users/roles/policies/libraries summaries are implemented; core administration commands and explicit stored/runtime authority views are implemented; source/task/credential configuration is implemented; bundled plugin management is implemented; transactional metadata/probe/file-work controls and safe operational observations are implemented; independent tenant-bound UHDAdmin service credentials, account reconciliation and safe telemetry projection are implemented; bounded actual processing queue observations and provider worker/reconcile commands with original results are implemented; actual metadata proposed-scope previews and bounded historical technical snapshot observations are implemented; remaining further processing, dynamic extensions/further administration/integrations and legacy restriction enforcement remain incomplete. This contract is not a 0.9.0 completion claim. Malformed typed Path parameters use the stable SXAPI invalid_request JSON envelope; HEAD has no body. The outer native claims injector delegates only the exact /sxapi/v1 namespace to its own required client/admin/service or exact stream-ticket boundary. Cross-domain credentials return401 without a native authentication storage query; current SXAPI authentication storage failures return the private sanitized503 envelope with Retry-After1. Native Drive callback now shares registered-channel authority/durability; other native and ECAL credential acceptance is unchanged. Optional private Nimbus video composition is available through sealed host interfaces: it requires migration164 and an initialized private issuer, keeps original SXAPI profile/login/current-policy controls, and has no signed/provider fallback in remote mode. Private SXAPI subtitle capability defaults to false via supports_sxapi_subtitles; a complete composed issuer may advertise true only with the dedicated bounded whole-file UTF-8/original-format validation and backend path. The old subtitle byte routes remain503 in remote mode; dedicated issuance has no Redis/provider fallback. The real SDK/Node composition, complete text-validation lane and client acceptance remain separate unexecuted gates. Ordinary typed metadata persistence locks the actual READ COMMITTED parent, then rechecks persisted adult evidence and ALL historical adult_origin; domain/typed-owner conflicts roll back rather than returning an adult UUID or silently creating a fallback. NULL/type-less new-file and None inventory remain available; only an actual file-owned unidentified parent may complete its first real typed identity before a final ordinary check. Secondary adult TMDB IDs are retained by the confirmed unapplied171 draft, not granted ordinary access; global same-tuple collisions remain explicit conflicts. Existing adult/unrestricted reads and mixed-origin quarantine remain. Async admission is not completion; final-source PG15/16, migration and server acceptance remain required.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -2066,7 +2066,7 @@
       "get": {
         "operationId": "sxapi_catalog_list_versions_get",
         "summary": "Bounded actual version inventory",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Draft wire now Page{data,total,next_cursor}, replacing earlier unbounded Version[] before client freeze. quality_score DESC then UUID ASC, cursor<=1024 bound to parent and optional episode_id; episode_id must belong to exact parent. Includes actual bound record_available candidates, not successfully negotiated/playable upstream. Technical values only when mediainfo_complete AND probed_content_revision=current source content revision; stale/missing null and unknown. Positive current source file_size; bitrate_bps positive canonical bps or legacy stored bps with no unit conversion, duration_secs finite positive. Source_quality/release_group are stored catalog labels, not verified codec facts; current HDR follows technical revision. Text labels invalid/control/over128 bytes become null. No content downloads or wait for technical workers. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Draft wire now Page{data,total,next_cursor}, replacing earlier unbounded Version[] before client freeze. quality_score DESC then UUID ASC, cursor<=1024 bound to parent and optional episode_id; episode_id must belong to exact parent. Includes actual bound record_available candidates, not successfully negotiated/playable upstream. Technical values only when mediainfo_complete AND probed_content_revision=current source content revision; stale/missing null and unknown. Positive current source file_size; bitrate_bps positive canonical bps or legacy stored bps with no unit conversion, duration_secs finite positive. Source_quality/release_group are stored catalog labels, not verified codec facts; current HDR follows technical revision. Text labels invalid/control/over128 bytes become null. No content downloads or wait for technical workers. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. #210: local extras and trailers of the work are not versions and are listed by GET /media/{id}/extras. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -2272,7 +2272,7 @@
       "post": {
         "operationId": "sxapi_create_playback_session_post",
         "summary": "Prepare direct-file playback",
-        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Does not wait for MediaInfo. Unknown facts require explicit profile.allow_unverified=true; known mismatches remain rejected. At most 32 active prepared sessions per user. Returns a session and initial 120-second stream ticket; preparation does not reserve a transfer lease or charge bytes. The session carries the selected file_size, bitrate_bps and content_revision, so a player needs no separate version-list request to open the stream. Off mode also starts a bounded background read of the selected file's first and last bytes into server memory (startup prefetch, Nimbus startup_head_mb/startup_tail_mb, default8MiB each), so the first ranges a player requests do not wait for the upstream first byte; the response does not wait for it, and it changes no authorization, admission or byte charge. Without an explicit version_id, the actual global media preferred_version_id ranks first among the existing eligible file/source/episode candidates, then quality_score/UUID. Incompatible preferred candidates fall back under the same profile checks; preference never grants access or file readiness. The first successful SXAPI account-authentication SQL freezes the minimum original JWT, persistent LOGIN and managed-account expiry in internal evidence bound to that same user/login/auth generation/JWT expiry. Preparation rechecks current authority and takes only the shorter deadline; an in-flight database renewal cannot prolong this request or revive an expired captured boundary. On the same uncommitted parent transaction connection, final preparation rechecks original identity, live grants, exact media/episode, enabled Nimbus, policy/quota, selected source facts and profile; selected media/source rows are locked and the original finite deadline is checked with the database clock after advisory/source-row waits and insertion/binding/update acknowledgement. A shorter current LOGIN/managed expiry tightens persisted parent deadlines before private binding. Denial rolls back the new parent/binding. Later renewed authority may prepare a separate new session. Post-COMMIT response, private SDK issuance and final output remain separate gates. This does not change credential serialization, Native/ECAL authentication or the separately required private SDK/Node acceptance. Private Nimbus mode: absent/off preserves the existing transport. Explicit remote or invalid/missing private runtime never falls back to signed SXAPI/provider bytes and returns sanitized503. A remote parent binds the exact original JWT fingerprint, immutable generation/profile/device/source facts and finite original deadlines in migration164. All private Range requests share the public parent admission key and byte ledger; HEAD does not reserve a transfer or charge bytes. The SDK and server composition require separately paired validation before enablement. Related to native POST /user/playback exact-version private issuance, not watch progress: supply its exact version_id plus the discovered media_id and episode_id where applicable. SXAPI keeps its own201 session/profile/short admission DTO and four-hour parent ceiling; native200/version-only input/native realm/twelve-hour ceiling remain independent. Explicit profile.allow_unverified=true permits missing/stale/partial MediaInfo without a provider lookup, while known mismatches remain rejected. Actual issue_sxapi and final original identity/SxapiParent checks are implemented host-port paths; private SDK/Node/GET/HEAD/Range/restart/client acceptance remains a separate required gate. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
+        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Does not wait for MediaInfo. Unknown facts require explicit profile.allow_unverified=true; known mismatches remain rejected. At most 32 active prepared sessions per user. Returns a session and initial 120-second stream ticket; preparation does not reserve a transfer lease or charge bytes. The session carries the selected file_size, bitrate_bps and content_revision, so a player needs no separate version-list request to open the stream. Off mode also starts a bounded background read of the selected file's first and last bytes into server memory (startup prefetch, Nimbus startup_head_mb/startup_tail_mb, default8MiB each), so the first ranges a player requests do not wait for the upstream first byte; the response does not wait for it, and it changes no authorization, admission or byte charge. #210: without version_id the default version is never a local extra or trailer; with the version_id of one (GET /media/{id}/extras) the session plays it. Without an explicit version_id, the actual global media preferred_version_id ranks first among the existing eligible file/source/episode candidates, then quality_score/UUID. Incompatible preferred candidates fall back under the same profile checks; preference never grants access or file readiness. The first successful SXAPI account-authentication SQL freezes the minimum original JWT, persistent LOGIN and managed-account expiry in internal evidence bound to that same user/login/auth generation/JWT expiry. Preparation rechecks current authority and takes only the shorter deadline; an in-flight database renewal cannot prolong this request or revive an expired captured boundary. On the same uncommitted parent transaction connection, final preparation rechecks original identity, live grants, exact media/episode, enabled Nimbus, policy/quota, selected source facts and profile; selected media/source rows are locked and the original finite deadline is checked with the database clock after advisory/source-row waits and insertion/binding/update acknowledgement. A shorter current LOGIN/managed expiry tightens persisted parent deadlines before private binding. Denial rolls back the new parent/binding. Later renewed authority may prepare a separate new session. Post-COMMIT response, private SDK issuance and final output remain separate gates. This does not change credential serialization, Native/ECAL authentication or the separately required private SDK/Node acceptance. Private Nimbus mode: absent/off preserves the existing transport. Explicit remote or invalid/missing private runtime never falls back to signed SXAPI/provider bytes and returns sanitized503. A remote parent binds the exact original JWT fingerprint, immutable generation/profile/device/source facts and finite original deadlines in migration164. All private Range requests share the public parent admission key and byte ledger; HEAD does not reserve a transfer or charge bytes. The SDK and server composition require separately paired validation before enablement. Related to native POST /user/playback exact-version private issuance, not watch progress: supply its exact version_id plus the discovered media_id and episode_id where applicable. SXAPI keeps its own201 session/profile/short admission DTO and four-hour parent ceiling; native200/version-only input/native realm/twelve-hour ceiling remain independent. Explicit profile.allow_unverified=true permits missing/stale/partial MediaInfo without a provider lookup, while known mismatches remain rejected. Actual issue_sxapi and final original identity/SxapiParent checks are implemented host-port paths; private SDK/Node/GET/HEAD/Range/restart/client acceptance remains a separate required gate. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
         "tags": [
           "SXAPI v1"
         ],
@@ -3626,7 +3626,7 @@
       "put": {
         "operationId": "sxapi_put_progress_put",
         "summary": "Report exact session progress",
-        "description": "Only the original SXAPI login can report to its active, unexpired session. Rechecks current account/UHDAdmin, library/domain, exact media/episode/version/path/revision and source eligibility. Positive per-session sequence; same sequence plus identical position/completed returns the original ack; a changed or lower sequence returns 409 progress_conflict. Gaps and backwards seeks with a newer sequence are allowed. Different sessions serialize item writes; last committed report supplies resume. completed defaults false; true marks watched once per false-to-true transition and clears stored resume, while the ack retains the submitted position. Report final progress before DELETE. These client reports do not authorize bytes or prove playback. Writes do not require Nimbus enabled or a bandwidth quota; prepare and streams retain their playback gates. In explicit private mode the current original JWT fingerprint must match the immutable private parent binding. Ending a bound parent cannot be reversed to revive issued capabilities. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. With migration 193, server-assigned item ownership orders playback reports across sessions. Superseded or unbound legacy reports retain diagnostic audit without overwriting a newer session or an explicit manual played/position edit. Authorized backward seeks remain valid; client timestamps and the maximum position do not decide ownership. This does not relax current account, credential, resource, source, revocation or quota checks. Wire fields and authentication are unchanged.",
+        "description": "Only the original SXAPI login can report to its active, unexpired session. Rechecks current account/UHDAdmin, library/domain, exact media/episode/version/path/revision and source eligibility. Positive per-session sequence; same sequence plus identical position/completed returns the original ack; a changed or lower sequence returns 409 progress_conflict. Gaps and backwards seeks with a newer sequence are allowed. Different sessions serialize item writes; last committed report supplies resume. completed defaults false; true marks watched once per false-to-true transition and clears stored resume, while the ack retains the submitted position. Report final progress before DELETE. These client reports do not authorize bytes or prove playback. Writes do not require Nimbus enabled or a bandwidth quota; prepare and streams retain their playback gates. #210: for a session that plays a local extra or trailer the report is checked and acknowledged as usual, but the work's resume point and played state are not written. In explicit private mode the current original JWT fingerprint must match the immutable private parent binding. Ending a bound parent cannot be reversed to revive issued capabilities. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. With migration 193, server-assigned item ownership orders playback reports across sessions. Superseded or unbound legacy reports retain diagnostic audit without overwriting a newer session or an explicit manual played/position edit. Authorized backward seeks remain valid; client timestamps and the maximum position do not decide ownership. This does not relax current account, credential, resource, source, revocation or quota checks. Wire fields and authentication are unchanged.",
         "tags": [
           "SXAPI v1"
         ],
@@ -3961,7 +3961,7 @@
       "get": {
         "operationId": "sxapi_get_image_get",
         "summary": "Read artwork (original or scaled)",
-        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  #210: index reads an entry of the poster/backdrop gallery (GET /media/{id}/images); the ETag follows the entry's source URL. #210: poster?season=N reads the season's own TMDB poster (Season.has_poster); The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. No fallback to the series poster. Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -4178,6 +4178,16 @@
             "description": "Required only for still; prohibited for poster/backdrop/logo. Unknown query fields are rejected."
           },
           {
+            "name": "season",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "#210: season number; only with kind=poster and without episode_id (anything else is 400, as is a negative or non-integer value). Reads that season's own TMDB poster, with the same sizes, cache, ETag and authorization as the series poster. The season must be one GET /media/{id}/seasons lists (at least one current file-backed episode), otherwise 404; a season without its own poster is 404 (Season.has_poster false) and nothing substitutes the series poster."
+          },
+          {
             "name": "max_width",
             "in": "query",
             "required": false,
@@ -4240,13 +4250,24 @@
               "type": "string"
             },
             "description": "Exact/weak sxi1 source-and-size ETag or * yields 304 after authorization and before any download or decode."
+          },
+          {
+            "name": "index",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 50
+            },
+            "description": "#210: poster and backdrop only. Reads gallery entry N of GET /media/{id}/images (0..50); 0 is the same image as no index. An index past the end, or an entry the route cannot serve, is 404. Any other kind with index is 400, and so is index together with season (a season poster has no gallery). The size fields apply as usual."
           }
         ]
       },
       "head": {
         "operationId": "sxapi_get_image_head",
         "summary": "Read artwork (original or scaled)",
-        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  #210: index reads an entry of the poster/backdrop gallery (GET /media/{id}/images); the ETag follows the entry's source URL. #210: poster?season=N reads the season's own TMDB poster (Season.has_poster); The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. No fallback to the series poster. Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -4387,6 +4408,16 @@
             "description": "Required only for still; prohibited for poster/backdrop/logo. Unknown query fields are rejected."
           },
           {
+            "name": "season",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "description": "#210: season number; only with kind=poster and without episode_id (anything else is 400, as is a negative or non-integer value). Reads that season's own TMDB poster, with the same sizes, cache, ETag and authorization as the series poster. The season must be one GET /media/{id}/seasons lists (at least one current file-backed episode), otherwise 404; a season without its own poster is 404 (Season.has_poster false) and nothing substitutes the series poster."
+          },
+          {
             "name": "max_width",
             "in": "query",
             "required": false,
@@ -4449,6 +4480,17 @@
               "type": "string"
             },
             "description": "Exact/weak sxi1 source-and-size ETag or * yields 304 after authorization and before any download or decode."
+          },
+          {
+            "name": "index",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 50
+            },
+            "description": "#210: poster and backdrop only. Reads gallery entry N of GET /media/{id}/images (0..50); 0 is the same image as no index. An index past the end, or an entry the route cannot serve, is 404. Any other kind with index is 400, and so is index together with season (a season poster has no gallery). The size fields apply as usual."
           }
         ]
       },
@@ -11028,7 +11070,7 @@
       "get": {
         "operationId": "sxapi_list_tasks_get",
         "summary": "List tasks",
-        "description": "Current identity and exact read scope, successful minimal audit, 2MiB response cap, private/no-store. admin.tasks.read/write. All27 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (40 files / 240 s per run, 3 s apart, only while at most 2 streams play) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current identity and exact read scope, successful minimal audit, 2MiB response cap, private/no-store. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11158,7 +11200,7 @@
       "post": {
         "operationId": "sxapi_create_task_post",
         "summary": "create task",
-        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All27 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (40 files / 240 s per run, 3 s apart, only while at most 2 streams play) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11327,7 +11369,7 @@
       "get": {
         "operationId": "sxapi_get_task_get",
         "summary": "Read task",
-        "description": "Summary metadata plus opaque current revision. Current identity/read grant and minimal audit; 2MiB cap/private/no-store. admin.tasks.read/write. All27 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (40 files / 240 s per run, 3 s apart, only while at most 2 streams play) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Summary metadata plus opaque current revision. Current identity/read grant and minimal audit; 2MiB cap/private/no-store. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11455,7 +11497,7 @@
       "put": {
         "operationId": "sxapi_replace_task_put",
         "summary": "replace task",
-        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All27 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (40 files / 240 s per run, 3 s apart, only while at most 2 streams play) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11605,7 +11647,7 @@
       "delete": {
         "operationId": "sxapi_delete_task_delete",
         "summary": "delete task",
-        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All27 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (40 files / 240 s per run, 3 s apart, only while at most 2 streams play) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -18660,7 +18702,7 @@
       "get": {
         "operationId": "sxapi_catalog_get_version_get",
         "summary": "Exact version and technical track facts",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Exact parent/version binding; wrong parent/hidden domain404. Exact parent, version facts and tracks from one snapshot; canonical BIGINT track bitrate takes precedence over legacy INTEGER, both bps; stale technical revision yields tracks=null rather than invented empty. Current internal media_streams only, sorted stream index/UUID; external sidecars use separate subtitle inventory, excluded here. Up to128 tracks, overflow/negative index409 technical_track_limit. Positive numeric facts only, finite frame rate; codecs/language/layout bounded and invalid values null. Empty array means actual current inventory is empty. Unknown stream kind=other. No assumption that six-channel AAC, a stored current fact or record_available guarantees a client supports the file. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Exact parent/version binding; wrong parent/hidden domain404. Exact parent, version facts and tracks from one snapshot; canonical BIGINT track bitrate takes precedence over legacy INTEGER, both bps; stale technical revision yields tracks=null rather than invented empty. Current internal media_streams only, sorted stream index/UUID; external sidecars use separate subtitle inventory, excluded here. Up to128 tracks, overflow/negative index409 technical_track_limit. Positive numeric facts only, finite frame rate; codecs/language/layout bounded and invalid values null. Empty array means actual current inventory is empty. Unknown stream kind=other. No assumption that six-channel AAC, a stored current fact or record_available guarantees a client supports the file. #210: chapters and markers come from the chapter scan of the current file content (one primary-key read in the same snapshot); chapters is null until the background chapter_backfill task has read the file, markers members are null without a qualifying chapter title. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -54063,6 +54105,891 @@
         }
       ]
     },
+    "/episodes/{id}": {
+      "get": {
+        "operationId": "sxapi_catalog_get_episode_get",
+        "summary": "One file-backed episode by ID",
+        "description": "#210: the episode with this ID, the same Episode object GET /media/{id}/children lists (title, overview, air date, season and episode numbers, runtime_minutes, duration_ms, still, the account's user_state), for clients that hold only an episode_id (favorites, history, Version.episode_id). The ECAL /Items/{episode id} counterpart. The parent series must be visible to the account (library membership, adult/domain isolation, file inventory) and the episode must have a current file; unknown, hidden, metadata-only and malformed IDs are the same 404. media_id names the series for GET /media/{id}, its seasons and credits. Rechecks the account and grants after the read (409 authorization_changed). Static /episodes/upcoming and /episodes/missing are separate routes. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/catalog.rs",
+          "handler": "get_episode"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Episode"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": " Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/persons/{id}": {
+      "get": {
+        "operationId": "sxapi_get_person_get",
+        "summary": "Read a person's details",
+        "description": "#210: the person page as Emby mode shows it: name, department, profile image, external IDs, biography, birthday, death date and place of birth. The values are TMDB /person details stored by the backfill_person_details task (migration 275); ECAL GET /Users/{user_id}/Items/{person} reads the same columns (Overview, PremiereDate, EndDate, ProductionLocations). A person is visible when at least one work crediting them (cast or crew), through the exact typed link of GET /persons/{id}/media, is currently visible to the caller with a current file; a person who is not visible, an unknown UUID and a media UUID all return 404. Current stx_sx_ account, original login, account generation, disabled flag and UHD lifecycle and the current ordinary/adult library grants, rechecked after the read (changed 409 authorization_changed). Works crediting the person: GET /persons/{id}/media. Unknown query fields are ignored. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/persons.rs",
+          "handler": "get_person"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonDetail"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/media/{id}/images": {
+      "get": {
+        "operationId": "sxapi_list_gallery_get",
+        "summary": "List a work's backdrops and posters",
+        "description": "#210: the backdrop and poster gallery, the ECAL BackdropImageTags counterpart. Index 0 is the work's own image (the one GET /media/{id}/images/{kind} reads without index); then the TMDB images stored by the backfill_media_extras task (migration 277): backdrops textless first, posters Chinese first, each then by TMDB vote and width, at most 20 per kind, the own image not repeated. A work without its own image has an empty list for that kind, so has_backdrop and has_poster still mean at least one entry. An entry whose stored reference the image read cannot serve is left out, so indexes can have gaps; read each entry by its url. The work must be visible to the account (library membership, adult/domain isolation, file inventory); unknown, hidden and episode IDs are 404. Current stx_sx_ account, original login, account generation, disabled flag and UHD lifecycle and the current ordinary/adult library grants, rechecked after the read (changed 409 authorization_changed). Any query field is 400. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/artwork/gallery.rs",
+          "handler": "list_gallery"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaGallery"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/media/{id}/videos": {
+      "get": {
+        "operationId": "sxapi_list_videos_get",
+        "summary": "List a work's trailers and other videos",
+        "description": "#210: remote videos as Emby mode shows them (ECAL RemoteTrailers lists the trailer and teaser entries of the same rows). TMDB videos stored by backfill_media_extras: YouTube and Vimeo only, at most 30, trailers and teasers first, then clips, featurettes, behind the scenes, bloopers and opening credits; within a type official first, Chinese, English, Japanese, Korean, then the rest, newest first. Each entry links to the site; nothing is downloaded or proxied. The work must be visible to the account (library membership, adult/domain isolation, file inventory); unknown, hidden and episode IDs are 404. Current stx_sx_ account, original login, account generation, disabled flag and UHD lifecycle and the current ordinary/adult library grants, rechecked after the read (changed 409 authorization_changed). Any query field is 400. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/persons.rs",
+          "handler": "list_videos"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaVideoList"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/media/{id}/extras": {
+      "get": {
+        "operationId": "sxapi_catalog_list_extras_get",
+        "summary": "Local extras and trailers of a work",
+        "description": "#210: local extras and trailers of the work, files placed or named the Emby way: the folder directly above the file is Trailers, Extras, Featurettes, Behind The Scenes, Deleted Scenes, Interviews, 花絮, 特典 or 映像特典, or the file name ends in -trailer, -featurette, -behindthescenes, -deleted, -deletedscene, -interview, -scene, -short, -clip, -extra (trailer also after . or _). Generic category folders (Other, Shorts, Scenes, Clips, Bonus) are not extras folders. The database classifies every file when it is mapped, renamed or moved. Such files are not versions of the work: GET /media/{id}/versions, the default version of POST /playback/sessions and the Media quality facts (quality, dynamic ranges, Atmos, languages and their filters) leave them out. Samples (a Sample(s) folder or a sample suffix) are hidden everywhere. Each extra is played like a version: POST /playback/sessions with media_id and its version.id; GET /media/{id}/versions/{version_id} returns its tracks and chapters with extra set. Progress reported for that session is acknowledged but not written to the work (no resume point, no played state). Series extras (next to the episode folders, episode_id null) are listed too; extras inside a season folder that were mapped to an episode are not. Trailers first, then featurette, behind_the_scenes, deleted_scene, interview, scene, short, clip, extra, then by file name; at most 100, one page (next_cursor always null). Same visibility as GET /media/{id}/versions (library membership, adult/domain isolation, file inventory; unknown or hidden work 404); no query parameters (any is 400). Rechecks the account and grants after the read (409 authorization_changed). Empty data when the work has none. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/catalog.rs",
+          "handler": "list_extras"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaExtraPage"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
     "/admin/media/{id}/metadata": {
       "get": {
         "operationId": "sxapi_get_media_edit_get",
@@ -65247,6 +66174,15 @@
               "media_lookup_by_external_id",
               "media_updated_since",
               "media_ids",
+              "episode_by_id",
+              "media_detail_facts",
+              "person_details",
+              "media_image_gallery",
+              "media_videos",
+              "season_posters",
+              "episode_ratings",
+              "version_chapters",
+              "media_extras",
               "administration_media_metadata",
               "administration_library_manual",
               "administration_playback_probe_policy",
@@ -65548,6 +66484,51 @@
                 "type": "boolean",
                 "const": true,
                 "description": "GET /media/ids (#198): ID and updated_at of the works GET /media lists, for removal detection in incremental sync."
+              },
+              "episode_by_id": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /episodes/{id} and the Episode runtime_minutes, duration_ms and still fields (#210)."
+              },
+              "media_detail_facts": {
+                "type": "boolean",
+                "const": true,
+                "description": "Media tagline, tmdb_status, status, premiere_date, studios, collection and has_backdrop (#210)."
+              },
+              "person_details": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /persons/{id} with biography, birthday, death date and place of birth (#210)."
+              },
+              "media_image_gallery": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media/{id}/images and the index field of GET /media/{id}/images/{kind} (#210)."
+              },
+              "media_videos": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media/{id}/videos, remote trailers and other videos (#210)."
+              },
+              "season_posters": {
+                "type": "boolean",
+                "const": true,
+                "description": "Season.has_poster and GET /media/{id}/images/poster?season= (#210)."
+              },
+              "episode_ratings": {
+                "type": "boolean",
+                "const": true,
+                "description": "Episode.rating, the episode's TMDB vote average (#210)."
+              },
+              "version_chapters": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media/{id}/versions/{version_id} returns chapters and the chapter-title skip markers (intro, recap, credits, preview) of the current file (#210)."
+              },
+              "media_extras": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media/{id}/extras lists the local extras and trailers of a work, and version lists, the default playback version and quality facts leave them out (#210)."
               },
               "administration_media_metadata": {
                 "type": "boolean",
@@ -66018,7 +66999,14 @@
           "has_logo",
           "user_state",
           "has_poster",
-          "tags"
+          "tags",
+          "tagline",
+          "tmdb_status",
+          "status",
+          "premiere_date",
+          "studios",
+          "collection",
+          "has_backdrop"
         ],
         "properties": {
           "id": {
@@ -66252,6 +67240,132 @@
               "$ref": "#/components/schemas/MediaTag"
             },
             "description": "Explicit work-level tags, the same inventory as ECAL Tags/TagItems and GET/PUT /admin/media/{id}/tags, ordered by lower-cased name then id; [] without tags. Episode tags are not listed here."
+          },
+          "tagline": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "description": "#210: ordinary movie/TV only. The work's own stored tagline, else the local TMDB discovery row's (same TMDB ID and type); a value counts when, trimmed, it is non-empty, at most 2000 bytes and has no control characters. ECAL item detail (Emby mode) reads the same value by the same rule (src/media/work_detail.rs), so both protocols show the same text. ECAL shows it as Taglines[0]. null otherwise."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tmdb_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "description": "#210: series only. The raw TMDB status (Returning Series, In Production, Planned, Pilot, Ended, Canceled): the work's own stored status, which the ongoing-series refresh keeps current, else the discovery row's, under the tagline validity rule with 64 bytes. null for movies, PMMS works and unknown status."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "continuing",
+                  "ended"
+                ],
+                "description": "#210: series only, from tmdb_status: ended for Ended and Canceled, continuing for every other status. This is the ECAL Status mapping (Continuing/Ended). null when tmdb_status is null; ECAL then still reports Continuing because Emby clients expect a value, so show nothing (or the Emby default) for null."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "premiere_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "description": "#210: ordinary movie/TV only. The local TMDB discovery release date (movie) or first air date (series) when it is a real YYYY-MM-DD calendar date; the premiere_date_asc/desc sorts order by the same discovery date. ECAL PremiereDate shows the same date (and falls back to January 1 of year, which SXAPI does not invent). null otherwise."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "studios": {
+            "anyOf": [
+              {
+                "type": "array",
+                "maxItems": 128,
+                "description": "#210: ordinary movie/TV only. The work's TMDB production companies in stored order, the entries GET /media?studio_id= and GET /media/facets/studios match (ECAL Studios). An entry is kept when its ID is a positive 32-bit integer; name is null when missing, blank, over 1024 bytes or with control characters (ECAL leaves such entries out). null when the stored value is not an array or holds more than 128 entries.",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 2147483647
+                    },
+                    "name": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "maxLength": 1024
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "collection": {
+            "anyOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 2000
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "description": "#210: ordinary movie/TV only. The TMDB collection the work belongs to (ECAL CollectionId/CollectionName), when it has one: id is the GET /collections/{id}/members and GET /media?collection_id= identity; name is null when blank, over 2000 bytes or with control characters. null otherwise."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_backdrop": {
+            "type": "boolean",
+            "description": "#210: true exactly when the work has at least one backdrop: GET /media/{id}/images/backdrop (gallery index 0) has a stored backdrop to read (the TMDB backdrop path, else the PMMS backdrop) that passes the image route's URL check, in every domain; the ECAL BackdropImageTags counterpart. More backdrops, when stored, are listed by GET /media/{id}/images and are never counted without index 0. Says nothing about upstream reachability; the image read can still be 502/503."
           }
         }
       },
@@ -66265,7 +67379,11 @@
           "title",
           "overview",
           "air_date",
-          "user_state"
+          "user_state",
+          "runtime_minutes",
+          "duration_ms",
+          "still",
+          "rating"
         ],
         "properties": {
           "id": {
@@ -66315,6 +67433,57 @@
           },
           "user_state": {
             "$ref": "#/components/schemas/EpisodeUserState"
+          },
+          "runtime_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "description": "#210: TMDB descriptive runtime of this episode in minutes (stored episode metadata); never the measured file duration. null when unknown."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1,
+                "description": "#210: longest current file duration of this episode in milliseconds, the value ECAL shows as RunTimeTicks and the resume/next-up duration_ms: the same current versions as GET /media/{id}/versions?episode_id=, rounded; null until a file duration is known."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "still": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^/sxapi/v1/media/[^/]+/images/still\\?episode_id=[^&]+$",
+                "description": "#210: GET path of the episode still when one is stored (the SearchEpisode.still rule and the ECAL episode Primary image), otherwise null. The image read can still 404/502."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rating": {
+            "anyOf": [
+              {
+                "type": "number",
+                "format": "double",
+                "exclusiveMinimum": 0,
+                "maximum": 10,
+                "description": "#210: the episode's own TMDB vote average (0-10, up to three decimals, the scale of Media.rating), matched by season and episode number within the stored season read. The server stores what the last TMDB /tv/{id}/season/{n} read returned for the season: the backfill_season_details task reads every season of a TMDB-bound series (new ones within about 10 minutes once the task is enabled, every season again after 30 days) and the episode-detail and ongoing-series refreshes store the seasons they read anyway. A stored read only counts while it belongs to the work's current TMDB binding: a series bound to another TMDB ID shows nothing until its seasons are read again. null while TMDB has no votes for the episode or the season was not read yet. ECAL shows the same value as the episode CommunityRating."
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -70210,7 +71379,11 @@
               "backfill_episode_details",
               "refresh_ongoing_shows",
               "backfill_tvdb_ids",
-              "dolby_vision_backfill"
+              "dolby_vision_backfill",
+              "backfill_person_details",
+              "backfill_media_extras",
+              "backfill_season_details",
+              "chapter_backfill"
             ]
           },
           "parameters": {
@@ -70316,7 +71489,11 @@
                     "backfill_episode_details",
                     "refresh_ongoing_shows",
                     "backfill_tvdb_ids",
-                    "dolby_vision_backfill"
+                    "dolby_vision_backfill",
+                    "backfill_person_details",
+                    "backfill_media_extras",
+                    "backfill_season_details",
+                    "chapter_backfill"
                   ]
                 },
                 "requires_source_id": {
@@ -73564,7 +74741,8 @@
           "media_id",
           "season_number",
           "episode_count",
-          "first_air_date"
+          "first_air_date",
+          "has_poster"
         ],
         "properties": {
           "media_id": {
@@ -73590,6 +74768,10 @@
                 "type": "null"
               }
             ]
+          },
+          "has_poster": {
+            "type": "boolean",
+            "description": "#210: true exactly when GET /media/{id}/images/poster?season={season_number} is not a 404 for lack of a season poster. The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. The server stores what the last TMDB /tv/{id}/season/{n} read returned for the season: the backfill_season_details task reads every season of a TMDB-bound series (new ones within about 10 minutes once the task is enabled, every season again after 30 days) and the episode-detail and ongoing-series refreshes store the seasons they read anyway. A stored read only counts while it belongs to the work's current TMDB binding: a series bound to another TMDB ID shows nothing until its seasons are read again. false means the season has no poster of its own; clients show the series poster (GET /media/{id}/images/poster) as ECAL does. It describes the stored reference, not upstream reachability: the read can still be 502/503."
           }
         }
       },
@@ -73786,7 +74968,10 @@
         "additionalProperties": false,
         "required": [
           "version",
-          "tracks"
+          "tracks",
+          "chapters",
+          "markers",
+          "extra"
         ],
         "properties": {
           "version": {
@@ -73800,6 +74985,29 @@
                 "items": {
                   "$ref": "#/components/schemas/TechnicalTrack"
                 }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chapters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VersionChapters"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "markers": {
+            "$ref": "#/components/schemas/SkipMarkers"
+          },
+          "extra": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VersionExtra"
               },
               {
                 "type": "null"
@@ -89599,6 +90807,741 @@
                 "type": "null"
               }
             ]
+          }
+        }
+      },
+      "PersonDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "known_for_department",
+          "image",
+          "external_ids",
+          "biography",
+          "biography_language",
+          "birthday",
+          "deathday",
+          "place_of_birth",
+          "details_state",
+          "details_fetched_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "description": "Stored name; null when blank, over 2000 bytes or with control characters."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "known_for_department": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "image": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^/sxapi/v1/persons/[^/]+/images/profile$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "external_ids": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "tmdb": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "imdb": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^nm[0-9]{1,20}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "tmdb",
+              "imdb"
+            ]
+          },
+          "biography": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 65536,
+                "description": "TMDB biography, trimmed. Chinese first (zh-CN, zh-SG, zh-HK, zh-TW translations), else the English biography, else Japanese. null when TMDB has none, when details are not read yet or when it is over 64 KiB. ECAL Person Overview shows the same text."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "biography_language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z]{2}-[A-Z]{2}$",
+                "description": "Language of biography, such as zh-CN or en-US; null with biography."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "birthday": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "description": "TMDB birthday (ECAL PremiereDate); null when unknown."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "deathday": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date",
+                "description": "TMDB death date (ECAL EndDate); null when unknown or living."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "place_of_birth": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000,
+                "description": "TMDB place of birth, trimmed (ECAL ProductionLocations[0]); null when unknown, over 1000 bytes or with control characters."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "details_state": {
+            "type": "string",
+            "enum": [
+              "fetched",
+              "pending",
+              "failed"
+            ],
+            "description": "fetched: TMDB was read (also when TMDB no longer has the person; the fields are then null). pending: not read yet; reading this person moves them to the front of the backfill_person_details task, so the details normally appear after the next run (scheduled every 10 minutes when the task is enabled). failed: six reads failed and the task no longer tries."
+          },
+          "details_fetched_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "description": "When TMDB was read; null unless details_state is fetched."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "GalleryImage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "url",
+          "width",
+          "height",
+          "language"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50,
+            "description": "Position in the gallery. 0 is the work's own image, the one the image read returns without index. Indexes can have gaps where an entry is left out (see the list description)."
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^/sxapi/v1/media/[^/]+/images/(backdrop|poster)\\?index=[0-9]+$",
+            "description": "GET path of this image: GET /media/{id}/images/{kind}?index=N, which accepts the size fields too."
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 1,
+                "description": "TMDB pixel width; null when unknown (index 0 not stored from TMDB)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 1,
+                "description": "TMDB pixel height; null when unknown."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z]{2}$",
+                "description": "ISO 639-1 language of text in the image; null for a textless image or unknown."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "MediaGallery": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "media_id",
+          "backdrops",
+          "posters",
+          "checked_at"
+        ],
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "backdrops": {
+            "type": "array",
+            "maxItems": 51,
+            "items": {
+              "$ref": "#/components/schemas/GalleryImage"
+            }
+          },
+          "posters": {
+            "type": "array",
+            "maxItems": 51,
+            "items": {
+              "$ref": "#/components/schemas/GalleryImage"
+            }
+          },
+          "checked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "description": "When TMDB was last asked for this work's images and videos (backfill_media_extras); null when not yet, the lists then hold at most the own images."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "MediaVideo": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "type",
+          "name",
+          "site",
+          "key",
+          "url",
+          "language",
+          "region",
+          "official",
+          "size",
+          "published_at"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 29,
+            "description": "Stored position; the list is in this order."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "trailer",
+              "teaser",
+              "clip",
+              "featurette",
+              "behind_the_scenes",
+              "bloopers",
+              "opening_credits"
+            ]
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "site": {
+            "type": "string",
+            "enum": [
+              "youtube",
+              "vimeo"
+            ]
+          },
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "description": "The site's video ID."
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://(www\\.youtube\\.com/watch\\?v=|vimeo\\.com/)",
+            "description": "Remote page of the video (https://www.youtube.com/watch?v=KEY or https://vimeo.com/KEY). The server never downloads or proxies it."
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z]{2}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "official": {
+            "type": "boolean"
+          },
+          "size": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 1,
+                "description": "Video height TMDB reports, such as 1080."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "MediaVideoList": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "media_id",
+          "data",
+          "checked_at"
+        ],
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "$ref": "#/components/schemas/MediaVideo"
+            }
+          },
+          "checked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "description": "When TMDB was last asked (null: not yet)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "VersionChapter": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "start_ms",
+          "end_ms",
+          "title",
+          "marker"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "Position in items, from 0."
+          },
+          "start_ms": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 172800000,
+            "description": "Start from the beginning of the file, in milliseconds."
+          },
+          "end_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1,
+                "description": "The container end time, else the next chapter start; null for the last chapter when the container does not say."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "description": "First display title of the chapter (control characters removed); null when the container has none."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "marker": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "intro",
+                  "recap",
+                  "credits",
+                  "preview"
+                ],
+                "description": "What the title names, before the position rules of markers; null for ordinary chapters."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "One chapter of the current file content (#210)."
+      },
+      "VersionChapters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "state",
+          "reason",
+          "observed_at",
+          "items"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "found",
+              "none",
+              "unsupported",
+              "inconclusive"
+            ]
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "description": "Stable reason of unsupported / inconclusive, null otherwise."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the file was read."
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 256,
+            "items": {
+              "$ref": "#/components/schemas/VersionChapter"
+            },
+            "description": "Chapters by start, at most 256; empty unless state is found."
+          }
+        },
+        "description": "#210: chapters of the current file content, read by the chapter_backfill task from the container metadata only (Matroska Chapters element of the default or first visible edition; MP4 Nero chpl in moov/udta; never media data). null when the current file content was never scanned (the task works through the library in the background, recently played works first; a replaced file is null again until it is read). state found lists at least one chapter; none: the container has none; unsupported: chapters in a form Streamix does not read (reason matroska_ordered_edition, matroska_linked_chapter, mp4_chapter_track) or a container it does not read (container_unsupported, e.g. MPEG-TS, AVI); inconclusive: the bounded read could not decide (e.g. mp4_moov_too_large, matroska_walk_budget). Hidden or disabled chapters are left out."
+      },
+      "SkipMarker": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "start_ms",
+          "end_ms",
+          "source"
+        ],
+        "properties": {
+          "start_ms": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "end_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "chapter_title"
+            ]
+          }
+        },
+        "description": "One skip range (#210)."
+      },
+      "SkipMarkers": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "intro",
+          "recap",
+          "credits",
+          "preview"
+        ],
+        "properties": {
+          "intro": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SkipMarker"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recap": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SkipMarker"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SkipMarker"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "preview": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SkipMarker"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "#210: skip ranges derived from the chapter titles of the current scan, the same rule the ECAL item Chapters IntroStart/IntroEnd/CreditsStart entries use. intro: the first chapter in the first half named like Opening, OP, OP1, Intro, Main Title, 片头, オープニング (at most 6 minutes); recap: Recap, Previously on, 前情提要 in the first half; credits: the first chapter in the second half named like Ending, ED, Credits, End Titles, 片尾, エンディング (at most 15 minutes; end_ms null when it is the last chapter of unknown length); preview: Preview, Next Episode, 次回予告, 下集预告 in the second half. Halves use the measured duration, else the last chapter end. Every member is null when no chapter qualifies, including files whose chapters are only numbered (Chapter 01). source is always chapter_title in this release: there is no audio fingerprinting and no manual marker editing yet. Show a skip button for intro / recap while the position is inside [start_ms, end_ms); credits start_ms is where \"next episode\" prompts can appear."
+      },
+      "VersionExtra": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "title"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "trailer",
+              "featurette",
+              "behind_the_scenes",
+              "deleted_scene",
+              "interview",
+              "scene",
+              "short",
+              "clip",
+              "extra"
+            ],
+            "description": "Emby extra type: trailer (Trailers folder, -trailer), featurette, behind_the_scenes, deleted_scene, interview, scene, short, clip, extra (Extras / 花絮 / 特典 folder, -extra)."
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "description": "File name without extension and Emby suffix (dots and underscores as spaces when the name has none); null when nothing is left, e.g. trailer.mkv. Show a label for kind instead."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "#210: set when this version is a local extra or trailer of the work."
+      },
+      "MediaExtra": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "title",
+          "version"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "trailer",
+              "featurette",
+              "behind_the_scenes",
+              "deleted_scene",
+              "interview",
+              "scene",
+              "short",
+              "clip",
+              "extra"
+            ],
+            "description": "Emby extra type: trailer (Trailers folder, -trailer), featurette, behind_the_scenes, deleted_scene, interview, scene, short, clip, extra (Extras / 花絮 / 特典 folder, -extra)."
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "description": "File name without extension and Emby suffix (dots and underscores as spaces when the name has none); null when nothing is left, e.g. trailer.mkv. Show a label for kind instead."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          }
+        },
+        "description": "One local extra or trailer of a work (#210). version is the same object GET /media/{id}/versions returns; play it with POST /playback/sessions and version.id."
+      },
+      "MediaExtraPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "total",
+          "next_cursor"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "$ref": "#/components/schemas/MediaExtra"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "next_cursor": {
+            "type": "null",
+            "description": "Always null: one page holds every listed extra."
           }
         }
       },

@@ -258,6 +258,21 @@
       "operation_id": "sxapi_get_playback_session_get"
     },
     {
+      "method": "GET",
+      "path": "/playback/sessions/{id}/disc",
+      "operation_id": "sxapi_disc_listing_get"
+    },
+    {
+      "method": "GET",
+      "path": "/playback/sessions/{id}/disc/files/{file_id}",
+      "operation_id": "sxapi_disc_file_get"
+    },
+    {
+      "method": "HEAD",
+      "path": "/playback/sessions/{id}/disc/files/{file_id}",
+      "operation_id": "sxapi_disc_file_head"
+    },
+    {
       "method": "POST",
       "path": "/playback/sessions/{id}/end",
       "operation_id": "sxapi_delete_playback_session_end_post"
@@ -577,11 +592,11 @@
     "Library": "ac606588e1b7b78faee259be1107ec8f9978fc7ce520c329dd5eedc125f706e8",
     "Media": "8136a5a76b87db9b1564113381ba00762e02c12238c23d045e9aec94486a1671",
     "MediaPage": "864e9ff6fb97e26bac17a7233d89fcae00f57d185e1dee996e2066ad26d957ab",
-    "Version": "351be4c979786401e765eeb3f145063d7612fa5aa7ec38c7215b5b103287ff67",
+    "Version": "ad22325897e350dfdf20667711306f9a0f0c78476c9abdfa12061531be6db648",
     "VersionPage": "ed0508a7cdbd5d19ba40c5880ac464fe4dfada1497737fe199a424aa07bfeda7",
     "PlaybackProfile": "86c22fb6c1e53fe747498ccc7027b5476277de24f3d996d212ea458292212d26",
     "PlaybackRequest": "bfff1298b24839873db907ab734b6f512d786eee15b0152438a25e12b7fd9a45",
-    "PlaybackSession": "1646cfec4547585c935a4b10874ab12442127b71780fc14359db688a5e91b985",
+    "PlaybackSession": "ae79f51249b5329cdbadff875832c4973d484ae4964c2f8c490224acf81522ab",
     "PreparedPlayback": "5bfb2493f10f8046471f3fdcfa9f4684407ea312e63ed12f086e857f2e8d6d60",
     "StreamTicket": "f720abe71b7fbdf7de6d641c1860d839c346e0cf44daddaf100c7f16856f0a47",
     "PlaybackProgress": "7c8a0021c33f9ef98c68636e918376b8eca06df444cf7612eceb74b306b4a0fc",

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1",
-    "version": "0.9.0-rc.15",
+    "version": "0.9.0-rc.16",
     "description": "Independent Streamix client protocol with login, current identity, typed file-backed filters/ordering, seasons and bounded revision-current technical inventory, minimal direct-file playback, user flags, session-bound progress private client-reported history bounded original artwork and exact external UTF-8 subtitle delivery. Playback preparation/bytes require initialized and enabled Nimbus; subtitle delivery also requires initialized enabled Nimbus; independent scoped administration sessions and users/roles/policies/libraries summaries are implemented; core administration commands and explicit stored/runtime authority views are implemented; source/task/credential configuration is implemented; bundled plugin management is implemented; transactional metadata/probe/file-work controls and safe operational observations are implemented; independent tenant-bound UHDAdmin service credentials, account reconciliation and safe telemetry projection are implemented; bounded actual processing queue observations and provider worker/reconcile commands with original results are implemented; actual metadata proposed-scope previews and bounded historical technical snapshot observations are implemented; remaining further processing, dynamic extensions/further administration/integrations and legacy restriction enforcement remain incomplete. This contract is not a 0.9.0 completion claim. Malformed typed Path parameters use the stable SXAPI invalid_request JSON envelope; HEAD has no body. The outer native claims injector delegates only the exact /sxapi/v1 namespace to its own required client/admin/service or exact stream-ticket boundary. Cross-domain credentials return401 without a native authentication storage query; current SXAPI authentication storage failures return the private sanitized503 envelope with Retry-After1. Native Drive callback now shares registered-channel authority/durability; other native and ECAL credential acceptance is unchanged. Optional private Nimbus video composition is available through sealed host interfaces: it requires migration164 and an initialized private issuer, keeps original SXAPI profile/login/current-policy controls, and has no signed/provider fallback in remote mode. Private SXAPI subtitle capability defaults to false via supports_sxapi_subtitles; a complete composed issuer may advertise true only with the dedicated bounded whole-file UTF-8/original-format validation and backend path. The old subtitle byte routes remain503 in remote mode; dedicated issuance has no Redis/provider fallback. The real SDK/Node composition, complete text-validation lane and client acceptance remain separate unexecuted gates. Ordinary typed metadata persistence locks the actual READ COMMITTED parent, then rechecks persisted adult evidence and ALL historical adult_origin; domain/typed-owner conflicts roll back rather than returning an adult UUID or silently creating a fallback. NULL/type-less new-file and None inventory remain available; only an actual file-owned unidentified parent may complete its first real typed identity before a final ordinary check. Secondary adult TMDB IDs are retained by the confirmed unapplied171 draft, not granted ordinary access; global same-tuple collisions remain explicit conflicts. Existing adult/unrestricted reads and mixed-origin quarantine remain. Async admission is not completion; final-source PG15/16, migration and server acceptance remain required.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -2066,7 +2066,7 @@
       "get": {
         "operationId": "sxapi_catalog_list_versions_get",
         "summary": "Bounded actual version inventory",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Draft wire now Page{data,total,next_cursor}, replacing earlier unbounded Version[] before client freeze. quality_score DESC then UUID ASC, cursor<=1024 bound to parent and optional episode_id; episode_id must belong to exact parent. Includes actual bound record_available candidates, not successfully negotiated/playable upstream. Technical values only when mediainfo_complete AND probed_content_revision=current source content revision; stale/missing null and unknown. Positive current source file_size; bitrate_bps positive canonical bps or legacy stored bps with no unit conversion, duration_secs finite positive. Source_quality/release_group are stored catalog labels, not verified codec facts; current HDR follows technical revision. Text labels invalid/control/over128 bytes become null. No content downloads or wait for technical workers. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. #210: local extras and trailers of the work are not versions and are listed by GET /media/{id}/extras. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Draft wire now Page{data,total,next_cursor}, replacing earlier unbounded Version[] before client freeze. quality_score DESC then UUID ASC, cursor<=1024 bound to parent and optional episode_id; episode_id must belong to exact parent. Includes actual bound record_available candidates, not successfully negotiated/playable upstream. Technical values only when mediainfo_complete AND probed_content_revision=current source content revision; stale/missing null and unknown. Positive current source file_size; bitrate_bps positive canonical bps or legacy stored bps with no unit conversion, duration_secs finite positive. Source_quality/release_group are stored catalog labels, not verified codec facts; current HDR follows technical revision. Text labels invalid/control/over128 bytes become null. No content downloads or wait for technical workers. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. #210: local extras and trailers of the work are not versions and are listed by GET /media/{id}/extras. streamix#1950: disc versions are listed with disc set (layout folder / image); a folder disc has file_size null. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -2272,7 +2272,7 @@
       "post": {
         "operationId": "sxapi_create_playback_session_post",
         "summary": "Prepare direct-file playback",
-        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Does not wait for MediaInfo. Unknown facts require explicit profile.allow_unverified=true; known mismatches remain rejected. At most 32 active prepared sessions per user. Returns a session and initial 120-second stream ticket; preparation does not reserve a transfer lease or charge bytes. The session carries the selected file_size, bitrate_bps and content_revision, so a player needs no separate version-list request to open the stream. Off mode also starts a bounded background read of the selected file's first and last bytes into server memory (startup prefetch, Nimbus startup_head_mb/startup_tail_mb, default8MiB each), so the first ranges a player requests do not wait for the upstream first byte; the response does not wait for it, and it changes no authorization, admission or byte charge. #210: without version_id the default version is never a local extra or trailer; with the version_id of one (GET /media/{id}/extras) the session plays it. Without an explicit version_id, the actual global media preferred_version_id ranks first among the existing eligible file/source/episode candidates, then quality_score/UUID. Incompatible preferred candidates fall back under the same profile checks; preference never grants access or file readiness. The first successful SXAPI account-authentication SQL freezes the minimum original JWT, persistent LOGIN and managed-account expiry in internal evidence bound to that same user/login/auth generation/JWT expiry. Preparation rechecks current authority and takes only the shorter deadline; an in-flight database renewal cannot prolong this request or revive an expired captured boundary. On the same uncommitted parent transaction connection, final preparation rechecks original identity, live grants, exact media/episode, enabled Nimbus, policy/quota, selected source facts and profile; selected media/source rows are locked and the original finite deadline is checked with the database clock after advisory/source-row waits and insertion/binding/update acknowledgement. A shorter current LOGIN/managed expiry tightens persisted parent deadlines before private binding. Denial rolls back the new parent/binding. Later renewed authority may prepare a separate new session. Post-COMMIT response, private SDK issuance and final output remain separate gates. This does not change credential serialization, Native/ECAL authentication or the separately required private SDK/Node acceptance. Private Nimbus mode: absent/off preserves the existing transport. Explicit remote or invalid/missing private runtime never falls back to signed SXAPI/provider bytes and returns sanitized503. A remote parent binds the exact original JWT fingerprint, immutable generation/profile/device/source facts and finite original deadlines in migration164. All private Range requests share the public parent admission key and byte ledger; HEAD does not reserve a transfer or charge bytes. The SDK and server composition require separately paired validation before enablement. Related to native POST /user/playback exact-version private issuance, not watch progress: supply its exact version_id plus the discovered media_id and episode_id where applicable. SXAPI keeps its own201 session/profile/short admission DTO and four-hour parent ceiling; native200/version-only input/native realm/twelve-hour ceiling remain independent. Explicit profile.allow_unverified=true permits missing/stale/partial MediaInfo without a provider lookup, while known mismatches remain rejected. Actual issue_sxapi and final original identity/SxapiParent checks are implemented host-port paths; private SDK/Node/GET/HEAD/Range/restart/client acceptance remains a separate required gate. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
+        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Does not wait for MediaInfo. Unknown facts require explicit profile.allow_unverified=true; known mismatches remain rejected. At most 32 active prepared sessions per user. Returns a session and initial 120-second stream ticket; preparation does not reserve a transfer lease or charge bytes. The session carries the selected file_size, bitrate_bps and content_revision, so a player needs no separate version-list request to open the stream. Off mode also starts a bounded background read of the selected file's first and last bytes into server memory (startup prefetch, Nimbus startup_head_mb/startup_tail_mb, default8MiB each), so the first ranges a player requests do not wait for the upstream first byte; the response does not wait for it, and it changes no authorization, admission or byte charge. #210: without version_id the default version is never a local extra or trailer; with the version_id of one (GET /media/{id}/extras) the session plays it. streamix#1950: without version_id the default version is never a disc; with the version_id of a disc version (Version.disc) the session plays that disc and session.disc says how to read it. A folder-disc session skips the startup prefetch. Without an explicit version_id, the actual global media preferred_version_id ranks first among the existing eligible file/source/episode candidates, then quality_score/UUID. Incompatible preferred candidates fall back under the same profile checks; preference never grants access or file readiness. The first successful SXAPI account-authentication SQL freezes the minimum original JWT, persistent LOGIN and managed-account expiry in internal evidence bound to that same user/login/auth generation/JWT expiry. Preparation rechecks current authority and takes only the shorter deadline; an in-flight database renewal cannot prolong this request or revive an expired captured boundary. On the same uncommitted parent transaction connection, final preparation rechecks original identity, live grants, exact media/episode, enabled Nimbus, policy/quota, selected source facts and profile; selected media/source rows are locked and the original finite deadline is checked with the database clock after advisory/source-row waits and insertion/binding/update acknowledgement. A shorter current LOGIN/managed expiry tightens persisted parent deadlines before private binding. Denial rolls back the new parent/binding. Later renewed authority may prepare a separate new session. Post-COMMIT response, private SDK issuance and final output remain separate gates. This does not change credential serialization, Native/ECAL authentication or the separately required private SDK/Node acceptance. Private Nimbus mode: absent/off preserves the existing transport. Explicit remote or invalid/missing private runtime never falls back to signed SXAPI/provider bytes and returns sanitized503. A remote parent binds the exact original JWT fingerprint, immutable generation/profile/device/source facts and finite original deadlines in migration164. All private Range requests share the public parent admission key and byte ledger; HEAD does not reserve a transfer or charge bytes. The SDK and server composition require separately paired validation before enablement. Related to native POST /user/playback exact-version private issuance, not watch progress: supply its exact version_id plus the discovered media_id and episode_id where applicable. SXAPI keeps its own201 session/profile/short admission DTO and four-hour parent ceiling; native200/version-only input/native realm/twelve-hour ceiling remain independent. Explicit profile.allow_unverified=true permits missing/stale/partial MediaInfo without a provider lookup, while known mismatches remain rejected. Actual issue_sxapi and final original identity/SxapiParent checks are implemented host-port paths; private SDK/Node/GET/HEAD/Range/restart/client acceptance remains a separate required gate. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
         "tags": [
           "SXAPI v1"
         ],
@@ -2871,7 +2871,7 @@
       "get": {
         "operationId": "sxapi_stream_get",
         "summary": "Read direct-file bytes",
-        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. streamix#1950: an image session streams the .iso bytes as is; a folder-disc session returns 409 disc_folder (read its files through the disc routes instead). Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -3115,7 +3115,7 @@
       "head": {
         "operationId": "sxapi_stream_head",
         "summary": "Read direct-file headers",
-        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. streamix#1950: an image session streams the .iso bytes as is; a folder-disc session returns 409 disc_folder (read its files through the disc routes instead). Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11070,7 +11070,7 @@
       "get": {
         "operationId": "sxapi_list_tasks_get",
         "summary": "List tasks",
-        "description": "Current identity and exact read scope, successful minimal audit, 2MiB response cap, private/no-store. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current identity and exact read scope, successful minimal audit, 2MiB response cap, private/no-store. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (defaults: up to 1200 files / 540 s per run, 4 files at a time with 0.5 s between the files of each lane, only while at most 2 streams play; RC15 read up to 800 files with 1 s between the files of each lane, RC14 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off and keep a stable reason code (for Google Drive reads dolby_vision_drive_<class>: HTTP status class, timeout, deadline, budget or malformed response); migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; any other failed read except a 429 (an undecodable answer, a TMDB 5xx, a transport error) backs that season off for 1 h, then 4 h, 16 h, 64 h and at most 7 days and puts it behind the seasons that never failed, so it never holds the head of the queue (a new TMDB binding starts over; a stored read or a 404 ends the back-off, migration271); TMDB credit entries without a numeric id or a string name are skipped instead of failing the season; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11200,7 +11200,7 @@
       "post": {
         "operationId": "sxapi_create_task_post",
         "summary": "create task",
-        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (defaults: up to 1200 files / 540 s per run, 4 files at a time with 0.5 s between the files of each lane, only while at most 2 streams play; RC15 read up to 800 files with 1 s between the files of each lane, RC14 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off and keep a stable reason code (for Google Drive reads dolby_vision_drive_<class>: HTTP status class, timeout, deadline, budget or malformed response); migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; any other failed read except a 429 (an undecodable answer, a TMDB 5xx, a transport error) backs that season off for 1 h, then 4 h, 16 h, 64 h and at most 7 days and puts it behind the seasons that never failed, so it never holds the head of the queue (a new TMDB binding starts over; a stored read or a 404 ends the back-off, migration271); TMDB credit entries without a numeric id or a string name are skipped instead of failing the season; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11369,7 +11369,7 @@
       "get": {
         "operationId": "sxapi_get_task_get",
         "summary": "Read task",
-        "description": "Summary metadata plus opaque current revision. Current identity/read grant and minimal audit; 2MiB cap/private/no-store. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Summary metadata plus opaque current revision. Current identity/read grant and minimal audit; 2MiB cap/private/no-store. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (defaults: up to 1200 files / 540 s per run, 4 files at a time with 0.5 s between the files of each lane, only while at most 2 streams play; RC15 read up to 800 files with 1 s between the files of each lane, RC14 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off and keep a stable reason code (for Google Drive reads dolby_vision_drive_<class>: HTTP status class, timeout, deadline, budget or malformed response); migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; any other failed read except a 429 (an undecodable answer, a TMDB 5xx, a transport error) backs that season off for 1 h, then 4 h, 16 h, 64 h and at most 7 days and puts it behind the seasons that never failed, so it never holds the head of the queue (a new TMDB binding starts over; a stored read or a 404 ends the back-off, migration271); TMDB credit entries without a numeric id or a string name are skipped instead of failing the season; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11497,7 +11497,7 @@
       "put": {
         "operationId": "sxapi_replace_task_put",
         "summary": "replace task",
-        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (defaults: up to 1200 files / 540 s per run, 4 files at a time with 0.5 s between the files of each lane, only while at most 2 streams play; RC15 read up to 800 files with 1 s between the files of each lane, RC14 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off and keep a stable reason code (for Google Drive reads dolby_vision_drive_<class>: HTTP status class, timeout, deadline, budget or malformed response); migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; any other failed read except a 429 (an undecodable answer, a TMDB 5xx, a transport error) backs that season off for 1 h, then 4 h, 16 h, 64 h and at most 7 days and puts it behind the seasons that never failed, so it never holds the head of the queue (a new TMDB binding starts over; a stored read or a 404 ends the back-off, migration271); TMDB credit entries without a numeric id or a string name are skipped instead of failing the season; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -11647,7 +11647,7 @@
       "delete": {
         "operationId": "sxapi_delete_task_delete",
         "summary": "delete task",
-        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (RC15 defaults: up to 800 files / 540 s per run, 4 files at a time with 1 s between the files of each lane, only while at most 2 streams play; RC14 read 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off; migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current administration identity AND explicit resource write grant; 8192-byte body with unknown fields rejected. Required Idempotency-Key and expected_revision for noncreate commands; same parsed request/key returns historical receipt without repeating work, changed command/key409. Current actor, login, expiry and UHDAdmin authority rechecked after lock and audit waits; mutation, minimal audit and keyed receipt commit together or all roll back. Old native writes and background updates advance monotonic migration139 counters; reread on409. Receipt has no request, secrets or resource snapshot. No external completion/deployment is inferred. admin.tasks.read/write. All31 listed types have concrete scheduler factories. backfill_tvdb_ids (RC12 #149) looks up at most 1000 due ordinary series per run through TMDB /tv/{id}/external_ids and stores their TVDB IDs (media_external_ids) and IMDb IDs (tmdb_discovery); migration214 creates it disabled. dolby_vision_backfill (RC14 #170) reads at most 8 MiB from the start of each existing local or Google Drive file still lacking a current Dolby Vision observation (defaults: up to 1200 files / 540 s per run, 4 files at a time with 0.5 s between the files of each lane, only while at most 2 streams play; RC15 read up to 800 files with 1 s between the files of each lane, RC14 40 files / 240 s one at a time, 3 s apart; a new scanner version reads earlier observations again) and records the facts that Version.dolby_vision returns; failures are retried with back-off and keep a stable reason code (for Google Drive reads dolby_vision_drive_<class>: HTTP status class, timeout, deadline, budget or malformed response); migration240 creates it disabled and its parameters are empty. backfill_person_details (#210) reads TMDB /person details (biography, birthday, death date, place of birth) for at most 300 due persons per run, 2 at a time, through the process TMDB budget; a person is due when at least one credited work has a current file in a TMDB-only source; failures back off 1 h, 4 h, 16 h up to 7 days and stop after 6. backfill_media_extras (#210) reads the TMDB images and videos of at most 300 due ordinary movies/series per run (never read, TMDB ID changed, or read over 30 days ago), 2 at a time, and stores up to 20 backdrops, 20 posters and 30 YouTube/Vimeo videos per work. Migrations 275 and 277 create both disabled and their parameters are empty here (defaults); batch and concurrency can be raised only in the stored task config, see docs/runbooks/tmdb-person-details-and-extras.md. backfill_season_details (#210) reads at most 2000 due seasons per run (8 at a time, through the process-wide TMDB request budget): seasons of TMDB-bound series with no stored read, a read of another TMDB binding or a read older than 30 days, and stores each season poster and its episode ratings (Season.has_poster, the season poster image, Episode.rating); a TMDB 404 is recorded and asked again after 30 days; any other failed read except a 429 (an undecodable answer, a TMDB 5xx, a transport error) backs that season off for 1 h, then 4 h, 16 h, 64 h and at most 7 days and puts it behind the seasons that never failed, so it never holds the head of the queue (a new TMDB binding starts over; a stored read or a 404 ends the back-off, migration271); TMDB credit entries without a numeric id or a string name are skipped instead of failing the season; migration270 creates it disabled and its parameters are empty. chapter_backfill (#210) reads only container metadata of each local or Google Drive file still lacking a current chapter scan (Matroska head 64 KiB plus a few 64 KiB windows and the Chapters element of at most 1 MiB; MP4 moov only; never media data; at most 8 MiB): by default 300 files / 540 s per run, 0.5 s apart, only while at most 4 streams play, works played in the last 30 days first; failures are retried with back-off; migration280 creates it disabled and its parameters are empty (limits are built in). sync_gdrive requires one enabled Google Drive source; other types reject source_id and arbitrary ignored parameters, using their actual site settings. Five-field cron and timezone validated by the real scheduler. Running task PUT/DELETE/enqueue409 task_running. PUT replaces configuration and resets failure count; delete never cancels an owning worker. Creation/enable schedules a future occurrence; disabled tasks are retained. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -18702,7 +18702,7 @@
       "get": {
         "operationId": "sxapi_catalog_get_version_get",
         "summary": "Exact version and technical track facts",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Exact parent/version binding; wrong parent/hidden domain404. Exact parent, version facts and tracks from one snapshot; canonical BIGINT track bitrate takes precedence over legacy INTEGER, both bps; stale technical revision yields tracks=null rather than invented empty. Current internal media_streams only, sorted stream index/UUID; external sidecars use separate subtitle inventory, excluded here. Up to128 tracks, overflow/negative index409 technical_track_limit. Positive numeric facts only, finite frame rate; codecs/language/layout bounded and invalid values null. Empty array means actual current inventory is empty. Unknown stream kind=other. No assumption that six-channel AAC, a stored current fact or record_available guarantees a client supports the file. #210: chapters and markers come from the chapter scan of the current file content (one primary-key read in the same snapshot); chapters is null until the background chapter_backfill task has read the file, markers members are null without a qualifying chapter title. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Exact parent/version binding; wrong parent/hidden domain404. Exact parent, version facts and tracks from one snapshot; canonical BIGINT track bitrate takes precedence over legacy INTEGER, both bps; stale technical revision yields tracks=null rather than invented empty. Current internal media_streams only, sorted stream index/UUID; external sidecars use separate subtitle inventory, excluded here. Up to128 tracks, overflow/negative index409 technical_track_limit. Positive numeric facts only, finite frame rate; codecs/language/layout bounded and invalid values null. Empty array means actual current inventory is empty. Unknown stream kind=other. No assumption that six-channel AAC, a stored current fact or record_available guarantees a client supports the file. #210: chapters and markers come from the chapter scan of the current file content (one primary-key read in the same snapshot); chapters is null until the background chapter_backfill task has read the file, markers members are null without a qualifying chapter title. streamix#1950: version.disc is set for a disc version. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -54990,6 +54990,704 @@
         }
       ]
     },
+    "/playback/sessions/{id}/disc": {
+      "get": {
+        "operationId": "sxapi_disc_listing_get",
+        "summary": "List the files of a disc folder",
+        "description": "streamix#1950: every file below the BDMV / VIDEO_TS folder of a folder-disc session, with its size, in path byte order. Paths are /-separated and relative to the disc root; the first component is always BDMV or VIDEO_TS in upper case, the rest is as stored (compare case-insensitively). Folders are not listed; at most 8 levels below the marker folder and 10000 files (truncated true when cut). Same current session checks as GET /playback/sessions/{id} (account Bearer of the original login, never the stream ticket), rechecked after the read. 409 not_disc_folder when the session is an image or an ordinary file; 409 source_unavailable when the marker folder was renamed, moved or deleted since the disc was catalogued. Read-only; no transfer lease or byte charge. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/playback.rs",
+          "handler": "disc_listing"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscListing"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. UUID Path extraction may return a framework text response before the handler. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Invalid URL: Cannot parse id"
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current playback policy denies access, including exhausted quota.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/playback/sessions/{id}/disc/files/{file_id}": {
+      "get": {
+        "operationId": "sxapi_disc_file_get",
+        "summary": "Read one disc folder file",
+        "description": "streamix#1950: raw bytes of one file listed by GET /playback/sessions/{id}/disc, with the same ticket, Range, HEAD, admission, byte ledger and authorization rules as GET|HEAD /playback/sessions/{id}/stream (the session's stream ticket in X-SXAPI-Stream-Ticket; renew it with POST .../tickets). Reads of several files of one session share that session's admission. file_id must be a current file below the same marker folder (walked up through live folders, at most 8 levels), otherwise 404. ETag is W/\"sx-binding-file_id-content_revision\". No startup prefetch and no technical probe of these bytes. 409 not_disc_folder for an image or ordinary session, 409 source_unavailable when the marker folder moved. Not available in Nimbus private mode (503), like the stream. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/playback.rs",
+          "handler": "disc_file"
+        },
+        "security": [
+          {
+            "streamTicketHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full file.",
+            "headers": {
+              "Content-Length": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Bytes in the selected representation."
+              },
+              "Accept-Ranges": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes."
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Weak validator W/\"sx-binding-file_id-content_revision\"; not a content hash."
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Actual upstream MIME type or application/octet-stream."
+              }
+            },
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. UUID Path extraction may return a framework text response before the handler. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Invalid URL: Cannot parse id"
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current playback policy denies access, including exhausted quota.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "416": {
+            "description": "Unsatisfiable single range. Content-Range: bytes */size.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Content-Range": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes */size."
+              }
+            }
+          },
+          "429": {
+            "description": "Login, prepared-session or stream concurrency limit exceeded. Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "502": {
+            "description": "Upstream metadata, download or range confirmation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "One satisfiable byte range.",
+            "headers": {
+              "Content-Length": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Bytes in the selected representation."
+              },
+              "Accept-Ranges": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes."
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Weak validator W/\"sx-binding-file_id-content_revision\"; not a content hash."
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Actual upstream MIME type or application/octet-stream."
+              },
+              "Content-Range": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes start-end/size."
+              }
+            },
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A files[].id from GET /playback/sessions/{id}/disc."
+          },
+          {
+            "name": "Range",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly one bytes range; malformed or multiple ranges return 400."
+          },
+          {
+            "name": "If-Range",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "A weak revision ETag cannot satisfy a strong If-Range validator; presence results in full 200."
+          }
+        ]
+      },
+      "head": {
+        "operationId": "sxapi_disc_file_head",
+        "summary": "Read one disc folder file's headers",
+        "description": "streamix#1950: raw bytes of one file listed by GET /playback/sessions/{id}/disc, with the same ticket, Range, HEAD, admission, byte ledger and authorization rules as GET|HEAD /playback/sessions/{id}/stream (the session's stream ticket in X-SXAPI-Stream-Ticket; renew it with POST .../tickets). Reads of several files of one session share that session's admission. file_id must be a current file below the same marker folder (walked up through live folders, at most 8 levels), otherwise 404. ETag is W/\"sx-binding-file_id-content_revision\". No startup prefetch and no technical probe of these bytes. 409 not_disc_folder for an image or ordinary session, 409 source_unavailable when the marker folder moved. Not available in Nimbus private mode (503), like the stream. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/playback.rs",
+          "handler": "disc_file"
+        },
+        "security": [
+          {
+            "streamTicketHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full file.",
+            "headers": {
+              "Content-Length": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Bytes in the selected representation."
+              },
+              "Accept-Ranges": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes."
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Weak validator W/\"sx-binding-file_id-content_revision\"; not a content hash."
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Actual upstream MIME type or application/octet-stream."
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. UUID Path extraction may return a framework text response before the handler. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol."
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current playback policy denies access, including exhausted quota.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "416": {
+            "description": "Unsatisfiable single range. Content-Range: bytes */size.",
+            "headers": {
+              "Content-Range": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes */size."
+              }
+            }
+          },
+          "429": {
+            "description": "Login, prepared-session or stream concurrency limit exceeded. Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "502": {
+            "description": "Upstream metadata, download or range confirmation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "One satisfiable byte range.",
+            "headers": {
+              "Content-Length": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Bytes in the selected representation."
+              },
+              "Accept-Ranges": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes."
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Weak validator W/\"sx-binding-file_id-content_revision\"; not a content hash."
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Actual upstream MIME type or application/octet-stream."
+              },
+              "Content-Range": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "bytes start-end/size."
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A files[].id from GET /playback/sessions/{id}/disc."
+          },
+          {
+            "name": "Range",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly one bytes range; malformed or multiple ranges return 400."
+          },
+          {
+            "name": "If-Range",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "A weak revision ETag cannot satisfy a strong If-Range validator; presence results in full 200."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
     "/admin/media/{id}/metadata": {
       "get": {
         "operationId": "sxapi_get_media_edit_get",
@@ -66183,6 +66881,8 @@
               "episode_ratings",
               "version_chapters",
               "media_extras",
+              "disc_versions",
+              "disc_folder_files",
               "administration_media_metadata",
               "administration_library_manual",
               "administration_playback_probe_policy",
@@ -66529,6 +67229,15 @@
                 "type": "boolean",
                 "const": true,
                 "description": "GET /media/{id}/extras lists the local extras and trailers of a work, and version lists, the default playback version and quality facts leave them out (#210)."
+              },
+              "disc_versions": {
+                "type": "boolean",
+                "const": true,
+                "description": "Version.disc and PlaybackSession.disc are present; default playback never picks a disc (streamix#1950)."
+              },
+              "disc_folder_files": {
+                "type": "boolean",
+                "description": "GET /playback/sessions/{id}/disc and GET|HEAD /playback/sessions/{id}/disc/files/{file_id} are usable: playback is available and the server is not in Nimbus private mode (streamix#1950)."
               },
               "administration_media_metadata": {
                 "type": "boolean",
@@ -67508,7 +68217,8 @@
           "quality_score",
           "content_revision",
           "availability",
-          "external_subtitle_count"
+          "external_subtitle_count",
+          "disc"
         ],
         "properties": {
           "id": {
@@ -67540,7 +68250,8 @@
               {
                 "type": "null"
               }
-            ]
+            ],
+            "description": "Bytes of the file from current source-path metadata. Null for a folder disc (streamix#1950)."
           },
           "resolution": {
             "anyOf": [
@@ -67684,6 +68395,17 @@
                 "type": "null"
               }
             ]
+          },
+          "disc": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Disc"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set for a disc version (streamix#1950); null for an ordinary file. file_size is null for a folder disc (GET /playback/sessions/{id}/disc lists each file with its size)."
           }
         }
       },
@@ -67815,7 +68537,8 @@
           "bitrate_bps",
           "content_revision",
           "created_at",
-          "expires_at"
+          "expires_at",
+          "disc"
         ],
         "properties": {
           "session_id": {
@@ -67863,7 +68586,7 @@
                 "type": "null"
               }
             ],
-            "description": "Bytes of the selected file from current source-path metadata, the same value as Version.file_size and the stream Content-Range total; null when unknown. Lets a player open the stream with a length hint without listing versions."
+            "description": "Bytes of the selected file from current source-path metadata, the same value as Version.file_size and the stream Content-Range total; null when unknown. Lets a player open the stream with a length hint without listing versions. Null for a folder disc (streamix#1950)."
           },
           "bitrate_bps": {
             "anyOf": [
@@ -67892,6 +68615,17 @@
             "type": "string",
             "format": "date-time",
             "description": "At most four hours, bounded by the parent login expiry."
+          },
+          "disc": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Disc"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Disc session (streamix#1950): image streams the .iso through stream_path; folder reads the disc's files through GET .../disc and GET|HEAD .../disc/files/{file_id} (stream_path then returns 409 disc_folder). Null for an ordinary file."
           }
         }
       },
@@ -91544,6 +92278,124 @@
             "description": "Always null: one page holds every listed extra."
           }
         }
+      },
+      "Disc": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "layout",
+          "format"
+        ],
+        "properties": {
+          "layout": {
+            "type": "string",
+            "enum": [
+              "folder",
+              "image"
+            ],
+            "description": "folder: a BDMV / VIDEO_TS folder, read file by file through the disc routes. image: an .iso file, streamed as is through stream_path."
+          },
+          "format": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "bluray",
+                  "dvd"
+                ],
+                "description": "Disc format of a folder; null for an image."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "streamix#1950: a disc is catalogued as one version. A Blu-ray folder (the file BDMV/index.bdmv) or a DVD folder (VIDEO_TS/VIDEO_TS.IFO) has layout folder and format bluray / dvd; an .iso file has layout image and format null (the client reads the image to tell). The work is named after the folder above BDMV / VIDEO_TS. Video files inside a disc folder (BDMV/STREAM/*.m2ts, VIDEO_TS/*.VOB) are no longer catalogued one by one; ones catalogued before stay. The server never remuxes, transcodes or decrypts a disc: an image is streamed as is through stream_path, and a folder is read file by file through GET /playback/sessions/{id}/disc and GET|HEAD /playback/sessions/{id}/disc/files/{file_id}. Disc versions have no technical facts (technical_status unknown), so preparing one needs profile.allow_unverified=true. Emby / ECAL clients never see disc versions."
+      },
+      "DiscFile": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "size",
+          "content_revision"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "file_id for GET|HEAD /playback/sessions/{id}/disc/files/{file_id}."
+          },
+          "path": {
+            "type": "string",
+            "maxLength": 4096,
+            "description": "Path below the disc root, starting with BDMV/ or VIDEO_TS/, e.g. BDMV/STREAM/00001.m2ts."
+          },
+          "size": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 0,
+                "description": "Bytes from the source index; null when unknown."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "content_revision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "description": "Content revision of this file; part of its ETag."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "description": "One file of a disc folder (streamix#1950)."
+      },
+      "DiscListing": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "session_id",
+          "version_id",
+          "disc",
+          "files",
+          "truncated"
+        ],
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "disc": {
+            "$ref": "#/components/schemas/Disc"
+          },
+          "files": {
+            "type": "array",
+            "maxItems": 10000,
+            "items": {
+              "$ref": "#/components/schemas/DiscFile"
+            }
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "True when the folder has more than 10000 files; files is then cut."
+          }
+        },
+        "description": "Files of the disc folder a playback session is bound to (streamix#1950)."
       },
       "AdminMediaMetadataPatch": {
         "type": "object",

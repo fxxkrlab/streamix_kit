@@ -22,4 +22,17 @@ A Blu-ray or DVD folder, or an `.iso` image, is catalogued as one version with `
 
 The server never remuxes, transcodes or decrypts a disc. Emby/ECAL clients do not see disc versions.
 
+## Missing MediaInfo and preloads (server 0.9.0-rc.17 and later)
+
+Check `features.playback_technical_probe` first. The prepared session then carries `technical_probe`:
+
+- `not_needed`: the version already has current, complete technical facts.
+- `started`: the server started a background probe of the file. Play as usual; read GET `/media/{id}/versions/{version_id}` again a few seconds later to get the audio and subtitle tracks. The probe can still be skipped or fail, so treat the tracks as optional until they appear.
+- `busy`: the server already has its maximum of pending probes; none was started.
+- `unsupported`: a disc version, which is never probed.
+
+A version still marked `technical_status=unknown` needs `profile.allow_unverified=true` to play, as before; the probe never changes what this session streams.
+
+Preloading (background requests before the user presses play) follows the rules in [client request headers](client-request-headers.md#request-purpose): a preload stream takes no concurrent-stream slot, a progress report sent as a preload returns 409 `prefetch_not_recorded`, and while `features.prefetch` is false every preload returns 403 `prefetch_disabled`.
+
 The CLI reads at most 1 MiB and does not render video. A successful CLI read proves neither hardware decoding nor a visible first frame. Real-player acceptance is a separate result.

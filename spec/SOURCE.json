@@ -2,7 +2,7 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "835212d6e71eeea04ad975660c9d8b1106daa653",
+  "upstream_commit": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
   "upstream_release": null,
   "intended_server_version": "0.9.0-rc.17",
   "candidate_status": "UNRELEASED",
@@ -10,7 +10,7 @@
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-13T23:54:48.248918+00:00",
+  "synchronized_at": "2026-11-14T00:40:07.506365+00:00",
   "files": {
     "sxapi-v1.openapi.json": {
       "sha256": "2ecc81180ab03cf10fb5957a78fc3a309f76a2b9c4ac7f2a57de06aee558e860",
@@ -23,12 +23,12 @@
   },
   "kit_build": "20261114.013",
   "upstream_api_review": {
-    "actual_validation_source": "835212d6e71eeea04ad975660c9d8b1106daa653",
-    "actual_validation_tree": "ad4ba774e962692773af5a2f1ed1b30f19494dc7",
-    "final_metadata_source": "835212d6e71eeea04ad975660c9d8b1106daa653",
-    "final_metadata_tree": "ad4ba774e962692773af5a2f1ed1b30f19494dc7",
+    "actual_validation_source": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
+    "actual_validation_tree": "c42273de4b6d78caa018400056d906ed1aa32be5",
+    "final_metadata_source": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
+    "final_metadata_tree": "c42273de4b6d78caa018400056d906ed1aa32be5",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "b991bb3a9c0947944a3e045b4ef3438f4d3f17131dc621429dda1d3bad7cc6f4",
+    "review_manifest_sha256": "dd23918261c94ccec49e6f0e29677e9d1d3970ce23fa91643a82579834d33bc3",
     "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.16: the client subset stays at 116 operations; the full specification grows from 382 to 385 with POST /admin/processing/probe/versions/{id}/run, POST /admin/processing/probe/jobs/{id}/retry and POST /admin/sources/{id}/processing/probe/reset (ProcessingProbeRun, ProcessingProbeRunResponse, ProcessingProbeResult, ProcessingProbeSourceReset). Media adds the required best_version (nullable BestVersion: id, resolution, width, height, hdr_type, bitrate_bps and dolby_vision_profile of the first entry of GET /media/{id}/versions; measured facts only) and version_count. PreparedPlayback adds the required technical_probe (not_needed, started, busy, unsupported): preparing an unknown version starts a stored background MediaInfo probe. Preload detection reads the User-Agent purpose products Streamix-Play and Streamix-Preload, falling back to Sec-Purpose: prefetch; a preload stream takes no concurrent-stream slot, a preload progress report returns 409 prefetch_not_recorded, and while the site setting prefetch_enabled is false every preload returns 403 prefetch_disabled (403 responses gain that description). Capability features add media_best_version, playback_technical_probe, prefetch, prefetch_user_agent_purpose, prefetch_stream_limit_exempt and administration_processing_probe_commands; no new limits. No typed SDK schema change: the typed Media and PlaybackSession read only their existing fields.",
     "scope": "The bound server commit passed the server repository's API documentation contract checks on a workstation; its server CI and integration release verification are pending on the server pull request. This is not Kit designated-server, image or database validation."
   },

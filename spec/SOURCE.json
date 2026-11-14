@@ -2,41 +2,41 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "026b5b38757d1924b6774678dbb56636c5e3972d",
+  "upstream_commit": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.16",
+  "intended_server_version": "0.9.0-rc.17",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-13T08:35:27.515707+00:00",
+  "synchronized_at": "2026-11-14T00:40:07.506365+00:00",
   "files": {
     "sxapi-v1.openapi.json": {
-      "sha256": "30f006ce0803dcfea3aa1355d4e9d4e29ddfe82e701bf445ab45388fe4abb685",
-      "bytes": 3719336
+      "sha256": "2ecc81180ab03cf10fb5957a78fc3a309f76a2b9c4ac7f2a57de06aee558e860",
+      "bytes": 3824828
     },
     "sxapi-v1-client.openapi.json": {
-      "sha256": "3dc56e54b5f8c654f68a364fb7db9cb0b7ac7b2b3ad0f868837abbe161b05df6",
-      "bytes": 1248435
+      "sha256": "13aef17824e9346420e4e5ce8e05ce9d91616411320f52a20f835729895abe43",
+      "bytes": 1298182
     }
   },
-  "kit_build": "20261113.012",
+  "kit_build": "20261114.013",
   "upstream_api_review": {
-    "actual_validation_source": "026b5b38757d1924b6774678dbb56636c5e3972d",
-    "actual_validation_tree": "a279d98b1f0da1a8a796b34e6d3cecee2f9d01c0",
-    "final_metadata_source": "026b5b38757d1924b6774678dbb56636c5e3972d",
-    "final_metadata_tree": "a279d98b1f0da1a8a796b34e6d3cecee2f9d01c0",
+    "actual_validation_source": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
+    "actual_validation_tree": "c42273de4b6d78caa018400056d906ed1aa32be5",
+    "final_metadata_source": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
+    "final_metadata_tree": "c42273de4b6d78caa018400056d906ed1aa32be5",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "66fd299c18e56237a65ae0226a7cef05eac9c21307e7daa455959996b0570f1e",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.15: client operations 113 -> 116 with GET /playback/sessions/{id}/disc (DiscListing: the files of a folder-disc session, each with id, path below the disc root, size and content_revision; at most 10000, truncated when cut) and GET|HEAD /playback/sessions/{id}/disc/files/{file_id} (HTTP Range reads of one disc file). Version and PlaybackSession add the required nullable disc (Disc: layout folder for a BDMV / VIDEO_TS folder with format bluray or dvd, layout image for an .iso with format null); file_size is null for a folder disc. Default playback never picks a disc; a session for a disc version needs its version_id and profile.allow_unverified=true. An image session streams the .iso through stream_path; a folder-disc session answers stream_path with 409 disc_folder. Capability features add disc_versions and disc_folder_files; no new limits. The full specification also updates the administration task descriptions (Dolby Vision backfill defaults and failure codes, TMDB season read back-off). No typed SDK schema change: the typed Version reads only its existing fields.",
-    "scope": "The bound server commit passed the server repository's API documentation contract and release verification checks (integration pull request #226, merged to master with the same tree); this is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "dd23918261c94ccec49e6f0e29677e9d1d3970ce23fa91643a82579834d33bc3",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.16: the client subset stays at 116 operations; the full specification grows from 382 to 385 with POST /admin/processing/probe/versions/{id}/run, POST /admin/processing/probe/jobs/{id}/retry and POST /admin/sources/{id}/processing/probe/reset (ProcessingProbeRun, ProcessingProbeRunResponse, ProcessingProbeResult, ProcessingProbeSourceReset). Media adds the required best_version (nullable BestVersion: id, resolution, width, height, hdr_type, bitrate_bps and dolby_vision_profile of the first entry of GET /media/{id}/versions; measured facts only) and version_count. PreparedPlayback adds the required technical_probe (not_needed, started, busy, unsupported): preparing an unknown version starts a stored background MediaInfo probe. Preload detection reads the User-Agent purpose products Streamix-Play and Streamix-Preload, falling back to Sec-Purpose: prefetch; a preload stream takes no concurrent-stream slot, a preload progress report returns 409 prefetch_not_recorded, and while the site setting prefetch_enabled is false every preload returns 403 prefetch_disabled (403 responses gain that description). Capability features add media_best_version, playback_technical_probe, prefetch, prefetch_user_agent_purpose, prefetch_stream_limit_exempt and administration_processing_probe_commands; no new limits. No typed SDK schema change: the typed Media and PlaybackSession read only their existing fields.",
+    "scope": "The bound server commit passed the server repository's API documentation contract checks on a workstation; its server CI and integration release verification are pending on the server pull request. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
     "source": "c8ee971b6660418bd4cb2836be0286fab76d29b6",
     "build": "20261029.004",
-    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261112.011."
+    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261114.013."
   },
   "current_build_validation": {
     "spec_sync": "COMPLETED",

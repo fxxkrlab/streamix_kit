@@ -16,7 +16,7 @@ Version, Build, channel (`test`, `beta`, `release`) and Core version come from b
 ExamplePlayer/1.0.0 (ExampleOS 1.0; x64; build 42; test) StreamixKit/0.1.0-rc.2
 ```
 
-Do not concatenate product, platform and version into an unparseable token. Do not put request purpose, account name, origin, IP, token or ticket in the UA. Rust `BuildInfo` validates the fields and builds the common UA; it does not inspect the host name, login name or hardware serial number.
+Do not concatenate product, platform and version into an unparseable token. Do not put account name, origin, IP, token or ticket in the UA. The only purpose information a UA may carry is the trailing purpose product described under [Request purpose](#request-purpose); the Kit SDK does not add one. Rust `BuildInfo` validates the fields and builds the common UA; it does not inspect the host name, login name or hardware serial number.
 
 ## Identity, language and tracing
 
@@ -46,6 +46,22 @@ Sec-Purpose: prefetch
 ```
 
 Keep UA and device identity unchanged between these requests. The server may lower priority or return 429/503 with Retry-After; honor it with bounded backoff. A label never relaxes authentication or guarantees a prioritization policy. Rust exposes explicit purpose-aware browsing and Range methods; defaults remain interaction. Server-side scheduling changes are outside this Kit.
+
+Server 0.9.0-rc.17 and later also read a purpose product at the end of the User-Agent. First-party Streamix players (W27 and later) send it:
+
+```text
+Streamix/1.2.0 (Windows 10.0; x86_64) Streamix-Play/1
+Streamix/1.2.0 (Windows 10.0; x86_64) Streamix-Preload/1
+```
+
+`Streamix-Play` marks normal playback, including the next episode buffered during playback. `Streamix-Preload` marks background preloading from a detail or episode page and is sent together with `Sec-Purpose: prefetch`. Other requests carry no purpose product. Product names match case-insensitively at any position and any version is accepted; if both appear, `Streamix-Play` wins, even over `Sec-Purpose: prefetch`. A request without a purpose product is a preload exactly when it sends `Sec-Purpose: prefetch`, so the SDK's behavior above is unchanged. Check `features.prefetch_user_agent_purpose` before relying on the purpose products.
+
+On such a server a preload is not playback:
+
+- A preload stream (`GET`/`HEAD` of `stream_path` or a disc file) takes no concurrent-stream slot and never returns 429 `stream_limit` (`features.prefetch_stream_limit_exempt`; false on a server in private mode). Tickets, session checks and monthly byte quotas still apply. When the same session later plays with `Streamix-Play`, that request takes a normal slot.
+- It is not listed under `/users/me/streams` or counted as playing. A progress report sent as a preload returns 409 `prefetch_not_recorded` before anything is written.
+- `features.prefetch` reports whether preloads are currently allowed. While the administrator has switched them off, every preload returns 403 `prefetch_disabled`: stop preloading and do not retry. Normal playback is unaffected.
+- The separate 429 `prefetch_busy` (the server's preload slots are full) is unchanged.
 
 When a prefetch Range needs a fresh ticket, the automatic ticket POST and subsequent GET both retain prefetch purpose. Explicit `Playback::renew` remains an interaction request by default. The observer reports the same purpose that is sent; it does not turn a tag into authority.
 

@@ -66,16 +66,14 @@ def component(doc, ref):
     return group, name, doc["components"][group][name]
 
 
-def validate_pair(full, client):
-    """Require exact operation copies and the complete player reference closure."""
-    require(full.get("info", {}).get("version") == client.get("info", {}).get("version"), "spec versions differ")
+def validate_client(client):
+    """Require the player path set and its exact reference closure (the published subset alone)."""
     for path, item in client["paths"].items():
         require(path.startswith("/") and path.split("/")[1] in PLAYER_ROOTS, "nonplayer path in subset")
         if path.startswith("/users/"):
             require(path == "/users/me" or path.startswith("/users/me/"), "non-current user path")
         if path.startswith("/account/"):
             require(path == "/account/credentials" or path.startswith("/account/credentials/"), "non-credential account path")
-        require(path in full["paths"] and item == full["paths"][path], "subset path differs from full")
     # The subset is copied from the server, not independently selected here.
     # Roots below still enforce presence of the documented core flow.
     for path in ["/capabilities", "/sessions", "/libraries", "/media", "/playback/sessions"]:
@@ -106,10 +104,7 @@ def validate_pair(full, client):
     actual = {"#/components/" + group + "/" + name.replace("~", "~0").replace("/", "~1")
               for group, values in client.get("components", {}).items() for name in values}
     require(actual == visited, "subset component closure is not exact")
-    for ref in visited:
-        group, name, value = component(client, ref)
-        require(value == full.get("components", {}).get(group, {}).get(name), "subset component differs")
-    for doc in [full, client]:
+    for doc in [client]:
         for ref in walk_refs(doc):
             component(doc, ref)
         for scheme in doc.get("components", {}).get("securitySchemes", {}).values():
@@ -125,6 +120,25 @@ def validate_pair(full, client):
     require(ticket.get("properties", {}).get("header_name", {}).get("const") == "X-SXAPI-Stream-Ticket", "unexpected video header")
     subtitle = client.get("components", {}).get("schemas", {}).get("SubtitleTicket", {})
     require(subtitle.get("properties", {}).get("header_name", {}).get("const") == "X-SXAPI-Subtitle-Ticket", "unexpected subtitle header")
+
+
+def validate_pair(full, client):
+    """Require the subset to be an exact copy of the reviewed full export, then the client rules.
+
+    The full export is only a synchronization input; it is not published in this repository.
+    """
+    require(full.get("info", {}).get("version") == client.get("info", {}).get("version"), "spec versions differ")
+    for path, item in client["paths"].items():
+        require(path in full["paths"] and item == full["paths"][path], "subset path differs from full")
+    validate_client(client)
+    for group, values in client.get("components", {}).items():
+        for name, value in values.items():
+            require(value == full.get("components", {}).get(group, {}).get(name), "subset component differs")
+    for ref in walk_refs(full):
+        component(full, ref)
+    for scheme in full.get("components", {}).get("securitySchemes", {}).values():
+        if scheme.get("type") == "apiKey":
+            require(scheme.get("in") == "header", "credential security scheme is not header-only")
 
 
 def inventory(client):
@@ -158,12 +172,12 @@ def verify_checkout():
     require(bool(source.get("intended_server_version")) and bool(source.get("minimum_server_version")), "version binding required")
     require(source.get("upstream_release") is not None or source.get("candidate_status") == "UNRELEASED", "unpublished candidate must be explicit")
     docs = []
-    for name in [FULL_NAME, CLIENT_NAME]:
+    for name in [CLIENT_NAME]:
         raw = (ROOT / "spec" / name).read_bytes()
         require(source.get("files", {}).get(name, {}).get("sha256") == sha256(raw), "synchronized spec digest mismatch")
         require(source.get("files", {}).get(name, {}).get("bytes") == len(raw), "synchronized spec size mismatch")
         docs.append(read_document(raw))
-    validate_pair(*docs)
+    validate_client(docs[0])
     require(docs[0]["info"]["version"] == source["intended_server_version"], "source version differs from spec")
-    require((ROOT / "spec/OPERATIONS.json").read_bytes() == encoded(inventory(docs[1])), "operation inventory drift")
-    return source, docs[1]
+    require((ROOT / "spec/OPERATIONS.json").read_bytes() == encoded(inventory(docs[0])), "operation inventory drift")
+    return source, docs[0]

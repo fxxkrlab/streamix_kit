@@ -2,6 +2,7 @@
 """Reject credential URLs and accidental private artifacts without printing data."""
 
 from pathlib import Path
+import hashlib
 import re
 import sys
 
@@ -14,10 +15,19 @@ REAL_TOKEN = re.compile(r"\b(?:stx_sxplay_|stx_sxsub_|stx_sxrt_|stx_sx_)[A-Za-z0
 # A home directory such as /Users/<name>/ is private; an OpenAPI path template such as the ECAL
 # route /Users/{Id}/Images/Primary named in a description is not.
 PRIVATE_DATA = re.compile(r"(?<![A-Za-z0-9])(?:/Users/[^\s/{][^\s/]*/|/root/|/opt/github-runners/)|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")
-PRODUCTION_ORIGIN = re.compile(r"https?://[^\s/]*private-host\.[^\s/]+", re.I)
+# Private production hosts are matched by the SHA-256 of one DNS label, so the rule does not
+# publish the name it protects. Add a label digest here instead of writing the host name.
+PRIVATE_HOST_LABEL_SHA256 = {"406ad0dbd05b2710d50eca62e4e1e718a67f8590ff9eb9046f39222c09b291f9"}
+URL_HOST = re.compile(r"https?://([^\s/:?#]+)", re.I)
 IP_LITERAL = re.compile(r"https?://(?:\d{1,3}\.){3}\d{1,3}(?=[:/\s])")
 METADATA_HEADER = re.compile(r"^\s*(?:User-Agent|X-Streamix-(?:Client|Device-Id|Device-Name|Protocol)|traceparent)\s*:", re.I)
 METADATA_SECRET = re.compile(r"(?:https?://|Bearer\s|stx_|\b(?:username|password|access_token|refresh_token|api_key)\b|(?:\d{1,3}\.){3}\d{1,3})", re.I)
+
+
+def private_host(line):
+    """True when a URL host in the line has a protected DNS label."""
+    return any(hashlib.sha256(label.lower().encode()).hexdigest() in PRIVATE_HOST_LABEL_SHA256
+               for host in URL_HOST.findall(line) for label in host.split("."))
 
 
 def candidates():
@@ -35,7 +45,7 @@ def main():
     failures = []
     for path in candidates():
         for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-            if any(pattern.search(line) for pattern in [QUERY_SECRET, PATH_SECRET, PRIVATE_PATH_SECRET, REAL_TOKEN, PRIVATE_DATA, PRODUCTION_ORIGIN, IP_LITERAL]):
+            if any(pattern.search(line) for pattern in [QUERY_SECRET, PATH_SECRET, PRIVATE_PATH_SECRET, REAL_TOKEN, PRIVATE_DATA, IP_LITERAL]) or private_host(line):
                 failures.append(f"{path.relative_to(ROOT)}:{number}: prohibited credential URL or private data")
             elif METADATA_HEADER.search(line) and METADATA_SECRET.search(line):
                 failures.append(f"{path.relative_to(ROOT)}:{number}: private data in a descriptive header")

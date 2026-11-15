@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize an explicitly reviewed full/client OpenAPI pair; no credentials."""
+"""Synchronize an explicitly reviewed full/client OpenAPI pair and publish only the player subset; no credentials."""
 
 import argparse
 from datetime import datetime, timezone
@@ -83,12 +83,14 @@ def main():
         "compatibility_status": "NOT_VALIDATED",
         "minimum_server_version": args.minimum_server_version, "protocol_major": 1,
         "required_ticket_transport": "headers", "synchronized_at": datetime.now(timezone.utc).isoformat(),
-        "files": {name: {"sha256": sha256(raw), "bytes": len(raw)} for name, raw in [(FULL_NAME, full_raw), (CLIENT_NAME, client_raw)]},
+        "files": {CLIENT_NAME: {"sha256": sha256(client_raw), "bytes": len(client_raw)}},
+        # The full export (administration operations included) is checked but not published.
+        "upstream_full_export": {"sha256": sha256(full_raw), "bytes": len(full_raw), "published": False},
     }
     directory = ROOT / "spec"
     directory.mkdir(exist_ok=True)
     # SOURCE is last: interruption leaves an invalid/old digest, never false BOUND acceptance.
-    for name, raw in [(FULL_NAME, full_raw), (CLIENT_NAME, client_raw), ("OPERATIONS.json", encoded(inventory(client))), ("SOURCE.json", encoded(source))]:
+    for name, raw in [(CLIENT_NAME, client_raw), ("OPERATIONS.json", encoded(inventory(client))), ("SOURCE.json", encoded(source))]:
         replace(directory / name, raw)
     print("SPEC_SYNCED_REVIEW_REQUIRED")
 

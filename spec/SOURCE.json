@@ -12,14 +12,15 @@
   "required_ticket_transport": "headers",
   "synchronized_at": "2026-11-14T00:40:07.506365+00:00",
   "files": {
-    "sxapi-v1.openapi.json": {
-      "sha256": "2ecc81180ab03cf10fb5957a78fc3a309f76a2b9c4ac7f2a57de06aee558e860",
-      "bytes": 3824828
-    },
     "sxapi-v1-client.openapi.json": {
       "sha256": "13aef17824e9346420e4e5ce8e05ce9d91616411320f52a20f835729895abe43",
       "bytes": 1298182
     }
+  },
+  "upstream_full_export": {
+    "sha256": "2ecc81180ab03cf10fb5957a78fc3a309f76a2b9c4ac7f2a57de06aee558e860",
+    "bytes": 3824828,
+    "published": false
   },
   "kit_build": "20261114.013",
   "upstream_api_review": {

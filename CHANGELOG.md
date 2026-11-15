@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- 公开仓库只保留播放器子集 `spec/sxapi-v1-client.openapi.json`（2026-11-15 负责人决定）：删掉完整规范 `spec/sxapi-v1.openapi.json`（含 194 个管理接口路径）。`tools/sync_spec.py` 仍然用服务器导出的完整规范核对子集逐字节一致，但只写子集；`SOURCE.json` 在 `upstream_full_export` 里记完整规范的 SHA256 和大小（`published: false`）。`tools/check_spec.py` 只校验子集，CI 不再校验完整规范。SDK 和播放器子集没有变化。
+- `tools/check_credentials.py` 改为按 DNS 标签的 SHA-256 识别私有生产主机，规则里不再写出被保护的主机名；同时重写了仓库历史，清掉旧规则带出的主机名片段。
+
 ## 0.1.0-rc.2 — unreleased
 
 - Build 20261114.013 按服务器提交 `fc979d3b95bb1ebbd408a55243be3cc35c34a7a6`（目标版本 0.9.0-rc.17，尚未正式发布）同步完整规范和播放器子集。RC17 规范相对 RC16 只增不删：播放器子集仍是 116 个操作。`Media` 新增必有字段 `best_version`（可为 null 的 `BestVersion`：作品最佳版本的 `id`、`resolution`、`width`、`height`、`hdr_type`、`bitrate_bps`、`dolby_vision_profile`，与 `GET /media/{id}/versions` 的第一项相同，只给测量过的事实，没测量时为 null；作品没有当前主版本时整个字段为 null）和 `version_count`（版本总数），作品列表、搜索、作品详情、相似作品和「因为你看过」分组都带，不用再逐个读版本列表。`PreparedPlayback` 新增必有字段 `technical_probe`（`not_needed`、`started`、`busy`、`unsupported`）：准备播放一个还没有 MediaInfo 的版本时，服务器在后台补探测这个文件，`started` 时稍后重读版本即可拿到音轨和字幕。预加载判定：User-Agent 末尾带用途产品 `Streamix-Play` 是正常播放，`Streamix-Preload` 是预加载；没有用途产品时仍按 `Sec-Purpose: prefetch` 判定。预加载取流不占同时播放路数、不算正在播放；预加载请求上报进度返回 409 `prefetch_not_recorded`；管理员关闭预加载后，所有预加载返回 403 `prefetch_disabled`，客户端停止预加载、不要重试。能力声明新增 `features.media_best_version`、`playback_technical_probe`、`prefetch`（当前是否允许预加载）、`prefetch_user_agent_purpose`、`prefetch_stream_limit_exempt` 和 `administration_processing_probe_commands`，没有新限制。完整规范另有 3 个管理接口（单版本立即探测、探测任务重试、按来源重置探测任务），播放器子集不受影响。新功能都要先看 `/capabilities` 的对应能力再用，连接 RC16 或更早的服务器时这些能力不存在。

@@ -42,11 +42,11 @@
   "current_build_validation": {
     "spec_sync": "COMPLETED",
     "local_static_checks": "PASSED_SPEC_SDK_CONTRACT_CREDENTIALS_LINKS_WORKSTATION",
-    "local_rust_tests": "NOT_RUN_ON_WORKSTATION_KIT_CI",
-    "local_strict_clippy": "NOT_RUN_ON_WORKSTATION_KIT_CI",
+    "local_rust_tests": "PASSED_22_WORKSTATION",
+    "local_strict_clippy": "PASSED_WORKSTATION",
     "designated_server_static_checks": "NOT_RUN",
-    "sdk_binary_compiled": "KIT_CI_ONLY",
-    "rust_sources_and_cargo_inputs_changed": false,
+    "sdk_binary_compiled": "WORKSTATION_TEST_BUILD_ONLY",
+    "rust_sources_and_cargo_inputs_changed": true,
     "real_player_acceptance": "NOT_RUN",
     "package_or_tag_published": false
   }

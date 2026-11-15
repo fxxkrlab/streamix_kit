@@ -2,50 +2,50 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
+  "upstream_commit": "c80602d58c0d7b509b3fe2eb282c3e6f65b4ae7a",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.17",
+  "intended_server_version": "0.9.0-rc.18",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-14T00:40:07.506365+00:00",
+  "synchronized_at": "2026-11-15T16:02:02.840046+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "13aef17824e9346420e4e5ce8e05ce9d91616411320f52a20f835729895abe43",
-      "bytes": 1298182
+      "sha256": "0d73554986306efcee8d1fa3480ddcfc0b30c30f756cd2c16df175c7283b8f59",
+      "bytes": 1308943
     }
   },
   "upstream_full_export": {
-    "sha256": "2ecc81180ab03cf10fb5957a78fc3a309f76a2b9c4ac7f2a57de06aee558e860",
-    "bytes": 3824828,
+    "sha256": "79065bdcc02076239b6a97a3a7ff41ed39afd20c27ad3f198c7ae7cc9d9c9a13",
+    "bytes": 3835589,
     "published": false
   },
-  "kit_build": "20261114.013",
+  "kit_build": "20261115.014",
   "upstream_api_review": {
-    "actual_validation_source": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
-    "actual_validation_tree": "c42273de4b6d78caa018400056d906ed1aa32be5",
-    "final_metadata_source": "fc979d3b95bb1ebbd408a55243be3cc35c34a7a6",
-    "final_metadata_tree": "c42273de4b6d78caa018400056d906ed1aa32be5",
+    "actual_validation_source": "c80602d58c0d7b509b3fe2eb282c3e6f65b4ae7a",
+    "actual_validation_tree": "847395dc3d604ffc2b93dec74862a3781abcfcbc",
+    "final_metadata_source": "c80602d58c0d7b509b3fe2eb282c3e6f65b4ae7a",
+    "final_metadata_tree": "847395dc3d604ffc2b93dec74862a3781abcfcbc",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "dd23918261c94ccec49e6f0e29677e9d1d3970ce23fa91643a82579834d33bc3",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.16: the client subset stays at 116 operations; the full specification grows from 382 to 385 with POST /admin/processing/probe/versions/{id}/run, POST /admin/processing/probe/jobs/{id}/retry and POST /admin/sources/{id}/processing/probe/reset (ProcessingProbeRun, ProcessingProbeRunResponse, ProcessingProbeResult, ProcessingProbeSourceReset). Media adds the required best_version (nullable BestVersion: id, resolution, width, height, hdr_type, bitrate_bps and dolby_vision_profile of the first entry of GET /media/{id}/versions; measured facts only) and version_count. PreparedPlayback adds the required technical_probe (not_needed, started, busy, unsupported): preparing an unknown version starts a stored background MediaInfo probe. Preload detection reads the User-Agent purpose products Streamix-Play and Streamix-Preload, falling back to Sec-Purpose: prefetch; a preload stream takes no concurrent-stream slot, a preload progress report returns 409 prefetch_not_recorded, and while the site setting prefetch_enabled is false every preload returns 403 prefetch_disabled (403 responses gain that description). Capability features add media_best_version, playback_technical_probe, prefetch, prefetch_user_agent_purpose, prefetch_stream_limit_exempt and administration_processing_probe_commands; no new limits. No typed SDK schema change: the typed Media and PlaybackSession read only their existing fields.",
-    "scope": "The bound server commit passed the server repository's API documentation contract checks on a workstation; its server CI and integration release verification are pending on the server pull request. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "e49a61ca0450eff09dca771578b1149792dec0d4e52d72e97ae36c505028c8a4",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.17: the client subset stays at 116 operations and the full specification at 385. GET /media, /media/initials and /media/ids add studios (1..20 production company or network names, whole names ignoring case, entries without a string name never match) and studio_ids (1..20 TMDB company or network numbers, the studio_id rule); values OR within a parameter and AND with studio_id and every other filter, bind the signed cursor and keep earlier cursors valid. Capability features add media_studio_filters; no new limits. No typed SDK schema change.",
+    "scope": "The bound server commit passed the server repository's API documentation contract checks on a workstation and the server integration CI on streamix_server#237 (release correctness and security, API documentation contracts, container CI, traceability), merged to server master as b4b53b59 with the same tree. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
     "source": "c8ee971b6660418bd4cb2836be0286fab76d29b6",
     "build": "20261029.004",
-    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261114.013."
+    "scope": "Original Build 20261029.004 designated-server checks; not rerun or relabeled as Build 20261115.014."
   },
   "current_build_validation": {
     "spec_sync": "COMPLETED",
     "local_static_checks": "PASSED_SPEC_SDK_CONTRACT_CREDENTIALS_LINKS_WORKSTATION",
-    "local_rust_tests": "PASSED_22_WORKSTATION",
-    "local_strict_clippy": "PASSED_WORKSTATION",
+    "local_rust_tests": "NOT_RUN_ON_WORKSTATION_KIT_CI",
+    "local_strict_clippy": "NOT_RUN_ON_WORKSTATION_KIT_CI",
     "designated_server_static_checks": "NOT_RUN",
-    "sdk_binary_compiled": "WORKSTATION_TEST_BUILD_ONLY",
+    "sdk_binary_compiled": "KIT_CI_ONLY",
     "rust_sources_and_cargo_inputs_changed": false,
     "real_player_acceptance": "NOT_RUN",
     "package_or_tag_published": false

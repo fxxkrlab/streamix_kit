@@ -420,9 +420,12 @@ async fn success(response: Response) -> Result<Response, Error> {
     let retry_after = parse_retry_after(response.headers());
     let code = bounded(response, 16 * 1024).await.ok().and_then(|raw| serde_json::from_slice::<Value>(&raw).ok())
         .and_then(|value| value.get("error")?.get("code")?.as_str().map(str::to_owned))
-        .filter(|value| !value.is_empty() && value.len() <= 96 && !value.starts_with("stx_")
-            && !(value.len() == 64 && value.bytes().all(|b| b.is_ascii_hexdigit()))
-            && value.bytes().all(|b| b.is_ascii_alphanumeric() || b"_.-".contains(&b)));
+        .filter(|value| {
+            // A credential-shaped code (stx_ prefix or a 64-hex digest) is never kept.
+            let secret_like = value.starts_with("stx_") || (value.len() == 64 && value.bytes().all(|b| b.is_ascii_hexdigit()));
+            (1..=96).contains(&value.len()) && !secret_like
+                && value.bytes().all(|b| b.is_ascii_alphanumeric() || b"_.-".contains(&b))
+        });
     Err(Error::Http { status, code, retry_after })
 }
 

@@ -12,6 +12,8 @@ With `features.media_studio_filters` (server 0.9.0-rc.18 and later), `/media`, `
 
 With `features.media_studio_counts` (server 0.9.0-rc.19 and later), `POST /media/studio-counts` returns the counts of every row in one request, so a page can hide the empty rows before opening any of them. Send each platform's spellings as one entry of `groups` (for example `{"id": "iqiyi", "names": ["爱奇艺", "iQiyi", "iQIYI"]}`; a work counts once per group) or single names in `names`, with the same `library_id` and `media_type` the rows will use. Each count equals the total of the matching `GET /media?studios=...` request; open a row with that request. Without the capability, ask each row with `GET /media?studios=<names>&limit=1`.
 
+With `features.media_facet_cache` (server 0.9.0-rc.20 and later), a `/media/facets/{kind}` answer may be up to `limits.media_facet_max_age_seconds` (600) seconds old; `observed_at` tells when the served answer was computed. Permission changes apply at once, while new or removed files and metadata may take that long to change the facet counts. Fetch facets when a filter panel opens and reuse them while it stays open; do not fetch them again for every grid page.
+
 Missing technical data does not prove that a file is absent. `technical_status=unknown` requires an explicit player decision on trying an unverified original file. Known unsupported codecs remain a mismatch. The SDK's profile defaults to `allow_unverified=false`; applications must opt in deliberately.
 
 Request additional details, tracks, subtitles and artwork when the page needs them. Never infer adult or hidden-library access from a media ID, another user's result, a cached page or a previously issued cursor. Each API call rechecks current authorization.

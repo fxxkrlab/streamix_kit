@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "0393726a3de8d2aef528ad2199c1aa1e13848238",
+  "upstream_commit": "c161465ae5a1fbfc41bca38aa6b615e7b0f7b309",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.19",
+  "intended_server_version": "0.9.0-rc.20",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-17T04:49:21.233777+00:00",
+  "synchronized_at": "2026-11-17T13:24:55.788312+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "8d05367a9443528b427ac935d6b7bf1bef4e64938e9c8ac55dfea3a759243eed",
-      "bytes": 1323667
+      "sha256": "28b74179e253c577159289ab5e7bd8ce087d4abf516c5f15f6aacdf8e255018f",
+      "bytes": 1326570
     }
   },
   "upstream_full_export": {
-    "sha256": "25e66bafd709e2b699d6d7fcc74a62ddd012dc541624d88ea9e3f23feff08bfa",
-    "bytes": 3850313,
+    "sha256": "ab006896d2ca39162775e2d96a5156a6e00be1b0e4ff9f2756f885b78dc8dcb4",
+    "bytes": 3853216,
     "published": false
   },
-  "kit_build": "20261117.015",
+  "kit_build": "20261117.016",
   "upstream_api_review": {
-    "actual_validation_source": "0393726a3de8d2aef528ad2199c1aa1e13848238",
-    "actual_validation_tree": "fc1e5701b4a1952434137636b85737eb5dd84dff",
-    "final_metadata_source": "0393726a3de8d2aef528ad2199c1aa1e13848238",
-    "final_metadata_tree": "fc1e5701b4a1952434137636b85737eb5dd84dff",
+    "actual_validation_source": "c161465ae5a1fbfc41bca38aa6b615e7b0f7b309",
+    "actual_validation_tree": "a727a8b65ba6e62f1c597db21eccd9bc7566e377",
+    "final_metadata_source": "c161465ae5a1fbfc41bca38aa6b615e7b0f7b309",
+    "final_metadata_tree": "a727a8b65ba6e62f1c597db21eccd9bc7566e377",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "2322f923cce3e92da3371b6c278199e6c32112a64409f59195c871f9c9104953",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.18: the client subset grows from 116 to 117 operations and the full specification from 385 to 386. New POST /media/studio-counts counts the visible works of up to 200 studio names and 200 groups of names (1..20 each, 1000 names in all) in one request: each name row equals the total of GET /media?studios=<that name> and each group row the total of GET /media?studios=<all its names> (a work counted once), with the same library_id and media_type, in request order. The studios filter of GET /media, /media/initials and /media/ids takes \\, for a comma inside a name and \\\\ for a backslash; any other backslash stays literal. Capability features add media_studio_counts; new schemas StudioCountsRequest, StudioCountsGroup, StudioCount, StudioCountsGroupResult and StudioCounts; no new limits. No typed SDK schema change.",
-    "scope": "The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#239 (release correctness and security, API documentation contracts, container CI, traceability), merged to server master as 0680fa79 with the same tree. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "de817018eb19c272db4298e9011aed4a6163cd245a43edb9c93ddbd1750ac8e0",
+    "spec_delta_from_previous_binding": "No operation added or removed over 0.9.0-rc.19: the client subset stays at 117 operations and the full specification at 386. GET /media/facets/{kind} serves whole answers computed once per account visible inventory, kind, media_type and genre-name language and kept for at most 600 s (capabilities.limits.media_facet_max_age_seconds); pages, q and cursors keep their rules. Authorization is checked on every request; only content changes may appear that late, and observed_at is when the served answer was computed. Capability features add media_facet_cache and limits add media_facet_max_age_seconds. No new parameters, response fields or typed SDK schema changes.",
+    "scope": "The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#243 (release correctness and security, API documentation contracts, configuration, traceability), merged to server master as faaa3a20 with the same tree, where container CI also passed. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

@@ -128,6 +128,11 @@
       "operation_id": "sxapi_list_pmms_studios_get"
     },
     {
+      "method": "POST",
+      "path": "/media/studio-counts",
+      "operation_id": "sxapi_count_studios_post"
+    },
+    {
       "method": "GET",
       "path": "/media/{id}",
       "operation_id": "sxapi_catalog_get_media_get"

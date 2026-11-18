@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "32cb299941762df3004f971dae47dae5e08105b3",
+  "upstream_commit": "460af58814d1d3e3fe83b924db057365dfcabe34",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.21",
+  "intended_server_version": "0.9.0-rc.22",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-18T09:40:29.039684+00:00",
+  "synchronized_at": "2026-11-18T15:17:44.423988+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "e404512dfb4969b78815537425ed1b254facc8909f9cb7c6a4a5290ef0bb2571",
-      "bytes": 1356306
+      "sha256": "7279fe014dff292f45f2cca50934e38758642f0ba3b8424ca3eb63878e9e8220",
+      "bytes": 1377382
     }
   },
   "upstream_full_export": {
-    "sha256": "d99555409b9b2c83c210541a466e8f07178b9a16edf5ff6d2cdb861888665b84",
-    "bytes": 3882952,
+    "sha256": "aa9000d5e1446046aa5bf028ca37ed7c3aaa957a70de6113d7fadfa36b12f00b",
+    "bytes": 3904028,
     "published": false
   },
-  "kit_build": "20261118.017",
+  "kit_build": "20261118.018",
   "upstream_api_review": {
-    "actual_validation_source": "32cb299941762df3004f971dae47dae5e08105b3",
-    "actual_validation_tree": "6320a21fc42b38a68585aeb8649010e3acc1949c",
-    "final_metadata_source": "32cb299941762df3004f971dae47dae5e08105b3",
-    "final_metadata_tree": "6320a21fc42b38a68585aeb8649010e3acc1949c",
+    "actual_validation_source": "460af58814d1d3e3fe83b924db057365dfcabe34",
+    "actual_validation_tree": "a97476c3f0a13d379b43eaff6f3cce9a5446a556",
+    "final_metadata_source": "460af58814d1d3e3fe83b924db057365dfcabe34",
+    "final_metadata_tree": "a97476c3f0a13d379b43eaff6f3cce9a5446a556",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "a20bd5d6584cb5b26476b1e5055dbc80f6a22810e47d2f4f7c466e84806be5fd",
-    "spec_delta_from_previous_binding": "No operation added or removed over 0.9.0-rc.20: the client subset stays at 117 operations and the full specification at 386. Only the ETag header description of the 63 per-account tagged JSON reads changed (200 and 304 responses, 126 places in each document), plus info.version. A JSON object body with a top-level observed_at is now tagged member by member without that member, so an unchanged personal list (for example /users/me/resume or /users/me/next-up) revalidates with 304 although observed_at moves; a nested observed_at still counts and every other body keeps its exact-bytes tag. No new parameters, response fields, capabilities or typed SDK schema changes.",
-    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1245 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#249 (release correctness and security, API documentation contracts, configuration, traceability), merged to server master as f9eba8bc with the same tree, where container CI also passed. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "51ee0b519e6b793398a7a665976570ebe80c1c6b0b6ee2b883e71b1d58e88131",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.21: the client subset grows from 117 to 118 operations and the full specification from 386 to 387. New POST /media/lookup answers 1..500 external IDs (typed tmdb:movie:<n> or tmdb:tv:<n>, or a GET /media external_ids item tmdb:<n>, imdb:tt<digits> or tvdb:<digits>; body at most 131072 bytes with an optional library_id) with one {id, media_id, media_type, version_count} row per requested ID and visible file-backed work, only for matches, in request order; an ID's rows are the works of GET /media?external_ids=<that ID> (with media_type for a typed TMDB ID). GET /persons adds external_ids (1..50 comma-separated tmdb:<n> or imdb:nm<digits> items, at most 2048 bytes; only library_id may join it, so q is no longer required): its 200 response is oneOf SearchPersonPage (q search) and PersonLookupPage (data only; each person with the search fields, media_count, movie_count, series_count and matched). MediaStamp (GET /media/ids rows) and RelationshipPersonMedia (GET /persons/{id}/media entries) add the required external_ids, the work's Media.external_ids. Capability features add media_lookup_batch and person_lookup_by_external_id; limits add media_lookup_ids_max (500) and person_external_ids_max (50); new schemas PersonLookupPage, PersonLookupItem, MediaLookupRequest, MediaLookup and MediaLookupRow. The ETag descriptions are unchanged (63 tagged JSON reads; POST /media/lookup has none). No typed SDK schema change.",
+    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1249 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#245 (release correctness and security, API documentation contracts, configuration, traceability), merged to server master as bf55410a with the same tree, where container CI also passed. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

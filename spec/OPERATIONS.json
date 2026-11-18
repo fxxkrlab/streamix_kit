@@ -108,6 +108,11 @@
       "operation_id": "sxapi_catalog_list_initials_get"
     },
     {
+      "method": "POST",
+      "path": "/media/lookup",
+      "operation_id": "sxapi_lookup_media_post"
+    },
+    {
       "method": "GET",
       "path": "/media/pmms/facets/actresses",
       "operation_id": "sxapi_list_pmms_actresses_get"

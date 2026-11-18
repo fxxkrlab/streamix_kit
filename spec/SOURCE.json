@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "c161465ae5a1fbfc41bca38aa6b615e7b0f7b309",
+  "upstream_commit": "32cb299941762df3004f971dae47dae5e08105b3",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.20",
+  "intended_server_version": "0.9.0-rc.21",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-17T13:24:55.788312+00:00",
+  "synchronized_at": "2026-11-18T09:40:29.039684+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "28b74179e253c577159289ab5e7bd8ce087d4abf516c5f15f6aacdf8e255018f",
-      "bytes": 1326570
+      "sha256": "e404512dfb4969b78815537425ed1b254facc8909f9cb7c6a4a5290ef0bb2571",
+      "bytes": 1356306
     }
   },
   "upstream_full_export": {
-    "sha256": "ab006896d2ca39162775e2d96a5156a6e00be1b0e4ff9f2756f885b78dc8dcb4",
-    "bytes": 3853216,
+    "sha256": "d99555409b9b2c83c210541a466e8f07178b9a16edf5ff6d2cdb861888665b84",
+    "bytes": 3882952,
     "published": false
   },
-  "kit_build": "20261117.016",
+  "kit_build": "20261118.017",
   "upstream_api_review": {
-    "actual_validation_source": "c161465ae5a1fbfc41bca38aa6b615e7b0f7b309",
-    "actual_validation_tree": "a727a8b65ba6e62f1c597db21eccd9bc7566e377",
-    "final_metadata_source": "c161465ae5a1fbfc41bca38aa6b615e7b0f7b309",
-    "final_metadata_tree": "a727a8b65ba6e62f1c597db21eccd9bc7566e377",
+    "actual_validation_source": "32cb299941762df3004f971dae47dae5e08105b3",
+    "actual_validation_tree": "6320a21fc42b38a68585aeb8649010e3acc1949c",
+    "final_metadata_source": "32cb299941762df3004f971dae47dae5e08105b3",
+    "final_metadata_tree": "6320a21fc42b38a68585aeb8649010e3acc1949c",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "de817018eb19c272db4298e9011aed4a6163cd245a43edb9c93ddbd1750ac8e0",
-    "spec_delta_from_previous_binding": "No operation added or removed over 0.9.0-rc.19: the client subset stays at 117 operations and the full specification at 386. GET /media/facets/{kind} serves whole answers computed once per account visible inventory, kind, media_type and genre-name language and kept for at most 600 s (capabilities.limits.media_facet_max_age_seconds); pages, q and cursors keep their rules. Authorization is checked on every request; only content changes may appear that late, and observed_at is when the served answer was computed. Capability features add media_facet_cache and limits add media_facet_max_age_seconds. No new parameters, response fields or typed SDK schema changes.",
-    "scope": "The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#243 (release correctness and security, API documentation contracts, configuration, traceability), merged to server master as faaa3a20 with the same tree, where container CI also passed. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "a20bd5d6584cb5b26476b1e5055dbc80f6a22810e47d2f4f7c466e84806be5fd",
+    "spec_delta_from_previous_binding": "No operation added or removed over 0.9.0-rc.20: the client subset stays at 117 operations and the full specification at 386. Only the ETag header description of the 63 per-account tagged JSON reads changed (200 and 304 responses, 126 places in each document), plus info.version. A JSON object body with a top-level observed_at is now tagged member by member without that member, so an unchanged personal list (for example /users/me/resume or /users/me/next-up) revalidates with 304 although observed_at moves; a nested observed_at still counts and every other body keeps its exact-bytes tag. No new parameters, response fields, capabilities or typed SDK schema changes.",
+    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1245 source paths, all identical in the bound tree. The server API documentation contract checks passed on its parent 2ccd0f53, which has the same API sources and review record; the bound commit only adds CI dependency-audit files and the changelog. On streamix_server#249 the bound commit passed container CI and traceability; API documentation contracts and release correctness and security had not finished when this Build was prepared, and the commit is not merged. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

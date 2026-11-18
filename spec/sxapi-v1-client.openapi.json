@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1 — Player",
-    "version": "0.9.0-rc.20",
+    "version": "0.9.0-rc.21",
     "description": "Generated player-only view of the same release SXAPI v1 contract. Retained operations and referenced components are unchanged. OpenAPI info.version identifies the server release; capabilities.version identifies the SXAPI protocol. Presence is not runtime feature availability.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -406,7 +406,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -486,7 +486,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -567,7 +567,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -647,7 +647,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -725,7 +725,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -815,7 +815,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -902,7 +902,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -1002,7 +1002,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -1796,7 +1796,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -1896,7 +1896,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -1983,7 +1983,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -2083,7 +2083,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -2218,7 +2218,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -2318,7 +2318,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -2589,7 +2589,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -2689,7 +2689,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -3473,7 +3473,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -3573,7 +3573,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -3984,7 +3984,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -4074,7 +4074,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -4750,7 +4750,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -4850,7 +4850,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -5463,7 +5463,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -5563,7 +5563,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -5670,7 +5670,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -5770,7 +5770,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -5866,7 +5866,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -5966,7 +5966,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -6730,7 +6730,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -6820,7 +6820,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7015,7 +7015,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7105,7 +7105,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7465,7 +7465,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7555,7 +7555,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7653,7 +7653,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7743,7 +7743,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7841,7 +7841,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -7931,7 +7931,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8009,7 +8009,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8109,7 +8109,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8216,7 +8216,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8316,7 +8316,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8423,7 +8423,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8513,7 +8513,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8729,7 +8729,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -8809,7 +8809,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9079,7 +9079,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9169,7 +9169,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9267,7 +9267,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9367,7 +9367,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9518,7 +9518,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9618,7 +9618,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9734,7 +9734,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9834,7 +9834,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -9941,7 +9941,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10041,7 +10041,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10158,7 +10158,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10258,7 +10258,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10374,7 +10374,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10474,7 +10474,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10590,7 +10590,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10690,7 +10690,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10806,7 +10806,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -10906,7 +10906,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11022,7 +11022,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11122,7 +11122,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11238,7 +11238,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11338,7 +11338,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11463,7 +11463,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11563,7 +11563,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11688,7 +11688,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -11788,7 +11788,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -12563,7 +12563,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -12663,7 +12663,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -12792,7 +12792,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -12892,7 +12892,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -13021,7 +13021,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -13111,7 +13111,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -13350,7 +13350,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -13450,7 +13450,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -13796,7 +13796,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -13896,7 +13896,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -14482,7 +14482,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -14582,7 +14582,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -14700,7 +14700,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -14800,7 +14800,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -14907,7 +14907,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -14997,7 +14997,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15095,7 +15095,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15195,7 +15195,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15541,7 +15541,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15641,7 +15641,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15748,7 +15748,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15848,7 +15848,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -15964,7 +15964,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -16054,7 +16054,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -16292,7 +16292,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -16392,7 +16392,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -16759,7 +16759,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -16849,7 +16849,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17222,7 +17222,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17322,7 +17322,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17429,7 +17429,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17529,7 +17529,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17652,7 +17652,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17752,7 +17752,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17890,7 +17890,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -17990,7 +17990,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -18294,7 +18294,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -18384,7 +18384,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -19162,7 +19162,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -19262,7 +19262,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20018,7 +20018,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20118,7 +20118,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20205,7 +20205,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20305,7 +20305,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20392,7 +20392,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20492,7 +20492,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20579,7 +20579,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20679,7 +20679,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20766,7 +20766,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20866,7 +20866,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -20953,7 +20953,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -21059,7 +21059,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -21843,7 +21843,7 @@
             },
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
@@ -21943,7 +21943,7 @@
             "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
             "headers": {
               "ETag": {
-                "description": "Per-account strong entity tag of this exact JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. Edge compression may present it as W/.",
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
                 "schema": {
                   "type": "string",
                   "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"

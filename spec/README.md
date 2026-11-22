@@ -1,5 +1,5 @@
 # Synchronized contract
 
-The player subset `sxapi-v1-client.openapi.json` is synchronized from server source `460af58814d1d3e3fe83b924db057365dfcabe34` (intended 0.9.0-rc.22), with minimum candidate 0.9.0-rc.9. `SOURCE.json` is BOUND to those bytes, with no published release reference and compatibility still NOT_VALIDATED. Source synchronization is not SDK CI or integration acceptance.
+The player subset `sxapi-v1-client.openapi.json` is synchronized from server source `f6a074fac5140f593edd337d7339aaf62e6c1df3` (intended 0.9.0-rc.23), with minimum candidate 0.9.0-rc.9. `SOURCE.json` is BOUND to those bytes, with no published release reference and compatibility still NOT_VALIDATED. Source synchronization is not SDK CI or integration acceptance.
 
 Only the player subset is published here (decided 2026-11-15). `tools/sync_spec.py` still takes the reviewed full export as an input to prove that every subset operation and component is an exact copy of the server contract, records the full export's SHA256 and size in `SOURCE.json` (`upstream_full_export`, `published: false`) and writes only the subset, the operation and SDK-shape inventory and `SOURCE.json`. Administration operations are not part of this repository. Do not copy a historical URL-ticket contract or hand-edit synchronized files.

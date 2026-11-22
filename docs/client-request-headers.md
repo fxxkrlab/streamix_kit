@@ -58,7 +58,7 @@ Streamix/1.2.0 (Windows 10.0; x86_64) Streamix-Preload/1
 
 On such a server a preload is not playback:
 
-- A preload stream (`GET`/`HEAD` of `stream_path` or a disc file) takes no concurrent-stream slot and never returns 429 `stream_limit` (`features.prefetch_stream_limit_exempt`; false on a server in private mode). Tickets, session checks and monthly byte quotas still apply. When the same session later plays with `Streamix-Play`, that request takes a normal slot.
+- A preload stream (`GET`/`HEAD` of `stream_path` or a disc file) takes no concurrent-stream slot and never returns 429 `stream_limit` (`features.prefetch_stream_limit_exempt`; in Nimbus private mode it is false, except on server 0.9.0-rc.23 and later when the private runtime declares preloads outside the limit). Tickets, session checks and monthly byte quotas still apply. When the same session later plays with `Streamix-Play`, that request takes a normal slot.
 - It is not listed under `/users/me/streams` or counted as playing. A progress report sent as a preload returns 409 `prefetch_not_recorded` before anything is written.
 - `features.prefetch` reports whether preloads are currently allowed. While the administrator has switched them off, every preload returns 403 `prefetch_disabled`: stop preloading and do not retry. Normal playback is unaffected.
 - The separate 429 `prefetch_busy` (the server's preload slots are full) is unchanged.

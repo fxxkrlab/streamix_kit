@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "f6a074fac5140f593edd337d7339aaf62e6c1df3",
+  "upstream_commit": "ff41e3ac49b3def59d59a66e8c01c5a97056bef0",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.23",
+  "intended_server_version": "0.9.0-rc.24",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-22T06:33:56.743455+00:00",
+  "synchronized_at": "2026-11-22T21:11:40.036338+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "dcffbbae12736c6326f7ef777d7c6f91ee8ff47fee75af0b463b1ea6b3da10f6",
-      "bytes": 1378059
+      "sha256": "93f572aeccdafeab12aaacd4aeea96faaa200629860799f7274d6fcd19bb64d8",
+      "bytes": 1384663
     }
   },
   "upstream_full_export": {
-    "sha256": "d97f3678262d3341da3d883a256d12378ef6fc3b4dae5a53aa537e24bb893ca0",
-    "bytes": 3904718,
+    "sha256": "f44f9072acc59d0f42426f7b693b9dcd678ee76c3b9ed88c94dc2d30d92dd66e",
+    "bytes": 3911322,
     "published": false
   },
-  "kit_build": "20261122.019",
+  "kit_build": "20261123.020",
   "upstream_api_review": {
-    "actual_validation_source": "f6a074fac5140f593edd337d7339aaf62e6c1df3",
-    "actual_validation_tree": "cdf4007fb1dd463616d757bdb12fc6d71fa7352c",
-    "final_metadata_source": "f6a074fac5140f593edd337d7339aaf62e6c1df3",
-    "final_metadata_tree": "cdf4007fb1dd463616d757bdb12fc6d71fa7352c",
+    "actual_validation_source": "ff41e3ac49b3def59d59a66e8c01c5a97056bef0",
+    "actual_validation_tree": "eb6a7964b88f787294cad88f8f0c55317af5f1c0",
+    "final_metadata_source": "ff41e3ac49b3def59d59a66e8c01c5a97056bef0",
+    "final_metadata_tree": "eb6a7964b88f787294cad88f8f0c55317af5f1c0",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "9e2bac6cbf9101e4556cb184eff9383b369647d1a98bb14787a50092c71c6e07",
-    "spec_delta_from_previous_binding": "Description-only over 0.9.0-rc.22: the client subset stays at 118 operations and the full specification at 387. With descriptions, summaries and info.version set aside both documents equal their RC22 versions, so no operation, parameter, request or response field, schema, status code, capability or limit changed; 50 client descriptions changed (51 in the full export, which also rewords info.description). POST /playback/sessions: a prepare that fails after its session is stored (the final recheck or the ticket, for example a refused private issuance) ends that session before returning the error, so it does not count toward the 32 active prepared sessions per user (#251). Nimbus private mode (#250): the version_id of a folder disc returns 409 disc_folder before any session is written or private ticket issued, and POST /playback/sessions/{id}/tickets for a session bound to a folder disc returns 409 disc_folder without a private ticket (both 409 descriptions name disc_folder; image discs and ordinary files are unchanged); features.prefetch_stream_limit_exempt and the stream and disc-file read descriptions keep a preload outside the concurrent-stream limit in private mode only when the composed private runtime declares it. The remaining descriptions replace internal database names (tables, columns, indexes, migration numbers) with public wording. In OPERATIONS.json only typed_sdk_schema_sha256.Media changes, because the Media.updated_at description was reworded; the typed SDK wire shapes are unchanged.",
-    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1251 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#253 (release correctness and security, API documentation contracts, configuration, traceability), merged to server master as 8107e14a with the same tree. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "3016c21b487d04e04dabeb172c4ed97e938d2a562bccc5a801ac5f94e88978ba",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.23 (streamix_server#256, adult version names): the client subset stays at 118 operations and the full specification at 387, with no operation or parameter added or removed; apart from info.version both exports change the same nine places. New schema VersionDisplay (additionalProperties false; required text, 1..160 characters in the schema, with the server producing at most 40 characters and 40 columns; basis code|title|technical|ordinal; nullable code and family, set when basis is code; tags, up to 32 machine names in display order; rules_version, YYYY.MM.patch). Version and BestVersion gain the required nullable member display (VersionDisplay or null): a server-built short name for versions of persisted adult origin, derived from the normalized code in the file name, its tags and the technical differences among the versions of the same work and episode, falling back to a short title, the technical facts and an ordinal, never the whole file name; ordinary versions return null and keep their client-built labels. Capabilities features gain the required version_display (const true). The descriptions of GET /media/{id}/versions and GET /media/{id}/versions/{version_id} add the adult order (Chinese subtitles first, then leak > uncensored > decensored > AI decensored, then resolution, then bitrate; the parts of one variant together in part order; episode groups keep the place of their first entry; pages of an adult work are cut from that order, and works with more than 2000 versions keep the quality order) and display on the version detail; BestVersion.display states that the best version of an adult work is the first entry of its adult order. BestVersion keeps additionalProperties false, so validators bound to the RC23 schema reject RC24 BestVersion objects. In OPERATIONS.json only typed_sdk_schema_sha256.Version changes; the fields the typed SDK reads are unchanged and display stays in Version.extra. The url 2.5.9 dependency update (RUSTSEC-2026-0592) in the same server release changes neither specification.",
+    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1258 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#261 (release correctness and security, API documentation contracts, container CI with configuration, traceability), merged to server master as d85c4777 with the same tree. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

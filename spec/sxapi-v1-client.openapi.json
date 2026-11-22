@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1 — Player",
-    "version": "0.9.0-rc.23",
+    "version": "0.9.0-rc.24",
     "description": "Generated player-only view of the same release SXAPI v1 contract. Retained operations and referenced components are unchanged. OpenAPI info.version identifies the server release; capabilities.version identifies the SXAPI protocol. Presence is not runtime feature availability.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -2193,7 +2193,7 @@
       "get": {
         "operationId": "sxapi_catalog_list_versions_get",
         "summary": "Bounded actual version inventory",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Draft wire now Page{data,total,next_cursor}, replacing earlier unbounded Version[] before client freeze. quality_score DESC then UUID ASC, cursor<=1024 bound to parent and optional episode_id; episode_id must belong to exact parent. Includes actual bound record_available candidates, not successfully negotiated/playable upstream. Technical values only when mediainfo_complete AND probed_content_revision=current source content revision; stale/missing null and unknown. Positive current source file_size; bitrate_bps positive canonical bps or legacy stored bps with no unit conversion, duration_secs finite positive. Source_quality/release_group are stored catalog labels, not verified codec facts; current HDR follows technical revision. Text labels invalid/control/over128 bytes become null. No content downloads or wait for technical workers. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. #210: local extras and trailers of the work are not versions and are listed by GET /media/{id}/extras. streamix#1950: disc versions are listed with disc set (layout folder / image); a folder disc has file_size null. #229: a version is probed in the background when a session is prepared for it while technical_status is unknown; its tracks appear here once that probe has stored them. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Draft wire now Page{data,total,next_cursor}, replacing earlier unbounded Version[] before client freeze. quality_score DESC then UUID ASC, cursor<=1024 bound to parent and optional episode_id; episode_id must belong to exact parent. Includes actual bound record_available candidates, not successfully negotiated/playable upstream. Technical values only when mediainfo_complete AND probed_content_revision=current source content revision; stale/missing null and unknown. Positive current source file_size; bitrate_bps positive canonical bps or legacy stored bps with no unit conversion, duration_secs finite positive. Source_quality/release_group are stored catalog labels, not verified codec facts; current HDR follows technical revision. Text labels invalid/control/over128 bytes become null. No content downloads or wait for technical workers. Opaque HMAC-SHA256 cursor is domain-separated per media/children/seasons/versions and bound to the verified account, exact persistent original LOGIN UUID and auth_version plus this route's existing filters/resource/keyset. It is not an authorization token. Tampered, unsigned earlier-draft, other-route/account/LOGIN/generation or changed query cursors return400; restart from the first page. A fresh access token cannot extend an expired original LOGIN (401), and a new LOGIN cannot revive its cursor (400). Current grants and file inventory are rechecked independently on every page; page size/snapshot/response and existing cursor byte limits are unchanged. #210: local extras and trailers of the work are not versions and are listed by GET /media/{id}/extras. streamix#1950: disc versions are listed with disc set (layout folder / image); a folder disc has file_size null. streamix_server#256: adult versions (persisted adult origin) carry a short display name derived on the server from the code in the file name (normalized, for example ABCD-123, FC2-PPV-1234567, Carib 012345-678), its tags (中字, 无码, 流出, 破解, AI去码, VR, 4K/8K, frame rate, HDR, part CDn) and, among versions of the same work and episode, the technical differences needed to tell them apart. Without a code it is a short title induced from the file name, then the technical facts, then 版本 N; never the whole file name. At most 40 characters and 40 columns (East Asian characters count two). Ordinary versions return null and keep their client-built labels. Adult works list their versions in the adult order: Chinese subtitles first, then leak > uncensored > decensored > AI decensored, then resolution, then bitrate (weights in the versioned rules file); the parts of one variant stay together in part order. Episode groups keep the place of their first entry. Pages of an adult work are cut from that order (the cursor carries the position); works with more than 2000 versions keep the quality order.  #229: a version is probed in the background when a session is prepared for it while technical_status is unknown; its tracks appear here once that probe has stored them. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -5645,7 +5645,7 @@
       "get": {
         "operationId": "sxapi_catalog_get_version_get",
         "summary": "Exact version and technical track facts",
-        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Exact parent/version binding; wrong parent/hidden domain404. Exact parent, version facts and tracks from one snapshot; canonical BIGINT track bitrate takes precedence over legacy INTEGER, both bps; stale technical revision yields tracks=null rather than invented empty. Current internal media_streams only, sorted stream index/UUID; external sidecars use separate subtitle inventory, excluded here. Up to128 tracks, overflow/negative index409 technical_track_limit. Positive numeric facts only, finite frame rate; codecs/language/layout bounded and invalid values null. Empty array means actual current inventory is empty. Unknown stream kind=other. No assumption that six-channel AAC, a stored current fact or record_available guarantees a client supports the file. #210: chapters and markers come from the chapter scan of the current file content (one primary-key read in the same snapshot); chapters is null until the background chapter_backfill task has read the file, markers members are null without a qualifying chapter title. streamix#1950: version.disc is set for a disc version. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Separate stx_sx_ current account/login/UHD domain and actual selected library/file membership. Hidden/unknown/fileless404, all responses private/no-store. Unknown/duplicate typed query fields and invalid values400. Per-request count/page use one repeatable-read read-only snapshot with15s statement/5s lock budget; per-page snapshot/total can change across requests. Recheck current account/login/UHD and captured current account policies/overrides/preferences and actual library definitions after materialization; changed grant409 authorization_changed. No source paths, filenames, upstream URLs or credentials; 2MiB response cap409 catalog_response_limit. Inventory/facts describe observed records and do not prove remote readability or completed client playback. Exact parent/version binding; wrong parent/hidden domain404. Exact parent, version facts and tracks from one snapshot; canonical BIGINT track bitrate takes precedence over legacy INTEGER, both bps; stale technical revision yields tracks=null rather than invented empty. Current internal media_streams only, sorted stream index/UUID; external sidecars use separate subtitle inventory, excluded here. Up to128 tracks, overflow/negative index409 technical_track_limit. Positive numeric facts only, finite frame rate; codecs/language/layout bounded and invalid values null. Empty array means actual current inventory is empty. Unknown stream kind=other. No assumption that six-channel AAC, a stored current fact or record_available guarantees a client supports the file. #210: chapters and markers come from the chapter scan of the current file content (one primary-key read in the same snapshot); chapters is null until the background chapter_backfill task has read the file, markers members are null without a qualifying chapter title. streamix#1950: version.disc is set for a disc version. streamix_server#256: an adult version carries display, named among its siblings. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -23758,7 +23758,8 @@
           "height",
           "hdr_type",
           "bitrate_bps",
-          "dolby_vision_profile"
+          "dolby_vision_profile",
+          "display"
         ],
         "description": "The first entry of GET /media/{id}/versions (highest quality_score, then version ID) with the same values: only measured facts, null until the current file content is measured. streamix#1911: read for every work of the page in one more statement, never one request per work. The versions are those GET /media/{id}/versions lists without episode_id: current file-backed main versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work; local extras and trailers are not versions), so a series takes the files of all its episodes. ",
         "properties": {
@@ -23840,6 +23841,17 @@
                 "type": "null"
               }
             ]
+          },
+          "display": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VersionDisplay"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Version.display of that version. For an adult work the best version is the first entry of its adult order. streamix_server#256: adult versions (persisted adult origin) carry a short display name derived on the server from the code in the file name (normalized, for example ABCD-123, FC2-PPV-1234567, Carib 012345-678), its tags (中字, 无码, 流出, 破解, AI去码, VR, 4K/8K, frame rate, HDR, part CDn) and, among versions of the same work and episode, the technical differences needed to tell them apart. Without a code it is a short title induced from the file name, then the technical facts, then 版本 N; never the whole file name. At most 40 characters and 40 columns (East Asian characters count two). Ordinary versions return null and keep their client-built labels. "
           }
         }
       },
@@ -23944,6 +23956,7 @@
               "disc_versions",
               "disc_folder_files",
               "media_best_version",
+              "version_display",
               "media_lookup_batch",
               "person_lookup_by_external_id",
               "playback_technical_probe",
@@ -24326,6 +24339,11 @@
                 "type": "boolean",
                 "const": true,
                 "description": "Media.best_version and Media.version_count are present on every Media: GET /media (search included), GET /media/{id}, similar works and recent-play recommendations (streamix#1911)."
+              },
+              "version_display": {
+                "type": "boolean",
+                "const": true,
+                "description": "Version.display and BestVersion.display carry server-built adult version names, and adult works list their versions in the adult order (streamix_server#256)."
               },
               "media_lookup_batch": {
                 "type": "boolean",
@@ -33757,7 +33775,8 @@
           "content_revision",
           "availability",
           "external_subtitle_count",
-          "disc"
+          "disc",
+          "display"
         ],
         "properties": {
           "id": {
@@ -33945,6 +33964,17 @@
               }
             ],
             "description": "Set for a disc version (streamix#1950); null for an ordinary file. file_size is null for a folder disc (GET /playback/sessions/{id}/disc lists each file with its size)."
+          },
+          "display": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VersionDisplay"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "streamix_server#256: adult versions (persisted adult origin) carry a short display name derived on the server from the code in the file name (normalized, for example ABCD-123, FC2-PPV-1234567, Carib 012345-678), its tags (中字, 无码, 流出, 破解, AI去码, VR, 4K/8K, frame rate, HDR, part CDn) and, among versions of the same work and episode, the technical differences needed to tell them apart. Without a code it is a short title induced from the file name, then the technical facts, then 版本 N; never the whole file name. At most 40 characters and 40 columns (East Asian characters count two). Ordinary versions return null and keep their client-built labels. "
           }
         }
       },
@@ -34114,6 +34144,75 @@
                 "type": "null"
               }
             ]
+          }
+        }
+      },
+      "VersionDisplay": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text",
+          "basis",
+          "code",
+          "family",
+          "tags",
+          "rules_version"
+        ],
+        "description": "streamix_server#256: adult versions (persisted adult origin) carry a short display name derived on the server from the code in the file name (normalized, for example ABCD-123, FC2-PPV-1234567, Carib 012345-678), its tags (中字, 无码, 流出, 破解, AI去码, VR, 4K/8K, frame rate, HDR, part CDn) and, among versions of the same work and episode, the technical differences needed to tell them apart. Without a code it is a short title induced from the file name, then the technical facts, then 版本 N; never the whole file name. At most 40 characters and 40 columns (East Asian characters count two). Ordinary versions return null and keep their client-built labels. ",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "description": "The name to show, already disambiguated among the versions of the same work and episode: 1..40 Unicode characters and at most 40 columns."
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "code",
+              "title",
+              "technical",
+              "ordinal"
+            ],
+            "description": "code: from a recognized code; title: a short title induced from the file name; technical: resolution, codec and HDR; ordinal: 版本 N."
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160,
+                "description": "Normalized code when basis is code."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "family": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "description": "Code family when basis is code, for example japan_standard, fc2_ppv, mgs_prefixed, uncensored_date, site_number, h4610_family, heyzo, tokyo_hot, dmm_cid, cn_studio, western_scene, doujin_id, gravure_numbered, anime_episode or timestamp."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "maxItems": 32,
+            "items": {
+              "type": "string",
+              "maxLength": 32
+            },
+            "description": "Machine names of the tags shown in text, in display order: zh_sub, en_sub, uncensored, leak, decensor, ai_decensor, vr, 3d, 8k, 4k, fps<N>, hdr, dv, cd<N>, part_upper, part_lower."
+          },
+          "rules_version": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Version (YYYY.MM.patch) of the rules file that produced the name."
           }
         }
       },

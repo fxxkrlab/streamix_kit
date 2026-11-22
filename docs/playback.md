@@ -2,7 +2,7 @@
 
 Current SXAPI playback is `direct_play`: no remuxing, audio conversion or video transcoding. Future modes are not part of this SDK candidate. A client profile describes what that player can consume; do not copy another player's profile or declare unsupported codecs to obtain a stream.
 
-1. Prepare `/sxapi/v1/playback/sessions` with media ID, optional episode/version IDs and `profile`.
+1. Prepare `/sxapi/v1/playback/sessions` with media ID, optional episode/version IDs and `profile`. A user has at most 32 active prepared sessions. Since server 0.9.0-rc.23 a prepare that fails after the session was stored (the final recheck or the ticket) ends that session before returning the error, so it does not count toward that limit.
 2. Retain the returned `session_id`. The session is bounded by the original login and server policy.
 3. Validate the video grant: exact header name, credential-free root-relative `stream_path`, nonempty private ticket and actual `expires_at`. Tickets last at most 120 seconds and can be shorter. They permit new request admission; the current output authorization still governs an open body.
 4. Send video GET or HEAD to that path on the trusted origin with `X-SXAPI-Stream-Ticket`. For a seek, request one valid byte range. Never replace credentials with a query string.
@@ -18,7 +18,7 @@ A Blu-ray or DVD folder, or an `.iso` image, is catalogued as one version with `
 
 1. Prepare the session with that version's `version_id` and `profile.allow_unverified=true` (disc versions have no technical facts). The returned `PlaybackSession.disc` repeats the layout.
 2. `layout` `image`: read the raw `.iso` bytes through `stream_path` exactly as above; the player opens the image itself.
-3. `layout` `folder` (`format` `bluray` or `dvd`): `stream_path` answers 409 `disc_folder`. Require `features.disc_folder_files`, list the files with GET `/playback/sessions/{id}/disc` (original Bearer, never the ticket) and read each file with GET or HEAD `/playback/sessions/{id}/disc/files/{file_id}` using the same `X-SXAPI-Stream-Ticket` header and Range rules as the video stream. Paths start with `BDMV/` or `VIDEO_TS/`; compare them case-insensitively. `file_size` is null for a folder disc; use each listed file's `size`.
+3. `layout` `folder` (`format` `bluray` or `dvd`): `stream_path` answers 409 `disc_folder`. Require `features.disc_folder_files`, list the files with GET `/playback/sessions/{id}/disc` (original Bearer, never the ticket) and read each file with GET or HEAD `/playback/sessions/{id}/disc/files/{file_id}` using the same `X-SXAPI-Stream-Ticket` header and Range rules as the video stream. Paths start with `BDMV/` or `VIDEO_TS/`; compare them case-insensitively. `file_size` is null for a folder disc; use each listed file's `size`. On a server in Nimbus private mode (0.9.0-rc.23 and later), preparing a folder disc already returns 409 `disc_folder` without creating a session, and renewing the ticket of a folder-disc session returns 409 `disc_folder`; offer another version instead.
 
 The server never remuxes, transcodes or decrypts a disc. Emby/ECAL clients do not see disc versions.
 

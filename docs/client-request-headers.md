@@ -52,13 +52,16 @@ Server 0.9.0-rc.17 and later also read a purpose product at the end of the User-
 ```text
 Streamix/1.2.0 (Windows 10.0; x86_64) Streamix-Play/1
 Streamix/1.2.0 (Windows 10.0; x86_64) Streamix-Preload/1
+Streamix/1.2.0 (Windows 10.0; x86_64) Streamix-Download/1
 ```
 
 `Streamix-Play` marks normal playback, including the next episode buffered during playback. `Streamix-Preload` marks background preloading from a detail or episode page and is sent together with `Sec-Purpose: prefetch`. Other requests carry no purpose product. Product names match case-insensitively at any position and any version is accepted; if both appear, `Streamix-Play` wins, even over `Sec-Purpose: prefetch`. A request without a purpose product is a preload exactly when it sends `Sec-Purpose: prefetch`, so the SDK's behavior above is unchanged. Check `features.prefetch_user_agent_purpose` before relying on the purpose products.
 
+Server 0.9.0-rc.25 and later also recognize `Streamix-Download/1`, sent without `Sec-Purpose` on whole-file disk caching and downloads. It is never a preload: such a stream read counts as normal playback toward the concurrent-stream limit and re-runs the server's download permission (403 with the refusal reason as the error code). When several purpose products appear, `Streamix-Play` wins, then `Streamix-Preload`, then `Streamix-Download`. Ask for a grant before such a download; see [preload grants and downloads](downloads.md).
+
 On such a server a preload is not playback:
 
-- A preload stream (`GET`/`HEAD` of `stream_path` or a disc file) takes no concurrent-stream slot and never returns 429 `stream_limit` (`features.prefetch_stream_limit_exempt`; in Nimbus private mode it is false, except on server 0.9.0-rc.23 and later when the private runtime declares preloads outside the limit). Tickets, session checks and monthly byte quotas still apply. When the same session later plays with `Streamix-Play`, that request takes a normal slot.
+- A preload stream (`GET`/`HEAD` of `stream_path` or a disc file) takes no concurrent-stream slot and never returns 429 `stream_limit` (`features.prefetch_stream_limit_exempt`; in Nimbus private mode it is false, except on server 0.9.0-rc.23 and later when the private runtime declares preloads outside the limit). Tickets, session checks and monthly byte quotas still apply. When the same session later plays with `Streamix-Play`, that request takes a normal slot. On server 0.9.0-rc.25 and later a stream read with a `detail` or `next_episode` `STREAMIX-Grant` takes the preload lease whatever the purpose product, so a next-episode preload sent with `Streamix-Play` under such a grant leaves the playing slot free.
 - It is not listed under `/users/me/streams` or counted as playing. A progress report sent as a preload returns 409 `prefetch_not_recorded` before anything is written.
 - `features.prefetch` reports whether preloads are currently allowed. While the administrator has switched them off, every preload returns 403 `prefetch_disabled`: stop preloading and do not retry. Normal playback is unaffected.
 - The separate 429 `prefetch_busy` (the server's preload slots are full) is unchanged.

@@ -49,7 +49,7 @@ class ContractChecks(unittest.TestCase):
 
     def test_player_roots_accepted_and_admin_root_rejected(self):
         doc = fixture()
-        for path in ["/persons", "/episodes", "/folders"]:
+        for path in ["/persons", "/episodes", "/folders", "/prefetch/grants"]:
             doc["paths"][path] = {"get": {"operationId": path[1:], "responses": {}}}
         validate_pair(doc, copy.deepcopy(doc))
         doc["paths"]["/admin"] = {"get": {"operationId": "admin", "responses": {}}}

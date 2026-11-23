@@ -1,6 +1,6 @@
 # Five-minute integration path
 
-This source candidate is bound to the unreleased 0.9.0-rc.24 server contract, with minimum server candidate 0.9.0-rc.9. [SOURCE.json](../spec/SOURCE.json) records exact provenance; designated-server SDK validation and integration acceptance remain pending.
+This source candidate is bound to the unreleased 0.9.0-rc.25 server contract, with minimum server candidate 0.9.0-rc.9. [SOURCE.json](../spec/SOURCE.json) records exact provenance; designated-server SDK validation and integration acceptance remain pending.
 
 1. Choose the trusted **origin**, normally HTTPS such as `https://streamix.example`. Trusted-local HTTP is an explicit opt-in, not a TLS fallback; see [connecting](connecting.md). API paths begin with `/sxapi/v1`. Resolve returned root-relative video paths against the origin, not the API prefix.
 2. Read `GET /sxapi/v1/capabilities`. Require `features.playback_ticket_header=true`, `features.credentials_in_urls=false` and the relevant feature such as `playback=true`. Do not infer support from protocol version alone.
@@ -11,3 +11,5 @@ This source candidate is bound to the unreleased 0.9.0-rc.24 server contract, wi
 7. Before new requests near ticket expiry, use `POST /playback/sessions/{id}/tickets`. A renewed ticket cannot revive an expired login or ended session. Send sequential progress reports based on actual playback, then `DELETE /playback/sessions/{id}` and revoke `/sessions/current` when done.
 
 See the [curl example](../examples/curl/README.md) for a bounded command-line flow and [Rust CLI](../examples/rust-cli/README.md) for the typed SDK flow. Never enable shell tracing, HTTP verbose dumps or logging of request/response bodies during these flows.
+
+Background preloads, whole-file caches and downloads ask the server first on 0.9.0-rc.25 and later; see [preload grants and downloads](downloads.md).

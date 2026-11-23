@@ -35,4 +35,6 @@ A version still marked `technical_status=unknown` needs `profile.allow_unverifie
 
 Preloading (background requests before the user presses play) follows the rules in [client request headers](client-request-headers.md#request-purpose): a preload stream takes no concurrent-stream slot, a progress report sent as a preload returns 409 `prefetch_not_recorded`, and while `features.prefetch` is false every preload returns 403 `prefetch_disabled`.
 
+From server 0.9.0-rc.25, with `features.prefetch_grants`, ask `POST /prefetch/grants` before a preload, a whole-file disk cache or a download, and send the returned `grant_id` as `STREAMIX-Grant` on those stream reads next to the ticket. A `detail` or `next_episode` grant can answer a range with a shorter 206 and ends with 403 `grant_exhausted`; a `download` grant carries an offline licence to renew. Normal playback needs no grant. See [preload grants and downloads](downloads.md).
+
 The CLI reads at most 1 MiB and does not render video. A successful CLI read proves neither hardware decoding nor a visible first frame. Real-player acceptance is a separate result.

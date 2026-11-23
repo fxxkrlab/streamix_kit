@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "ff41e3ac49b3def59d59a66e8c01c5a97056bef0",
+  "upstream_commit": "184bf68d686c5f9553808b636541c9149beb6e68",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.24",
+  "intended_server_version": "0.9.0-rc.25",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-22T21:11:40.036338+00:00",
+  "synchronized_at": "2026-11-23T04:56:33.943964+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "93f572aeccdafeab12aaacd4aeea96faaa200629860799f7274d6fcd19bb64d8",
-      "bytes": 1384663
+      "sha256": "af6f1fafeee95cd04b2a5d281163f9dcb60dd836516de6094de84fcebc33d540",
+      "bytes": 1412975
     }
   },
   "upstream_full_export": {
-    "sha256": "f44f9072acc59d0f42426f7b693b9dcd678ee76c3b9ed88c94dc2d30d92dd66e",
-    "bytes": 3911322,
+    "sha256": "90b09437ed9cde5d32796f35d7e00eab0734d6a862ae03887e610d5ef5c3e522",
+    "bytes": 3947388,
     "published": false
   },
-  "kit_build": "20261123.020",
+  "kit_build": "20261123.021",
   "upstream_api_review": {
-    "actual_validation_source": "ff41e3ac49b3def59d59a66e8c01c5a97056bef0",
-    "actual_validation_tree": "eb6a7964b88f787294cad88f8f0c55317af5f1c0",
-    "final_metadata_source": "ff41e3ac49b3def59d59a66e8c01c5a97056bef0",
-    "final_metadata_tree": "eb6a7964b88f787294cad88f8f0c55317af5f1c0",
+    "actual_validation_source": "184bf68d686c5f9553808b636541c9149beb6e68",
+    "actual_validation_tree": "6d236826fc75a60d6b6180dd8d6b3a23e8dd9663",
+    "final_metadata_source": "184bf68d686c5f9553808b636541c9149beb6e68",
+    "final_metadata_tree": "6d236826fc75a60d6b6180dd8d6b3a23e8dd9663",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "3016c21b487d04e04dabeb172c4ed97e938d2a562bccc5a801ac5f94e88978ba",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.23 (streamix_server#256, adult version names): the client subset stays at 118 operations and the full specification at 387, with no operation or parameter added or removed; apart from info.version both exports change the same nine places. New schema VersionDisplay (additionalProperties false; required text, 1..160 characters in the schema, with the server producing at most 40 characters and 40 columns; basis code|title|technical|ordinal; nullable code and family, set when basis is code; tags, up to 32 machine names in display order; rules_version, YYYY.MM.patch). Version and BestVersion gain the required nullable member display (VersionDisplay or null): a server-built short name for versions of persisted adult origin, derived from the normalized code in the file name, its tags and the technical differences among the versions of the same work and episode, falling back to a short title, the technical facts and an ordinal, never the whole file name; ordinary versions return null and keep their client-built labels. Capabilities features gain the required version_display (const true). The descriptions of GET /media/{id}/versions and GET /media/{id}/versions/{version_id} add the adult order (Chinese subtitles first, then leak > uncensored > decensored > AI decensored, then resolution, then bitrate; the parts of one variant together in part order; episode groups keep the place of their first entry; pages of an adult work are cut from that order, and works with more than 2000 versions keep the quality order) and display on the version detail; BestVersion.display states that the best version of an adult work is the first entry of its adult order. BestVersion keeps additionalProperties false, so validators bound to the RC23 schema reject RC24 BestVersion objects. In OPERATIONS.json only typed_sdk_schema_sha256.Version changes; the fields the typed SDK reads are unchanged and display stays in Version.extra. The url 2.5.9 dependency update (RUSTSEC-2026-0592) in the same server release changes neither specification.",
-    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1258 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#261 (release correctness and security, API documentation contracts, container CI with configuration, traceability), merged to server master as d85c4777 with the same tree. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "818fcc1e13dac5895831d8a18b939425b2a51bf7a70c596643a674d122625f59",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.24 (streamix_server#175, download permission and prefetch grants): the client subset grows from 118 to 120 operations and the full specification from 387 to 389; apart from info.version the client subset changes 28 places and the full export 55 (the other 27 are administration: library and user download settings, the DownloadDecision schema and administration descriptions, not published). New operations POST /prefetch/grants (sxapi_create_grant_post) and POST /prefetch/grants/{grant_id}/renew (sxapi_renew_grant_post) under the new player root /prefetch. New schemas PrefetchGrantRequest (additionalProperties false; required media_id, version_id, category detail|next_episode|cache|download and network lan|wan, recorded only), PrefetchGrantDecision (oneOf; approval and refusal are both 200, told apart by granted), PrefetchGrantApproved (grant_id; max_bytes 1048576..10737418240 for detail / next_episode, null for cache / download; max_seconds null; expires_at, the 10-minute start window; download only license_expires_at and renew_after) and PrefetchGrantRefused (reason disabled_globally|not_opted_in|user_not_allowed|library_not_allowed|prefetch_disabled|server_busy|rate_limited; retry_after_seconds with server_busy and rate_limited). A grant request is an ordinary request: one marked as a preload gets 403 prefetch_disabled or 429 prefetch_busy before the handler; 404 not_found and 400 are errors, not refusals; at most 30 grants per user per minute. Renewal re-runs the download decision for the caller's download grant (200 approval or refusal; 404 for another user's, an unknown or a no longer visible grant; 409 grant_not_renewable for other categories). GET and HEAD of /playback/sessions/{id}/stream and /playback/sessions/{id}/disc/files/{file_id} gain the optional STREAMIX-Grant header (exactly one UUID; 403 grant_invalid, grant_expired, grant_exhausted without Content-Range, prefetch_disabled, and the download refusals as error codes; detail / next_episode reads reserve bytes, cut a longer Range to the remaining budget as a shorter 206, serve a read without Range only when the whole file fits and take the preload lease outside the concurrent-stream limit whatever the User-Agent purpose; cache / download reads re-run the download decision and are not counted; 416 never signals a budget). The StreamixUserAgent description adds the purpose product Streamix-Download/1 for whole-file caching and downloads (never a preload; its stream reads re-run the download decision), ordered after Streamix-Play and Streamix-Preload. Capabilities features gain the required download_permissions (const true) and prefetch_grants (false in Nimbus private mode until the private runtime checks grants, while private stream reads check neither STREAMIX-Grant nor the download permission), and limits gain the required prefetch_max_bytes_ceiling (const 10737418240). In OPERATIONS.json only the two operations are added; typed_sdk_schema_sha256 is unchanged and check_sdk_contract passes. The Kit subset check adds the prefetch player root, matching the server's player roots.",
+    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1264 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#262 (release correctness and security, API documentation contracts, container CI with configuration, traceability; all green), merged to server master as 3b39be4c with the same tree. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

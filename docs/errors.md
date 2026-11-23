@@ -6,7 +6,7 @@ SXAPI errors use `{"error":{"code":"…","message":"…"}}`. The synchronized sp
 | --- | --- |
 | 400 | Fix input, range or cursor; do not repeat the same invalid request. |
 | 401 | Stop using the failed credential; sign in or obtain a new permitted ticket through the proper original login. |
-| 403 | Current policy denies access; keep quota, adult/library access and concurrency checks intact. |
+| 403 | Current policy denies access; keep quota, adult/library access and concurrency checks intact. On a read with `STREAMIX-Grant` the `error.code` names the grant or download reason; see [preload grants and downloads](downloads.md). |
 | 404 | Unknown or hidden resource; do not reveal another user's resource existence. |
 | 409 | Re-read current session/source or restart the catalog page; never invent progress or silently choose a different file. |
 | 416 | Validate file representation and requested byte range. |

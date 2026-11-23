@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1 — Player",
-    "version": "0.9.0-rc.24",
+    "version": "0.9.0-rc.25",
     "description": "Generated player-only view of the same release SXAPI v1 contract. Retained operations and referenced components are unchanged. OpenAPI info.version identifies the server release; capabilities.version identifies the SXAPI protocol. Presence is not runtime feature availability.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -3018,7 +3018,7 @@
       "get": {
         "operationId": "sxapi_stream_get",
         "summary": "Read direct-file bytes",
-        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. streamix#1950: an image session streams the .iso bytes as is; a folder-disc session returns 409 disc_folder (read its files through the disc routes instead). Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
+        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. streamix#1950: an image session streams the .iso bytes as is; a folder-disc session returns 409 disc_folder (read its files through the disc routes instead). Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. #175: an optional STREAMIX-Grant header binds the read to a prefetch grant; see the header. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
         "tags": [
           "SXAPI v1"
         ],
@@ -3090,7 +3090,7 @@
             }
           },
           "403": {
-            "description": "Current playback policy denies access, including exhausted quota. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
+            "description": "Current playback policy denies access, including exhausted quota. #175: grant_invalid (another user's or version's grant, unknown or malformed), grant_expired (start window passed before the first read, or the download licence expired), grant_exhausted (the detail / next_episode budget is used up, or a whole-file read does not fit; no Content-Range), prefetch_disabled (a detail / next_episode grant while preloads are off), and the download refusals disabled_globally / not_opted_in / user_not_allowed / library_not_allowed for a cache / download grant or a Streamix-Download read. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3120,7 +3120,7 @@
             }
           },
           "416": {
-            "description": "Unsatisfiable single range. Content-Range: bytes */size.",
+            "description": "Unsatisfiable single range. Content-Range: bytes */size. #175: never used for a STREAMIX-Grant budget (that is 403 grant_exhausted); 416 means only a range outside the file.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3186,7 +3186,7 @@
             }
           },
           "206": {
-            "description": "One satisfiable byte range.",
+            "description": "One satisfiable byte range. #175: under a detail / next_episode STREAMIX-Grant the range may be shorter than requested (cut to the remaining budget); Content-Range gives the actual range.",
             "headers": {
               "Content-Length": {
                 "schema": {
@@ -3256,13 +3256,23 @@
               "type": "string"
             },
             "description": "A weak revision ETag cannot satisfy a strong If-Range validator; presence results in full 200."
+          },
+          {
+            "name": "STREAMIX-Grant",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "#175: grant_id from POST /prefetch/grants; exactly one value (non-empty, at most 4096 bytes, never repeated or comma-combined). A present but invalid or unknown value is 403 grant_invalid, never ignored as ordinary playback. It must belong to this session's user and version (a disc folder's files share the folder version) and be usable: the first read before expires_at, a download licence not expired. A grant belongs to the user, not a login. detail / next_episode: each byte read reserves what it serves from max_bytes in one statement that rechecks the binding and start window. A Range read (open ranges included) longer than the remaining budget is cut to it and answered as a shorter 206 whose Content-Range and Content-Length give the actual range; a read without Range is served only when the whole file fits; with nothing left it is 403 grant_exhausted without Content-Range, nothing reserved (416 with bytes */size still means only a range outside the file; Player decision 2026-11-22, deviating from the 11-17 draft). HEAD reads nothing. The read also takes the preload lease outside the concurrent-stream limit whatever the User-Agent purpose, so a next-episode preload under Streamix-Play does not take the playing slot; refused 403 prefetch_disabled while preloads are off. cache / download: the download decision runs on every read; reads are not counted. Without the header a read is ordinary playback; then only a User-Agent with the Streamix-Download product re-runs the download decision."
           }
         ]
       },
       "head": {
         "operationId": "sxapi_stream_head",
         "summary": "Read direct-file headers",
-        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. streamix#1950: an image session streams the .iso bytes as is; a folder-disc session returns 409 disc_folder (read its files through the disc routes instead). Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
+        "description": "Rechecks the exact parent SXAPI login, current account and UHDAdmin expiry, ordinary/adult library membership, playback policy, exact media/episode/version/source-path binding and content revision. Only exactly one X-SXAPI-Stream-Ticket header is accepted; query credentials, duplicate or comma-combined headers return401. An Authorization header is irrelevant and neither replaces nor invalidates the ticket. Single bytes=start-end/open-end/suffix ranges are supported. ETag is weak and revision-bound; any If-Range requests receive the complete representation with 200. HEAD fetches upstream metadata, returns no body and creates no transfer lease or bandwidth charge. GET uses Nimbus range/cache transport; a range that begins inside the startup-prefetched head or tail of this exact source revision is answered from server memory, and any remainder of that range continues from upstream in the same body, shared admission and atomic byte ledger, with authorization checks before each buffered batch and every two seconds during a stalled body. A positive result from an earlier batch is never reused to authorize a later batch. After headers, revocation/upstream body errors terminate the body rather than changing its status. streamix#1950: an image session streams the .iso bytes as is; a folder-disc session returns 409 disc_folder (read its files through the disc routes instead). Off/absent transport rechecks the original login, session, library, playback policy and exact source after a successful upstream metadata wait, before any size-mismatch or Range-error response. Changed authority takes precedence over a metadata-derived416 and does not publish file Content-Range, Accept-Ranges or ETag; unchanged authorized unsatisfiable ranges retain416 with bytes */size. This is a source correction awaiting final-source PG15/16 evidence, not private Host or client acceptance. This is the legacy/off transport. Explicit private remote/invalid mode refuses this route with503, including tickets issued before configuration changed. Private mode uses the fixed /nimbus-play/v1/sxapi path and separate X-SXAPI-Stream-Ticket returned by preparation/renewal. #175: an optional STREAMIX-Grant header binds the read to a prefetch grant; see the header. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
         "tags": [
           "SXAPI v1"
         ],
@@ -3312,7 +3322,7 @@
             "description": "Missing, invalid, expired or revoked credential or parent login."
           },
           "403": {
-            "description": "Current playback policy denies access, including exhausted quota. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175)."
+            "description": "Current playback policy denies access, including exhausted quota. #175: grant_invalid (another user's or version's grant, unknown or malformed), grant_expired (start window passed before the first read, or the download licence expired), grant_exhausted (the detail / next_episode budget is used up, or a whole-file read does not fit; no Content-Range), prefetch_disabled (a detail / next_episode grant while preloads are off), and the download refusals disabled_globally / not_opted_in / user_not_allowed / library_not_allowed for a cache / download grant or a Streamix-Download read. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175)."
           },
           "404": {
             "description": "Unknown, hidden or differently owned resource."
@@ -3414,6 +3424,16 @@
               "type": "string"
             },
             "description": "A weak revision ETag cannot satisfy a strong If-Range validator; presence results in full 200."
+          },
+          {
+            "name": "STREAMIX-Grant",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "#175: grant_id from POST /prefetch/grants; exactly one value (non-empty, at most 4096 bytes, never repeated or comma-combined). A present but invalid or unknown value is 403 grant_invalid, never ignored as ordinary playback. It must belong to this session's user and version (a disc folder's files share the folder version) and be usable: the first read before expires_at, a download licence not expired. A grant belongs to the user, not a login. detail / next_episode: each byte read reserves what it serves from max_bytes in one statement that rechecks the binding and start window. A Range read (open ranges included) longer than the remaining budget is cut to it and answered as a shorter 206 whose Content-Range and Content-Length give the actual range; a read without Range is served only when the whole file fits; with nothing left it is 403 grant_exhausted without Content-Range, nothing reserved (416 with bytes */size still means only a range outside the file; Player decision 2026-11-22, deviating from the 11-17 draft). HEAD reads nothing. The read also takes the preload lease outside the concurrent-stream limit whatever the User-Agent purpose, so a next-episode preload under Streamix-Play does not take the playing slot; refused 403 prefetch_disabled while preloads are off. cache / download: the download decision runs on every read; reads are not counted. Without the header a read is ordinary playback; then only a User-Agent with the Streamix-Download product re-runs the download decision."
           }
         ]
       },
@@ -21142,7 +21162,7 @@
       "get": {
         "operationId": "sxapi_disc_file_get",
         "summary": "Read one disc folder file",
-        "description": "streamix#1950: raw bytes of one file listed by GET /playback/sessions/{id}/disc, with the same ticket, Range, HEAD, admission, byte ledger and authorization rules as GET|HEAD /playback/sessions/{id}/stream (the session's stream ticket in X-SXAPI-Stream-Ticket; renew it with POST .../tickets). Reads of several files of one session share that session's admission. file_id must be a current file below the same marker folder (walked up through live folders, at most 8 levels), otherwise 404. ETag is W/\"sx-binding-file_id-content_revision\". No startup prefetch and no technical probe of these bytes. 409 not_disc_folder for an image or ordinary session, 409 source_unavailable when the marker folder moved. Not available in Nimbus private mode (503), like the stream. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
+        "description": "streamix#1950: raw bytes of one file listed by GET /playback/sessions/{id}/disc, with the same ticket, Range, HEAD, admission, byte ledger and authorization rules as GET|HEAD /playback/sessions/{id}/stream (the session's stream ticket in X-SXAPI-Stream-Ticket; renew it with POST .../tickets). Reads of several files of one session share that session's admission. file_id must be a current file below the same marker folder (walked up through live folders, at most 8 levels), otherwise 404. ETag is W/\"sx-binding-file_id-content_revision\". No startup prefetch and no technical probe of these bytes. 409 not_disc_folder for an image or ordinary session, 409 source_unavailable when the marker folder moved. Not available in Nimbus private mode (503), like the stream. #175: an optional STREAMIX-Grant header binds the read to a prefetch grant; see the header. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
         "tags": [
           "SXAPI v1"
         ],
@@ -21220,7 +21240,7 @@
             }
           },
           "403": {
-            "description": "Current playback policy denies access, including exhausted quota. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
+            "description": "Current playback policy denies access, including exhausted quota. #175: grant_invalid (another user's or version's grant, unknown or malformed), grant_expired (start window passed before the first read, or the download licence expired), grant_exhausted (the detail / next_episode budget is used up, or a whole-file read does not fit; no Content-Range), prefetch_disabled (a detail / next_episode grant while preloads are off), and the download refusals disabled_globally / not_opted_in / user_not_allowed / library_not_allowed for a cache / download grant or a Streamix-Download read. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
             "content": {
               "application/json": {
                 "schema": {
@@ -21250,7 +21270,7 @@
             }
           },
           "416": {
-            "description": "Unsatisfiable single range. Content-Range: bytes */size.",
+            "description": "Unsatisfiable single range. Content-Range: bytes */size. #175: never used for a STREAMIX-Grant budget (that is 403 grant_exhausted); 416 means only a range outside the file.",
             "content": {
               "application/json": {
                 "schema": {
@@ -21316,7 +21336,7 @@
             }
           },
           "206": {
-            "description": "One satisfiable byte range.",
+            "description": "One satisfiable byte range. #175: under a detail / next_episode STREAMIX-Grant the range may be shorter than requested (cut to the remaining budget); Content-Range gives the actual range.",
             "headers": {
               "Content-Length": {
                 "schema": {
@@ -21396,13 +21416,23 @@
               "type": "string"
             },
             "description": "A weak revision ETag cannot satisfy a strong If-Range validator; presence results in full 200."
+          },
+          {
+            "name": "STREAMIX-Grant",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "#175: grant_id from POST /prefetch/grants; exactly one value (non-empty, at most 4096 bytes, never repeated or comma-combined). A present but invalid or unknown value is 403 grant_invalid, never ignored as ordinary playback. It must belong to this session's user and version (a disc folder's files share the folder version) and be usable: the first read before expires_at, a download licence not expired. A grant belongs to the user, not a login. detail / next_episode: each byte read reserves what it serves from max_bytes in one statement that rechecks the binding and start window. A Range read (open ranges included) longer than the remaining budget is cut to it and answered as a shorter 206 whose Content-Range and Content-Length give the actual range; a read without Range is served only when the whole file fits; with nothing left it is 403 grant_exhausted without Content-Range, nothing reserved (416 with bytes */size still means only a range outside the file; Player decision 2026-11-22, deviating from the 11-17 draft). HEAD reads nothing. The read also takes the preload lease outside the concurrent-stream limit whatever the User-Agent purpose, so a next-episode preload under Streamix-Play does not take the playing slot; refused 403 prefetch_disabled while preloads are off. cache / download: the download decision runs on every read; reads are not counted. Without the header a read is ordinary playback; then only a User-Agent with the Streamix-Download product re-runs the download decision."
           }
         ]
       },
       "head": {
         "operationId": "sxapi_disc_file_head",
         "summary": "Read one disc folder file's headers",
-        "description": "streamix#1950: raw bytes of one file listed by GET /playback/sessions/{id}/disc, with the same ticket, Range, HEAD, admission, byte ledger and authorization rules as GET|HEAD /playback/sessions/{id}/stream (the session's stream ticket in X-SXAPI-Stream-Ticket; renew it with POST .../tickets). Reads of several files of one session share that session's admission. file_id must be a current file below the same marker folder (walked up through live folders, at most 8 levels), otherwise 404. ETag is W/\"sx-binding-file_id-content_revision\". No startup prefetch and no technical probe of these bytes. 409 not_disc_folder for an image or ordinary session, 409 source_unavailable when the marker folder moved. Not available in Nimbus private mode (503), like the stream. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
+        "description": "streamix#1950: raw bytes of one file listed by GET /playback/sessions/{id}/disc, with the same ticket, Range, HEAD, admission, byte ledger and authorization rules as GET|HEAD /playback/sessions/{id}/stream (the session's stream ticket in X-SXAPI-Stream-Ticket; renew it with POST .../tickets). Reads of several files of one session share that session's admission. file_id must be a current file below the same marker folder (walked up through live folders, at most 8 levels), otherwise 404. ETag is W/\"sx-binding-file_id-content_revision\". No startup prefetch and no technical probe of these bytes. 409 not_disc_folder for an image or ordinary session, 409 source_unavailable when the marker folder moved. Not available in Nimbus private mode (503), like the stream. #175: an optional STREAMIX-Grant header binds the read to a prefetch grant; see the header. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. #175: a preload (User-Agent Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) takes its own lease outside the concurrent-stream limit: it never returns 429 stream_limit, never kicks a playing stream, and a later play is not refused because of it. All ticket, session, source, policy and byte-quota checks still apply, and its bytes are charged to the monthly quota. Playing the same session later (Streamix-Play) takes a normal slot. In Nimbus private mode only when the composed private runtime declares it; otherwise the private host keeps one lease for both purposes (capabilities.features.prefetch_stream_limit_exempt).",
         "tags": [
           "SXAPI v1"
         ],
@@ -21459,7 +21489,7 @@
             }
           },
           "403": {
-            "description": "Current playback policy denies access, including exhausted quota. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175)."
+            "description": "Current playback policy denies access, including exhausted quota. #175: grant_invalid (another user's or version's grant, unknown or malformed), grant_expired (start window passed before the first read, or the download licence expired), grant_exhausted (the detail / next_episode budget is used up, or a whole-file read does not fit; no Content-Range), prefetch_disabled (a detail / next_episode grant while preloads are off), and the download refusals disabled_globally / not_opted_in / user_not_allowed / library_not_allowed for a cache / download grant or a Streamix-Download read. Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175)."
           },
           "404": {
             "description": "Unknown, hidden or differently owned resource.",
@@ -21606,6 +21636,16 @@
               "type": "string"
             },
             "description": "A weak revision ETag cannot satisfy a strong If-Range validator; presence results in full 200."
+          },
+          {
+            "name": "STREAMIX-Grant",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "#175: grant_id from POST /prefetch/grants; exactly one value (non-empty, at most 4096 bytes, never repeated or comma-combined). A present but invalid or unknown value is 403 grant_invalid, never ignored as ordinary playback. It must belong to this session's user and version (a disc folder's files share the folder version) and be usable: the first read before expires_at, a download licence not expired. A grant belongs to the user, not a login. detail / next_episode: each byte read reserves what it serves from max_bytes in one statement that rechecks the binding and start window. A Range read (open ranges included) longer than the remaining budget is cut to it and answered as a shorter 206 whose Content-Range and Content-Length give the actual range; a read without Range is served only when the whole file fits; with nothing left it is 403 grant_exhausted without Content-Range, nothing reserved (416 with bytes */size still means only a range outside the file; Player decision 2026-11-22, deviating from the 11-17 draft). HEAD reads nothing. The read also takes the preload lease outside the concurrent-stream limit whatever the User-Agent purpose, so a next-episode preload under Streamix-Play does not take the playing slot; refused 403 prefetch_disabled while preloads are off. cache / download: the download decision runs on every read; reads are not counted. Without the header a read is ordinary playback; then only a User-Agent with the Streamix-Download product re-runs the download decision."
           }
         ]
       },
@@ -22460,6 +22500,308 @@
               "type": "string",
               "format": "uuid"
             }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/prefetch/grants": {
+      "post": {
+        "operationId": "sxapi_create_grant_post",
+        "summary": "Ask before a preload, whole-file cache or download",
+        "description": "Bearer login of the account. #175: the server approves or refuses one read plan for one version; both are 200 (granted). The item must be visible to the caller through a current library grant and the version a current file of it, else 404 not_found (an ordinary error, not a refusal); an invalid body is 400. detail / next_episode: refused prefetch_disabled while site setting prefetch_enabled is false, server_busy while preload capacity is exhausted; approved with max_bytes. cache / download: the three-tier download decision; a download approval carries the offline licence. At most 30 grants per user per minute (rate_limited). Grants are stored (detail / next_episode for their byte budget, download as offline licences); stale rows of the caller are pruned on each new grant. Send this request without a User-Agent purpose product (an ordinary W27 request): a request marked as a preload (Streamix-Preload, or Sec-Purpose prefetch without Streamix-Play) is subject to the preload switch and capacity before the handler, so it gets 403 prefetch_disabled or 429 prefetch_busy instead of a refusal. Decision order (#175): 1. site setting download_access disabled refuses everyone, administrators included (disabled_globally); 2. a library or the user set to deny refuses (library_not_allowed / user_not_allowed; deny wins); 3. a library or the user set to allow allows (library_allowed / user_allowed); 4. both follow: site everyone allows (everyone), opted_in refuses (not_opted_in). When both layers say the same, the user reason is named. An item in several libraries combines the caller's current libraries that hold it: one deny refuses, otherwise one allow allows. Turning the site to disabled keeps every library and user choice. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/playback/grants.rs",
+          "handler": "create_grant"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrefetchGrantDecision"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "403": {
+            "description": "Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrefetchGrantRequest"
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/prefetch/grants/{grant_id}/renew": {
+      "post": {
+        "operationId": "sxapi_renew_grant_post",
+        "summary": "Renew a download grant's offline licence",
+        "description": "Bearer login of the account; no body. #175: a download grant of the caller gets license_expires_at = now + download_license_days and a new renew_after (same grant_id and expires_at). The download decision runs again: refused is a 200 refusal with its reason (the copy then runs out at its current licence; nothing is deleted remotely). Another user's or an unknown grant, or an item no longer visible, is 404; a detail / next_episode / cache grant is 409 grant_not_renewable. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/playback/grants.rs",
+          "handler": "renew_grant"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrefetchGrantDecision"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown, hidden or differently owned resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State revision conflict, conflicting/stale progress sequence, changed authorization snapshot, ended session, changed source binding or playback compatibility conflict. Includes grant_not_renewable for a grant that is not a download.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": " Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "403": {
+            "description": "Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "grant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A grant_id of the caller."
           }
         ]
       },
@@ -23603,7 +23945,7 @@
           "type": "string",
           "maxLength": 1024
         },
-        "description": "Optional self-reported RFC9110 products and comments; retained at most1024 UTF-8 bytes. W27 Streamix players (#175): Streamix/<version> (<platform>; <arch>) then an optional purpose product: Streamix-Play/1 for the playing stream and the next-episode preload (normal playback), Streamix-Preload/1 for detail-page and episode-page background preloads including their playback preparation; no purpose product on other requests. Example: Streamix/0.2.0-alpha.27 (Windows 10.0; x86_64) Streamix-Preload/1. The client name and version are the first product; when X-Streamix-Client is absent or invalid, a first product with a version becomes the client label. A purpose product is matched as a whole product name in any position, ASCII case-insensitive, with any version; text inside a comment is never a product. Streamix-Play wins when both appear. The earlier draft STREAMIX-Prefetch/1 is not recognized. W26 and earlier (Streamix/0.1.0 or a bare Streamix) remain accepted unchanged; a bare product gives no client label. A value that is not a product list is still kept as a label and never rejects a request. Third-party clients: own product plus StreamixKit/version. No credential, username, server address or IP. Never authorization."
+        "description": "Optional self-reported RFC9110 products and comments; retained at most1024 UTF-8 bytes. W27 Streamix players (#175): Streamix/<version> (<platform>; <arch>) then an optional purpose product: Streamix-Play/1 for the playing stream and the next-episode preload (normal playback), Streamix-Preload/1 for detail-page and episode-page background preloads including their playback preparation, Streamix-Download/1 for whole-file disk caching and downloads (#175, 2026-11-17; never a preload, and its stream reads re-run the download permission); no purpose product on other requests. Example: Streamix/0.2.0-alpha.27 (Windows 10.0; x86_64) Streamix-Preload/1. The client name and version are the first product; when X-Streamix-Client is absent or invalid, a first product with a version becomes the client label. A purpose product is matched as a whole product name in any position, ASCII case-insensitive, with any version; text inside a comment is never a product. Streamix-Play wins when both appear, then Streamix-Preload, then Streamix-Download. The earlier draft STREAMIX-Prefetch/1 is not recognized. W26 and earlier (Streamix/0.1.0 or a bare Streamix) remain accepted unchanged; a bare product gives no client label. A value that is not a product list is still kept as a label and never rejects a request. Third-party clients: own product plus StreamixKit/version. No credential, username, server address or IP. Never authorization."
       }
     },
     "schemas": {
@@ -23974,6 +24316,8 @@
               "sample_images",
               "administration_tmdb_link",
               "administration_tmdb_refresh",
+              "download_permissions",
+              "prefetch_grants",
               "prefetch",
               "prefetch_user_agent_purpose",
               "prefetch_stream_limit_exempt",
@@ -24417,6 +24761,15 @@
                 "type": "boolean",
                 "const": true
               },
+              "download_permissions": {
+                "type": "boolean",
+                "const": true,
+                "description": "The three-tier download permission (site / library / user) decides cache and download grants, ECAL EnableContentDownloading and ECAL /Items/{id}/Download (#175). Compatibility limit: in Nimbus private mode, until the composed runtime declares grant checks (prefetch_grants false), private stream reads neither check STREAMIX-Grant nor re-check the download permission; cache / download are decided only when a grant is issued or renewed."
+              },
+              "prefetch_grants": {
+                "type": "boolean",
+                "description": "POST /prefetch/grants and the STREAMIX-Grant stream header are honoured: playback is available and either the server is not in Nimbus private mode or its composed private runtime declares grant checks on its stream host (#175)."
+              },
               "prefetch": {
                 "type": "boolean",
                 "description": "Preloads are currently allowed: site setting prefetch_enabled is not false. When false, every preload returns 403 prefetch_disabled; skip preloading (#175)."
@@ -24493,7 +24846,8 @@
               "media_external_ids_max",
               "media_ids_page_size_max",
               "media_lookup_ids_max",
-              "person_external_ids_max"
+              "person_external_ids_max",
+              "prefetch_max_bytes_ceiling"
             ],
             "properties": {
               "media_page_size_max": {
@@ -24719,6 +25073,12 @@
                 "type": "integer",
                 "const": 50,
                 "description": "Most IDs in one GET /persons external_ids parameter (#244)."
+              },
+              "prefetch_max_bytes_ceiling": {
+                "type": "integer",
+                "format": "int64",
+                "const": 10737418240,
+                "description": "Largest prefetch_max_bytes a site setting or user override may hold (10 GiB, #175)."
               }
             }
           },
@@ -30895,6 +31255,139 @@
           "next_cursor",
           "observed_at"
         ]
+      },
+      "PrefetchGrantApproved": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "granted",
+          "grant_id",
+          "max_bytes",
+          "max_seconds",
+          "expires_at"
+        ],
+        "properties": {
+          "granted": {
+            "const": true
+          },
+          "grant_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Send as the STREAMIX-Grant request header on stream reads."
+          },
+          "max_bytes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1048576,
+                "maximum": 10737418240,
+                "description": "detail / next_episode: bytes the grant may read, the user's prefetch_max_bytes override else the site setting (default 268435456). Take the smaller of this and the client setting and show \"limited by the server to X\". null for cache / download, which are not counted."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "max_seconds": {
+            "type": "null",
+            "description": "No duration limit in this release."
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The first stream read must start before this (10 minutes); a started grant keeps its budget."
+          },
+          "license_expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "download only: the offline licence, download_license_days (default 30) from issue or renewal. After it the client stops offline playback of this copy and says why; the server never deletes it remotely."
+          },
+          "renew_after": {
+            "type": "string",
+            "format": "date-time",
+            "description": "download only: renew from here on while online (half the licence)."
+          }
+        }
+      },
+      "PrefetchGrantDecision": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PrefetchGrantApproved"
+          },
+          {
+            "$ref": "#/components/schemas/PrefetchGrantRefused"
+          }
+        ],
+        "description": "Approval and refusal are both 200; granted tells them apart."
+      },
+      "PrefetchGrantRefused": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "granted",
+          "reason"
+        ],
+        "properties": {
+          "granted": {
+            "const": false
+          },
+          "reason": {
+            "enum": [
+              "disabled_globally",
+              "not_opted_in",
+              "user_not_allowed",
+              "library_not_allowed",
+              "prefetch_disabled",
+              "server_busy",
+              "rate_limited"
+            ],
+            "description": "cache / download: disabled_globally / not_opted_in / library_not_allowed / user_not_allowed (the download decision). detail / next_episode: prefetch_disabled (site prefetch_enabled is false) and server_busy. Any category: rate_limited. Do not retry a refusal except after retry_after_seconds."
+          },
+          "retry_after_seconds": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Only with server_busy and rate_limited."
+          }
+        }
+      },
+      "PrefetchGrantRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "media_id",
+          "version_id",
+          "category",
+          "network"
+        ],
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The work (movie or series) or the episode the version belongs to; doc 26 \"item id\"."
+          },
+          "version_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The version to read; doc 26 \"media source id\". It must be a current file-backed version of media_id."
+          },
+          "category": {
+            "enum": [
+              "detail",
+              "next_episode",
+              "cache",
+              "download"
+            ],
+            "description": "detail: detail-page / episode-page preload. next_episode: next-episode preload. cache: whole-file disk cache while playing. download: download for offline viewing."
+          },
+          "network": {
+            "enum": [
+              "lan",
+              "wan"
+            ],
+            "description": "The network the client believes it is on. Recorded with the grant; it does not change the decision in this release."
+          }
+        }
       },
       "PreparedPlayback": {
         "type": "object",

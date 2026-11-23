@@ -323,6 +323,16 @@
       "operation_id": "sxapi_create_playback_ticket_post"
     },
     {
+      "method": "POST",
+      "path": "/prefetch/grants",
+      "operation_id": "sxapi_create_grant_post"
+    },
+    {
+      "method": "POST",
+      "path": "/prefetch/grants/{grant_id}/renew",
+      "operation_id": "sxapi_renew_grant_post"
+    },
+    {
       "method": "GET",
       "path": "/series",
       "operation_id": "sxapi_list_series_get"

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1 — Player",
-    "version": "0.9.0-rc.25",
+    "version": "0.9.0-rc.26",
     "description": "Generated player-only view of the same release SXAPI v1 contract. Retained operations and referenced components are unchanged. OpenAPI info.version identifies the server release; capabilities.version identifies the SXAPI protocol. Presence is not runtime feature availability.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",

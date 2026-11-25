@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "184bf68d686c5f9553808b636541c9149beb6e68",
+  "upstream_commit": "6629d3b777f4cd3624f6c42bd256cd89b978e0e9",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.25",
+  "intended_server_version": "0.9.0-rc.26",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-23T04:56:33.943964+00:00",
+  "synchronized_at": "2026-11-25T08:07:21.159943+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "af6f1fafeee95cd04b2a5d281163f9dcb60dd836516de6094de84fcebc33d540",
+      "sha256": "98d5503d2ed153e151227735e17eb6342bb7bb838e2270c17585b9afa865fdcd",
       "bytes": 1412975
     }
   },
   "upstream_full_export": {
-    "sha256": "90b09437ed9cde5d32796f35d7e00eab0734d6a862ae03887e610d5ef5c3e522",
+    "sha256": "d3cb4d79a418c251e0c25eeb0d694562355bd59c5c592c82165c91e0a7e75f0c",
     "bytes": 3947388,
     "published": false
   },
-  "kit_build": "20261123.021",
+  "kit_build": "20261125.022",
   "upstream_api_review": {
-    "actual_validation_source": "184bf68d686c5f9553808b636541c9149beb6e68",
-    "actual_validation_tree": "6d236826fc75a60d6b6180dd8d6b3a23e8dd9663",
-    "final_metadata_source": "184bf68d686c5f9553808b636541c9149beb6e68",
-    "final_metadata_tree": "6d236826fc75a60d6b6180dd8d6b3a23e8dd9663",
+    "actual_validation_source": "6629d3b777f4cd3624f6c42bd256cd89b978e0e9",
+    "actual_validation_tree": "aaffe45199ec72ae04de39f3599dc452bd6e928e",
+    "final_metadata_source": "6629d3b777f4cd3624f6c42bd256cd89b978e0e9",
+    "final_metadata_tree": "aaffe45199ec72ae04de39f3599dc452bd6e928e",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "818fcc1e13dac5895831d8a18b939425b2a51bf7a70c596643a674d122625f59",
-    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.24 (streamix_server#175, download permission and prefetch grants): the client subset grows from 118 to 120 operations and the full specification from 387 to 389; apart from info.version the client subset changes 28 places and the full export 55 (the other 27 are administration: library and user download settings, the DownloadDecision schema and administration descriptions, not published). New operations POST /prefetch/grants (sxapi_create_grant_post) and POST /prefetch/grants/{grant_id}/renew (sxapi_renew_grant_post) under the new player root /prefetch. New schemas PrefetchGrantRequest (additionalProperties false; required media_id, version_id, category detail|next_episode|cache|download and network lan|wan, recorded only), PrefetchGrantDecision (oneOf; approval and refusal are both 200, told apart by granted), PrefetchGrantApproved (grant_id; max_bytes 1048576..10737418240 for detail / next_episode, null for cache / download; max_seconds null; expires_at, the 10-minute start window; download only license_expires_at and renew_after) and PrefetchGrantRefused (reason disabled_globally|not_opted_in|user_not_allowed|library_not_allowed|prefetch_disabled|server_busy|rate_limited; retry_after_seconds with server_busy and rate_limited). A grant request is an ordinary request: one marked as a preload gets 403 prefetch_disabled or 429 prefetch_busy before the handler; 404 not_found and 400 are errors, not refusals; at most 30 grants per user per minute. Renewal re-runs the download decision for the caller's download grant (200 approval or refusal; 404 for another user's, an unknown or a no longer visible grant; 409 grant_not_renewable for other categories). GET and HEAD of /playback/sessions/{id}/stream and /playback/sessions/{id}/disc/files/{file_id} gain the optional STREAMIX-Grant header (exactly one UUID; 403 grant_invalid, grant_expired, grant_exhausted without Content-Range, prefetch_disabled, and the download refusals as error codes; detail / next_episode reads reserve bytes, cut a longer Range to the remaining budget as a shorter 206, serve a read without Range only when the whole file fits and take the preload lease outside the concurrent-stream limit whatever the User-Agent purpose; cache / download reads re-run the download decision and are not counted; 416 never signals a budget). The StreamixUserAgent description adds the purpose product Streamix-Download/1 for whole-file caching and downloads (never a preload; its stream reads re-run the download decision), ordered after Streamix-Play and Streamix-Preload. Capabilities features gain the required download_permissions (const true) and prefetch_grants (false in Nimbus private mode until the private runtime checks grants, while private stream reads check neither STREAMIX-Grant nor the download permission), and limits gain the required prefetch_max_bytes_ceiling (const 10737418240). In OPERATIONS.json only the two operations are added; typed_sdk_schema_sha256 is unchanged and check_sdk_contract passes. The Kit subset check adds the prefetch player root, matching the server's player roots.",
-    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1264 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#262 (release correctness and security, API documentation contracts, container CI with configuration, traceability; all green), merged to server master as 3b39be4c with the same tree. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "fd38bb222b3a0e308b3d48c6f58ac8bc45db89107339dea5498adf170a6b4ac8",
+    "spec_delta_from_previous_binding": "info.version only over 0.9.0-rc.25 (streamix_server#250, a server-internal follow-up to #175 with no HTTP change): the client subset stays at 120 operations and the full specification at 389; apart from info.version (0.9.0-rc.25 to 0.9.0-rc.26) both exports are byte-for-byte identical to the 0.9.0-rc.25 binding (same byte sizes), with no operation, parameter, schema, response, description, capability or limit change. OPERATIONS.json is unchanged (same operations and typed_sdk_schema_sha256) and check_sdk_contract passes; Rust source, the typed SDK contract, Cargo inputs and the check tools are unchanged. Clients need no change.",
+    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1264 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#263 (release correctness and security, API documentation contracts, container CI with configuration, traceability; all green), merged to server master as e5f1b523 with the same tree. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",

@@ -1,6 +1,12 @@
-name: StreamixKit designated-server checks
+name: StreamixKit checks
 
+# GitHub-hosted runner (user decision 2026-11-26): this repository is public, so hosted
+# runners are free and spec syncs no longer need a workstation build. Every pull request
+# runs these checks; a pull request merges only when they pass.
 on:
+  pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -8,24 +14,23 @@ permissions:
 
 concurrency:
   group: streamix-kit-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   client-checks:
-    # The release owner verifies this repository's registration and disposal
-    # controls before dispatch. This file does not register a Runner.
-    runs-on: [self-hosted, Linux, X64, portfolio-ci, portfolio-container]
-    timeout-minutes: 25
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     env:
-      CARGO_HOME: ${{ github.workspace }}/.ci-cargo
-      CARGO_TARGET_DIR: ${{ github.workspace }}/target
       PYTHONDONTWRITEBYTECODE: "1"
+      CARGO_TERM_COLOR: never
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      # actions/checkout v7.0.1, pinned to its commit.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
       - name: Public boundary and synchronized contract
         run: |
+          python3 --version
           python3 tools/check_credentials.py
           python3 tools/check_links.py
           python3 tools/check_spec.py
@@ -33,17 +38,17 @@ jobs:
           python3 -m unittest discover -s tools -p 'test_*.py'
       - name: OpenAPI 3.1 schema
         run: |
-          python3 -m venv .ci-venv
-          .ci-venv/bin/pip install --disable-pip-version-check openapi-spec-validator==0.7.2
-          .ci-venv/bin/python -m openapi_spec_validator spec/sxapi-v1-client.openapi.json
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --disable-pip-version-check openapi-spec-validator==0.7.2
+          "$RUNNER_TEMP/venv/bin/python" -m openapi_spec_validator spec/sxapi-v1-client.openapi.json
+      - name: Rust 1.98.0 toolchain
+        run: |
+          rustup toolchain install 1.98.0 --profile minimal --component clippy
+          rustc +1.98.0 --version
+          cargo +1.98.0 clippy --version
       - name: Rust check, lint and mock tests
         run: |
-          cargo check --workspace --all-targets
-          cargo clippy --workspace --all-targets -- -D warnings
-          cargo test --workspace --all-targets
-          cargo test --workspace --doc
-      - name: Dispose job-local data
-        if: always()
-        run: |
-          rm -rf -- target .ci-cargo .ci-venv
-          # The mandatory Runner hooks also discard checkout and interrupted jobs.
+          cargo +1.98.0 check --workspace --all-targets
+          cargo +1.98.0 clippy --workspace --all-targets -- -D warnings
+          cargo +1.98.0 test --workspace --all-targets
+          cargo +1.98.0 test --workspace --doc

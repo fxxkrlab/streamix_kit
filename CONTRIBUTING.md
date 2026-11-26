@@ -4,9 +4,9 @@ Changes need an exact source Issue, acceptance criteria, linked Linear task, sha
 
 Public source only: no server implementation, private history, production domains, configurations, addresses, credentials or logs. Use fictional examples. Sensitive reports belong in a private channel, not a public Issue.
 
-No local Docker, product builds or tests. Use the registered dedicated server Runner coordinated by the release owner. A new repository requires its own verified registration; labels do not register it. Workflows use `self-hosted`, `Linux`, `X64`, `portfolio-ci`, `portfolio-container`. Jobs need disposable workspaces and existing Runner cleanup controls. Never add production credentials to workflows.
+CI runs on GitHub-hosted runners (`ubuntu-24.04`, Rust 1.98.0): `.github/workflows/ci.yml` runs on every pull request, on pushes to main and on manual dispatch, and a pull request merges only when it passes. This is the user's decision of 2026-11-26: the repository is public, so hosted runners are free and a spec sync no longer takes a workstation build. No local Docker or product builds. The workflow keeps `contents: read` permissions and pins every action to a full commit SHA; it uses no caches or cross-job copies. Never add production credentials to workflows.
 
-Before review, synchronize the exact reviewed spec pair; check provenance, subset equality, credentials and local links; compile, lint and test Rust on the designated Runner. Record actual SHA, Build and results. Unbound specs, failures and skipped checks do not count as passes.
+Before review, synchronize the exact reviewed spec pair; check provenance, subset equality, credentials and local links; compile, lint and test Rust in the hosted CI. Record actual SHA, Build and results. Unbound specs, failures and skipped checks do not count as passes.
 
 Real-server validation is separately authorized: login, list a permitted library and movie, prepare with truthful capabilities, read at most 1 MiB, explicitly end playback and log out. Do not print credentials, ticket paths, media names or response bodies; retain sanitized stage, status and byte counts only.
 

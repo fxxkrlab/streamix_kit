@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CI 改用 GitHub 托管 runner（用户 2026-11-26 决定：公开仓库可以免费用托管 runner，同步规范不用再占本机编译）。`.github/workflows/ci.yml` 在每个 PR、推送到 main 和手动触发时运行，`ubuntu-24.04` 上跑凭据、链接、规范、类型契约检查、检查测试、OpenAPI 3.1 校验，以及 Rust 1.98.0 的 `cargo check`、严格 Clippy、测试和文档测试；权限只有 `contents: read`，`actions/checkout` 钉在完整的提交 SHA。删掉了从未登记 runner 的 self-hosted job。`AGENTS.md` 和 `CONTRIBUTING.md` 改为：CI 用托管 runner，由 PR 自动触发，合并前必须全绿。
 - 公开仓库只保留播放器子集 `spec/sxapi-v1-client.openapi.json`（2026-11-15 负责人决定）：删掉完整规范 `spec/sxapi-v1.openapi.json`（含 194 个管理接口路径）。`tools/sync_spec.py` 仍然用服务器导出的完整规范核对子集逐字节一致，但只写子集；`SOURCE.json` 在 `upstream_full_export` 里记完整规范的 SHA256 和大小（`published: false`）。`tools/check_spec.py` 只校验子集，CI 不再校验完整规范。SDK 和播放器子集没有变化。
 - `tools/check_credentials.py` 改为按 DNS 标签的 SHA-256 识别私有生产主机，规则里不再写出被保护的主机名；同时重写了仓库历史，清掉旧规则带出的主机名片段。
 
@@ -17,7 +18,7 @@
 - 检查工具：`tools/check_sdk_contract.py` 加入 `Session` 的三个新字段、`OwnCredentialRefreshed` 的 `expires_at` 和 `credential_id`、`SessionRefreshed`、`MediaRemoval`、`MediaRemovalPage`、`MediaRemovalHistoryUnavailable` 和 `Media.logos`（含每项的 `lang`、`w`、`h`）；`tools/contract.py` 把这四个新结构加进 `typed_sdk_schema_sha256`；`tools/check_credentials.py` 把 `stx_sxls_` 列为凭据前缀。检查测试仍是 11 项，扩充了凭据和类型形状两项的断言。
 - `spec/OPERATIONS.json`：新增 `GET /media/removed`；`Session`、`OwnCredentialRefresh`、`Media` 的哈希变化，新增四个结构的哈希。
 - 文档：`docs/authentication.md`（登录刷新）、`docs/browsing.md`（删除列表；带 `ETag` 的 JSON 读取从 63 个增至 64 个）、`docs/images.md`（多语言台标）、`docs/errors.md`（410，刷新令牌的 401）、`docs/quickstart.md`、`docs/versioning.md`、`docs/client-request-headers.md`、README、README_en、SDK README 和 spec README 更新。
-- 本机工作站：规范、类型契约、凭据和链接检查、11 项检查测试通过；Rust 编译、严格 Clippy 和测试待在本机 WSL 运行（RUST_PENDING）。指定服务器检查、真实播放器验收和发布都未执行。
+- 本机工作站：规范、类型契约、凭据和链接检查、11 项检查测试通过；Rust 编译、严格 Clippy 和测试由本仓库的托管 CI 运行，结果待记录（RUST_PENDING）。指定服务器检查、真实播放器验收和发布都未执行。
 
 ## 0.1.0-rc.2 — unreleased
 

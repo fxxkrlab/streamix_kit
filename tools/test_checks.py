@@ -1,4 +1,4 @@
-"""Pure public data regression cases, executed only in designated server CI."""
+"""Pure public data regression cases, executed in the repository CI."""
 
 import copy
 import unittest

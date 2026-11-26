@@ -60,6 +60,48 @@ pub struct Media {
     pub id: Uuid,
     pub name: String,
     pub media_type: Option<String>,
+    /// Stored TMDB logos, one per language (server 0.9.0-rc.27, `features.logo_languages`).
+    ///
+    /// In the order the server would choose them for this request's Accept-Language. Empty
+    /// when there is none or only one of unknown language, and from earlier servers.
+    #[serde(default)]
+    pub logos: Vec<MediaLogo>,
+    #[serde(flatten)]
+    pub extra: Extra,
+}
+
+/// One stored logo language of a work; read it with `AuthenticatedClient::logo`.
+#[derive(Debug, Clone, Deserialize)]
+pub struct MediaLogo {
+    /// `xx` (a logo without text), `zh`, `zh-<REGION>` or an ISO 639-1 code such as `en`.
+    pub lang: String,
+    /// Original width as TMDB reported it, when known.
+    pub w: Option<u64>,
+    /// Original height as TMDB reported it, when known.
+    pub h: Option<u64>,
+    #[serde(flatten)]
+    pub extra: Extra,
+}
+
+/// One work that left the catalogue (`GET /media/removed`, server 0.9.0-rc.27).
+#[derive(Debug, Deserialize)]
+pub struct MediaRemoval {
+    pub id: Uuid,
+    /// When the server noticed the removal: never earlier, usually within minutes.
+    pub removed_at: DateTime<Utc>,
+    /// `deleted` (deleted or merged into another work) or `unavailable` (no current file).
+    pub reason: String,
+    #[serde(flatten)]
+    pub extra: Extra,
+}
+
+/// A page of removals, oldest first. The cursor is bound to the login and `since`.
+#[derive(Debug, Deserialize)]
+pub struct MediaRemovalPage {
+    pub data: Vec<MediaRemoval>,
+    pub next_cursor: Option<String>,
+    /// The list is complete from this instant (the first sweep or the retention boundary).
+    pub tracked_since: DateTime<Utc>,
     #[serde(flatten)]
     pub extra: Extra,
 }

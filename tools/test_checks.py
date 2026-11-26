@@ -74,6 +74,9 @@ class ContractChecks(unittest.TestCase):
         self.assertIsNotNone(PATH_SECRET.search("/" + "stx_sxplay_" + "fixture"))
         self.assertIsNotNone(PRIVATE_PATH_SECRET.search("/nimbus-play/v1/sxapi/" + "a" * 64))
         self.assertIsNotNone(REAL_TOKEN.search("stx_sx_" + "a" * 64))
+        # Rotating login refresh tokens (server 0.9.0-rc.27) are credentials too.
+        self.assertIsNotNone(REAL_TOKEN.search("stx_sxls_" + "a" * 64))
+        self.assertIsNotNone(PATH_SECRET.search("/" + "stx_sxls_" + "fixture"))
         self.assertIsNone(QUERY_SECRET.search("/media?cursor=opaque&limit=20"))
 
     def test_header_label_privacy_rule(self):
@@ -85,6 +88,7 @@ class ContractChecks(unittest.TestCase):
     def test_wire_kind_preserves_nullable_numeric_and_refs(self):
         self.assertEqual(wire_kind({"anyOf": [{"type": "integer", "format": "int64"}, {"type": "null"}]}), "integer:int64|null")
         self.assertEqual(wire_kind({"$ref": "#/components/schemas/User"}), "ref:User")
+        self.assertEqual(wire_kind({"type": "array", "maxItems": 50, "items": {"type": "object"}}), "array:object")
 
 
 if __name__ == "__main__":

@@ -5,12 +5,16 @@ from contract import require, verify_checkout
 
 EXPECTED = {
     "SessionRequest": {"username": "string", "password": "string:password"},
-    "Session": {"access_token": "string", "token_type": "const:Bearer", "user": "ref:User"},
+    "Session": {"access_token": "string", "token_type": "const:Bearer", "user": "ref:User", "expires_at": "string:date-time", "refresh_token": "null|string", "refresh_expires_at": "null|string:date-time"},
     "OwnCredentialRefresh": {"refresh_token": "string"},
-    "OwnCredentialRefreshed": {"access_token": "string", "token_type": "const:Bearer"},
+    "OwnCredentialRefreshed": {"access_token": "string", "token_type": "const:Bearer", "expires_at": "string:date-time", "credential_id": "string:uuid"},
+    "SessionRefreshed": {"access_token": "string", "token_type": "const:Bearer", "expires_at": "string:date-time", "refresh_token": "string", "refresh_expires_at": "string:date-time"},
     "User": {"id": "string:uuid", "username": "string", "library_ids": "array:string:uuid"},
     "Library": {"id": "string:uuid", "name": "string", "library_type": "string", "library_kind": "string"},
-    "Media": {"id": "string:uuid", "name": "string", "media_type": "null|string"},
+    "Media": {"id": "string:uuid", "name": "string", "media_type": "null|string", "logos": "array:object"},
+    "MediaRemoval": {"id": "string:uuid", "removed_at": "string:date-time", "reason": "string"},
+    "MediaRemovalPage": {"data": "array:ref:MediaRemoval", "next_cursor": "null|string", "tracked_since": "string:date-time"},
+    "MediaRemovalHistoryUnavailable": {"error": "object", "tracked_since": "null|string:date-time"},
     "Version": {"id": "string:uuid", "media_id": "string:uuid", "episode_id": "null|string:uuid", "technical_status": "string", "duration_secs": "null|number", "video_codec": "null|string", "audio_codec": "null|string"},
     "MediaPage": {"data": "array:ref:Media", "total": "integer:int64|null", "next_cursor": "null|string"},
     "VersionPage": {"data": "array:ref:Version", "total": "integer:int64", "next_cursor": "null|string"},
@@ -24,6 +28,8 @@ EXPECTED = {
     "SubtitleInventory": {"media_id": "string:uuid", "episode_id": "null|string:uuid", "version_id": "string:uuid", "revision": "string", "embedded_status": "const:unknown", "data": "array:object"},
     "SubtitleTicket": {"ticket": "string", "header_name": "const:X-SXAPI-Subtitle-Ticket", "read_path": "string", "expires_at": "string:date-time"},
 }
+# Inline item objects of a typed array member, checked like the top-level members.
+NESTED = {("Media", "logos"): {"lang": "string", "w": "integer|null", "h": "integer|null"}}
 
 
 def wire_kind(schema):
@@ -52,6 +58,10 @@ def check(client):
         properties = schemas[name].get("properties", {})
         for field, expected in fields.items():
             require(field in properties and wire_kind(properties[field]) == expected, "typed SDK wire shape changed")
+    for (name, field), fields in NESTED.items():
+        items = schemas[name]["properties"][field].get("items", {}).get("properties", {})
+        for member, expected in fields.items():
+            require(member in items and wire_kind(items[member]) == expected, "typed SDK wire shape changed")
     for name in ["SessionRequest", "OwnCredentialRefresh", "PlaybackProfile", "PlaybackRequest", "PlaybackProgress"]:
         require(set(schemas[name].get("properties", {})) == set(EXPECTED[name]), "request fields require explicit SDK review")
 

@@ -2,36 +2,36 @@
   "schema_version": 1,
   "status": "BOUND",
   "upstream_repository": "fxxkrlab/streamix_server",
-  "upstream_commit": "6629d3b777f4cd3624f6c42bd256cd89b978e0e9",
+  "upstream_commit": "c959a381528b30aaa8499d53e419c10ca56f9fcf",
   "upstream_release": null,
-  "intended_server_version": "0.9.0-rc.26",
+  "intended_server_version": "0.9.0-rc.27",
   "candidate_status": "UNRELEASED",
   "compatibility_status": "NOT_VALIDATED",
   "minimum_server_version": "0.9.0-rc.9",
   "protocol_major": 1,
   "required_ticket_transport": "headers",
-  "synchronized_at": "2026-11-25T08:07:21.159943+00:00",
+  "synchronized_at": "2026-11-26T05:06:41.914150+00:00",
   "files": {
     "sxapi-v1-client.openapi.json": {
-      "sha256": "98d5503d2ed153e151227735e17eb6342bb7bb838e2270c17585b9afa865fdcd",
-      "bytes": 1412975
+      "sha256": "0844a0c7673a43874b0e537b3e54dfeaeab22b9b8ca5b67bd2277bb9bd7970ae",
+      "bytes": 1436943
     }
   },
   "upstream_full_export": {
-    "sha256": "d3cb4d79a418c251e0c25eeb0d694562355bd59c5c592c82165c91e0a7e75f0c",
-    "bytes": 3947388,
+    "sha256": "7bec2a1ca88fd2c374bf6e6a7fc9fa22b3fb6b6cf49ab6a770b371c0a0134d73",
+    "bytes": 3971356,
     "published": false
   },
-  "kit_build": "20261125.022",
+  "kit_build": "20261126.023",
   "upstream_api_review": {
-    "actual_validation_source": "6629d3b777f4cd3624f6c42bd256cd89b978e0e9",
-    "actual_validation_tree": "aaffe45199ec72ae04de39f3599dc452bd6e928e",
-    "final_metadata_source": "6629d3b777f4cd3624f6c42bd256cd89b978e0e9",
-    "final_metadata_tree": "aaffe45199ec72ae04de39f3599dc452bd6e928e",
+    "actual_validation_source": "c959a381528b30aaa8499d53e419c10ca56f9fcf",
+    "actual_validation_tree": "f44fa59c81f1667f82f952bac598d61c22f0182a",
+    "final_metadata_source": "c959a381528b30aaa8499d53e419c10ca56f9fcf",
+    "final_metadata_tree": "f44fa59c81f1667f82f952bac598d61c22f0182a",
     "metadata_child_changed_paths": [],
-    "review_manifest_sha256": "fd38bb222b3a0e308b3d48c6f58ac8bc45db89107339dea5498adf170a6b4ac8",
-    "spec_delta_from_previous_binding": "info.version only over 0.9.0-rc.25 (streamix_server#250, a server-internal follow-up to #175 with no HTTP change): the client subset stays at 120 operations and the full specification at 389; apart from info.version (0.9.0-rc.25 to 0.9.0-rc.26) both exports are byte-for-byte identical to the 0.9.0-rc.25 binding (same byte sizes), with no operation, parameter, schema, response, description, capability or limit change. OPERATIONS.json is unchanged (same operations and typed_sdk_schema_sha256) and check_sdk_contract passes; Rust source, the typed SDK contract, Cargo inputs and the check tools are unchanged. Clients need no change.",
-    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1264 source paths, all identical in the bound tree. The bound server commit passed the server repository's API documentation contract checks and the server integration CI on streamix_server#263 (release correctness and security, API documentation contracts, container CI with configuration, traceability; all green), merged to server master as e5f1b523 with the same tree. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
+    "review_manifest_sha256": "49a436e1d95f3fec4f316b41ca26444561973d245704b32ea8ab0b4722bf546a",
+    "spec_delta_from_previous_binding": "Additive over 0.9.0-rc.26 (streamix_server#265 and #266): the client subset grows from 120 to 121 operations and the full specification from 389 to 390; apart from info.version both exports change the same 38 places (no administration change). New operation GET /media/removed (sxapi_list_media_removed_get): the works that left the catalogue at or after the required since (RFC 3339 with an offset, inclusive, compared at microsecond precision), oldest first, with limit 1..5000 (default 1000), an opaque cursor bound to the account, login and since, and an ETag; new schemas MediaRemovalPage (data, next_cursor, tracked_since: the list is complete from this instant), MediaRemoval (id, removed_at, reason deleted|unavailable) and MediaRemovalHistoryUnavailable (the 410 body: error.code const removed_history_unavailable plus tracked_since, null before the first sweep). Rows are kept limits.media_removed_retention_days days; visibility follows the work's content domain, not library grants, so a client ignores unknown IDs. POST /sessions: Session adds the required expires_at and the required, nullable refresh_token (stx_sxls_ plus 64 lowercase hex, rotating, shown once) and refresh_expires_at. POST /sessions/refresh: OwnCredentialRefresh.refresh_token also accepts the stx_sxls_ login refresh token (pattern ^stx_sx(rt|ls)_[0-9a-f]{64}$) and the 200 body becomes oneOf the unchanged OwnCredentialRefreshed or the new SessionRefreshed (access_token, token_type, expires_at, login_id, the next refresh_token of the chain and refresh_expires_at, 30 days and at most 365 days after the password login); the presented login token is spent, a repeat within 60 seconds while its successor is unused is answered again, and any other reuse revokes the chain. Media adds the required logos (at most 50 {lang, w, h}, one per stored TMDB logo language) and changes the has_logo description; GET and HEAD /media/{id}/images/{kind} add the optional language query parameter (kind=logo only, a BCP 47 tag of 1..35 bytes) and the Vary and Content-Language headers of 200 and 304. Capabilities features gain the required logo_languages, session_refresh and media_removed (const true), and limits gain the required media_removed_page_size_max (const 5000) and media_removed_retention_days (const 30). In OPERATIONS.json the operation is added and the typed_sdk_schema_sha256 of Session, OwnCredentialRefresh and Media change; SessionRefreshed, MediaRemoval, MediaRemovalPage and MediaRemovalHistoryUnavailable join that inventory because the Rust SDK now wraps them.",
+    "scope": "The review record at the bound commit (docs/api/review-manifest.json) hashes 1271 source paths, all identical in the bound tree. The bound commit is the server master merge of streamix_server#273 (the 0.9.0-rc.27 integration of #269 and #267) and has the same tree as its head 790c56a901ac5de7667d03c84fe8f8671539f0cb, which passed the server repository's API documentation contract checks and the server integration CI on that pull request (release correctness and security, API documentation contracts, container CI with configuration, traceability; all green); on master the API documentation contract and container CI runs of the bound commit passed. The server pre-release tag v0.9.0-rc.27 points at the bound commit. The published client subset and the full export equal docs/api/sxapi/openapi-client.json and docs/api/sxapi/openapi.json at the bound commit. This is not Kit designated-server, image or database validation."
   },
   "retained_sdk_evidence": {
     "status": "ORIGINAL_SOURCE_EVIDENCE_RETAINED",
@@ -42,11 +42,11 @@
   "current_build_validation": {
     "spec_sync": "COMPLETED",
     "local_static_checks": "PASSED_SPEC_SDK_CONTRACT_CREDENTIALS_LINKS_WORKSTATION",
-    "local_rust_tests": "PASSED_22_WORKSTATION",
-    "local_strict_clippy": "PASSED_WORKSTATION",
+    "local_rust_tests": "PENDING_WORKSTATION",
+    "local_strict_clippy": "PENDING_WORKSTATION",
     "designated_server_static_checks": "NOT_RUN",
     "sdk_binary_compiled": "WORKSTATION_TEST_BUILD_ONLY",
-    "rust_sources_and_cargo_inputs_changed": false,
+    "rust_sources_and_cargo_inputs_changed": true,
     "real_player_acceptance": "NOT_RUN",
     "package_or_tag_published": false
   }

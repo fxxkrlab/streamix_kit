@@ -235,9 +235,10 @@ enum RefreshKind { Personal, Login }
 
 /// Classify `^stx_sx(rt|ls)_[0-9a-f]{64}$`, the only refresh secrets the server accepts.
 fn refresh_kind(value: &str) -> Option<RefreshKind> {
-    let (kind, digest) = if let Some(rest) = value.strip_prefix("stx_sxls_") { (RefreshKind::Login, rest) }
-        else if let Some(rest) = value.strip_prefix("stx_sxrt_") { (RefreshKind::Personal, rest) }
-        else { return None; };
+    let (kind, digest) = match value.strip_prefix("stx_sxls_") {
+        Some(rest) => (RefreshKind::Login, rest),
+        None => (RefreshKind::Personal, value.strip_prefix("stx_sxrt_")?),
+    };
     (digest.len() == 64 && digest.bytes().all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase())).then_some(kind)
 }
 

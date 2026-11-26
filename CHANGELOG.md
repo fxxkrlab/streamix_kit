@@ -2,8 +2,23 @@
 
 ## Unreleased
 
+- CI 改用 GitHub 托管 runner（用户 2026-11-26 决定：公开仓库可以免费用托管 runner，同步规范不用再占本机编译）。`.github/workflows/ci.yml` 在每个 PR、推送到 main 和手动触发时运行，`ubuntu-24.04` 上跑凭据、链接、规范、类型契约检查、检查测试、OpenAPI 3.1 校验，以及 Rust 1.98.0 的 `cargo check`、严格 Clippy、测试和文档测试；权限只有 `contents: read`，`actions/checkout` 钉在完整的提交 SHA。删掉了从未登记 runner 的 self-hosted job。`AGENTS.md` 和 `CONTRIBUTING.md` 改为：CI 用托管 runner，由 PR 自动触发，合并前必须全绿。
 - 公开仓库只保留播放器子集 `spec/sxapi-v1-client.openapi.json`（2026-11-15 负责人决定）：删掉完整规范 `spec/sxapi-v1.openapi.json`（含 194 个管理接口路径）。`tools/sync_spec.py` 仍然用服务器导出的完整规范核对子集逐字节一致，但只写子集；`SOURCE.json` 在 `upstream_full_export` 里记完整规范的 SHA256 和大小（`published: false`）。`tools/check_spec.py` 只校验子集，CI 不再校验完整规范。SDK 和播放器子集没有变化。
 - `tools/check_credentials.py` 改为按 DNS 标签的 SHA-256 识别私有生产主机，规则里不再写出被保护的主机名；同时重写了仓库历史，清掉旧规则带出的主机名片段。
+
+## 0.1.0-rc.3 — unreleased
+
+- Build 20261126.023 按服务器提交 `c959a381528b30aaa8499d53e419c10ca56f9fcf`（目标版本 0.9.0-rc.27，尚未正式发布）同步播放器子集（完整规范只用来核对，不公开）。RC27 规范相对 RC26 只增不删：播放器子集从 120 个操作增至 121 个，完整规范从 389 个增至 390 个；除 `info.version` 外两份规范改的是同样 38 处，没有管理接口变化。新增登录刷新（`POST /sessions` 新增 `expires_at`、`refresh_token`、`refresh_expires_at`，`POST /sessions/refresh` 也接受 `stx_sxls_` 登录刷新令牌，200 响应改为 `OwnCredentialRefreshed` 或新结构 `SessionRefreshed` 的 `oneOf`）、删除列表（新接口 `GET /media/removed`，新结构 `MediaRemovalPage`、`MediaRemoval`、`MediaRemovalHistoryUnavailable`，410 `removed_history_unavailable`）和多语言台标（`Media.logos`，图片接口的 `language` 参数和 `Vary` / `Content-Language` 响应头）；能力声明新增 `features.logo_languages`、`session_refresh`、`media_removed`，限制新增 `limits.media_removed_page_size_max`（5000）和 `media_removed_retention_days`（30）。细节见 README 和 `docs/versioning.md`。
+- SDK 版本 0.1.0-rc.2 → 0.1.0-rc.3，Rust SDK 补上这三项：
+  - 登录刷新：`Client::login` 保留 `expires_at`（`AuthenticatedClient::expires_at`）和轮换令牌（`AuthenticatedClient::renewal`，`LoginRenewal` 含 `refresh_token` 和 `refresh_expires_at`）；两者要同时出现、令牌要是 `stx_sxls_` 格式，否则按无效响应处理；旧服务器没有这些字段时为 `None`。`Client::refresh` 同时接受 `stx_sxrt_`（个人凭据，不轮换）和 `stx_sxls_`（登录刷新，要求 `features.session_refresh`），格式不对的在发请求前就拒绝（`InvalidCredential`）；按 `oneOf` 区分两种响应，回来的形状必须和交出的令牌对得上。返回类型从 `AuthenticatedClient` 改为 `RefreshedLogin`：`renewal()` 先给出链上的下一个令牌，调用方存好后再 `activate()`，这时才用新的访问令牌读 `/users/me`。新增 `Secret::expose_secret`，只用来把令牌放进平台的受保护存储。
+  - 删除列表：`AuthenticatedClient::removed_media(since, cursor, limit)` 读 `GET /media/removed`（要求 `features.media_removed`，`limit` 1 到 5000，`since` 按微秒截断），返回 `MediaRemovalPage` / `MediaRemoval`；410 `removed_history_unavailable` 映射为新的 `Error::RemovedHistoryUnavailable { tracked_since }`，其他 410 仍是 `Error::Http`。
+  - 台标：`Media.logos`（`MediaLogo`：`lang`、`w`、`h`；旧服务器为空列表）；`AuthenticatedClient::logo(media, language, cap)` 读 `/media/{id}/images/logo`，`language` 只在 `features.logo_languages` 时发送，按规范限制为 1 到 35 字节的字母、数字和 `-`。
+  - 不兼容的地方：`refresh` 的返回类型变了；`Error` 新增一项，穷尽匹配 `Error` 的代码要加分支；`Media` 新增 `logos` 字段。这是预发布版本上的变化。
+  - 测试：新增 10 项 Rust 测试（登录保留到期时间和轮换令牌、不成对的令牌被拒、登录刷新在用新令牌之前交出下一个令牌、个人凭据不轮换、令牌格式、能力和响应形状检查、删除列表的分页和游标、410 映射、台标反序列化、按语言取台标、规范里的参数和形状），共 32 项；mock 服务器可以按步骤校验编码后的查询串。
+- 检查工具：`tools/check_sdk_contract.py` 加入 `Session` 的三个新字段、`OwnCredentialRefreshed` 的 `expires_at` 和 `credential_id`、`SessionRefreshed`、`MediaRemoval`、`MediaRemovalPage`、`MediaRemovalHistoryUnavailable` 和 `Media.logos`（含每项的 `lang`、`w`、`h`）；`tools/contract.py` 把这四个新结构加进 `typed_sdk_schema_sha256`；`tools/check_credentials.py` 把 `stx_sxls_` 列为凭据前缀。检查测试仍是 11 项，扩充了凭据和类型形状两项的断言。
+- `spec/OPERATIONS.json`：新增 `GET /media/removed`；`Session`、`OwnCredentialRefresh`、`Media` 的哈希变化，新增四个结构的哈希。
+- 文档：`docs/authentication.md`（登录刷新）、`docs/browsing.md`（删除列表；带 `ETag` 的 JSON 读取从 63 个增至 64 个）、`docs/images.md`（多语言台标）、`docs/errors.md`（410，刷新令牌的 401）、`docs/quickstart.md`、`docs/versioning.md`、`docs/client-request-headers.md`、README、README_en、SDK README 和 spec README 更新。
+- 本机工作站：规范、类型契约、凭据和链接检查、11 项检查测试通过；Rust 编译、严格 Clippy 和测试由本仓库的托管 CI 运行，结果待记录（RUST_PENDING）。指定服务器检查、真实播放器验收和发布都未执行。
 
 ## 0.1.0-rc.2 — unreleased
 

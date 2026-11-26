@@ -8,15 +8,17 @@ pub use identity::*;
 mod connecting;
 pub use connecting::*;
 
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Datelike, SecondsFormat, Utc};
 use reqwest::{header::{self, HeaderValue}, Method, RequestBuilder, Response, StatusCode, Url};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use serde_json::Value;
-use std::{fmt, sync::Arc, time::{Duration, SystemTime}};
+use std::{collections::BTreeMap, fmt, sync::Arc, time::{Duration, SystemTime}};
 use uuid::Uuid;
 use zeroize::Zeroizing;
 
 const JSON_CAP: usize = 2 * 1024 * 1024;
+const ERROR_CAP: usize = 16 * 1024;
+const IMAGE_CAP: usize = 16 * 1024 * 1024;
 const RANGE_CAP: u64 = 16 * 1024 * 1024;
 const SUBTITLE_CAP: usize = 2 * 1024 * 1024;
 const VIDEO_HEADER: &str = "X-SXAPI-Stream-Ticket";
@@ -28,6 +30,10 @@ pub struct Secret(Zeroizing<String>);
 impl Secret {
     /// Take ownership of a private value without exposing it through Debug.
     pub fn new(value: String) -> Self { Self(Zeroizing::new(value)) }
+    /// Read the value only to move it into protected storage, such as a refresh token.
+    ///
+    /// Never log, display or put it in a URL.
+    pub fn expose_secret(&self) -> &str { self.text() }
     fn text(&self) -> &str { self.0.as_str() }
     fn header(&self) -> Result<HeaderValue, Error> {
         let mut value = HeaderValue::from_str(self.text()).map_err(|_| Error::InvalidCredential)?;
@@ -53,6 +59,12 @@ pub enum Error {
     UnsupportedFeature, InvalidInput, InvalidResponse, ResponseTooLarge,
     Transport, RepresentationChanged, RangeMismatch, SessionEnded,
     CleanupFailed, Http { status: u16, code: Option<String>, retry_after: Option<RetryAfter> },
+    /// `GET /media/removed` answered 410 `removed_history_unavailable`.
+    ///
+    /// `since` is before the complete history, which starts at `tracked_since` (`None` before
+    /// the server's first sweep). Reconcile with `GET /media/ids`, then continue from that
+    /// response's time.
+    RemovedHistoryUnavailable { tracked_since: Option<DateTime<Utc>> },
 }
 
 /// Validated server backoff metadata, without retaining the raw header text.
@@ -123,34 +135,127 @@ impl Client {
     }
 
     /// Login using the password body only after explicit safe-transport discovery.
+    ///
+    /// Since server 0.9.0-rc.27 (`features.session_refresh`) the login also carries its
+    /// expiry and a rotating refresh token; see `AuthenticatedClient::renewal`.
     pub async fn login(&self, username: &str, password: Secret) -> Result<AuthenticatedClient, Error> {
         let capabilities = self.capabilities().await?;
         require_contract(&capabilities)?;
         #[derive(Serialize)] struct Login<'a> { username: &'a str, password: &'a str }
         let request = self.inner.api(Method::POST, "/sessions")?.json(&Login { username, password: password.text() });
         let login: LoginWire = self.inner.json(request).await?;
-        if login.token_type != "Bearer" || !login.access_token.text().starts_with("stx_sx_") || login.access_token.text().len() > 2048 { return Err(Error::InvalidResponse); }
-        login.access_token.header()?;
-        Ok(AuthenticatedClient { client: self.clone(), token: login.access_token, user: login.user, features:capabilities.features })
+        check_access(&login.access_token, &login.token_type)?;
+        let renewal = pair_renewal(login.refresh_token, login.refresh_expires_at)?;
+        Ok(AuthenticatedClient { client: self.clone(), token: login.access_token, user: login.user, features:capabilities.features, expires_at: login.expires_at, renewal })
     }
 
-    /// Exchange a separately created personal secret; this does not rotate it.
-    pub async fn refresh(&self, refresh_secret: Secret) -> Result<AuthenticatedClient, Error> {
+    /// Exchange a refresh secret for a new login (`POST /sessions/refresh`) without using it yet.
+    ///
+    /// A personal credential secret (`stx_sxrt_`) is not rotated. A login refresh token
+    /// (`stx_sxls_` from `login` or an earlier refresh, server 0.9.0-rc.27
+    /// `features.session_refresh`) is spent: the result's `renewal` holds the next token of
+    /// its chain. Store that token before `RefreshedLogin::activate` uses the new access token,
+    /// and refresh one request at a time. Malformed secrets are rejected before any request.
+    pub async fn refresh(&self, refresh_secret: Secret) -> Result<RefreshedLogin, Error> {
+        let kind = refresh_kind(refresh_secret.text()).ok_or(Error::InvalidCredential)?;
         let capabilities = self.capabilities().await?;
         require_contract(&capabilities)?;
+        if kind == RefreshKind::Login && capabilities.features.get("session_refresh") != Some(&true) { return Err(Error::UnsupportedFeature); }
         #[derive(Serialize)] struct Refresh<'a> { refresh_token: &'a str }
         let body = Refresh { refresh_token: refresh_secret.text() };
-        let login: RefreshWire = self.inner.json(self.inner.api(Method::POST, "/sessions/refresh")?.json(&body)).await?;
-        if login.token_type != "Bearer" || !login.access_token.text().starts_with("stx_sx_") || login.access_token.text().len() > 2048 { return Err(Error::InvalidResponse); }
-        login.access_token.header()?;
-        let mut client = AuthenticatedClient { client: self.clone(), token: login.access_token, user: User { id: Uuid::nil(), username: String::new(), library_ids: Vec::new(), extra: Default::default() }, features:capabilities.features };
+        let wire: RefreshWire = self.inner.json(self.inner.api(Method::POST, "/sessions/refresh")?.json(&body)).await?;
+        check_access(&wire.access_token, &wire.token_type)?;
+        // The 200 body is one of two closed shapes: SessionRefreshed carries the next refresh
+        // token, OwnCredentialRefreshed the credential ID. It must answer the kind sent.
+        let renewal = pair_renewal(wire.refresh_token, wire.refresh_expires_at)?;
+        let answered = match kind {
+            RefreshKind::Personal => renewal.is_none(),
+            RefreshKind::Login => renewal.is_some() && wire.credential_id.is_none() && wire.expires_at.is_some(),
+        };
+        if !answered { return Err(Error::InvalidResponse); }
+        Ok(RefreshedLogin { client: self.clone(), token: wire.access_token, expires_at: wire.expires_at, renewal, features: capabilities.features })
+    }
+}
+
+#[derive(Deserialize)]
+struct LoginWire {
+    access_token: Secret, token_type: String, user: User,
+    // Server 0.9.0-rc.27 and later; absent from earlier servers.
+    #[serde(default)] expires_at: Option<DateTime<Utc>>,
+    #[serde(default)] refresh_token: Option<Secret>,
+    #[serde(default)] refresh_expires_at: Option<DateTime<Utc>>,
+}
+
+#[derive(Deserialize)]
+struct RefreshWire {
+    access_token: Secret, token_type: String,
+    #[serde(default)] expires_at: Option<DateTime<Utc>>,
+    #[serde(default)] credential_id: Option<Uuid>,
+    #[serde(default)] refresh_token: Option<Secret>,
+    #[serde(default)] refresh_expires_at: Option<DateTime<Utc>>,
+}
+
+/// The rotating refresh token of a password login (server 0.9.0-rc.27).
+///
+/// Offered with `features.session_refresh`. Keep it in protected storage; each
+/// `Client::refresh` spends it and returns the next one. Debug never shows the token.
+#[derive(Debug)]
+pub struct LoginRenewal {
+    /// The `stx_sxls_` token for the next `Client::refresh`.
+    pub refresh_token: Secret,
+    /// When the token expires unless it is used first.
+    ///
+    /// 30 days, renewed by each refresh, never more than 365 days after the password login.
+    pub refresh_expires_at: DateTime<Utc>,
+}
+
+/// A login from `Client::refresh` whose new access token has not been used yet.
+pub struct RefreshedLogin { client: Client, token: Secret, expires_at: Option<DateTime<Utc>>, renewal: Option<LoginRenewal>, features: BTreeMap<String,bool> }
+
+impl RefreshedLogin {
+    /// The next refresh token after a login refresh (`stx_sxls_`).
+    ///
+    /// `None` after a personal secret, which is not rotated. Store it before `activate`:
+    /// the token sent is spent.
+    pub fn renewal(&self) -> Option<&LoginRenewal> { self.renewal.as_ref() }
+    /// When the new access token expires (always present after a login refresh).
+    pub fn expires_at(&self) -> Option<DateTime<Utc>> { self.expires_at }
+    /// Read `/users/me` with the new access token and return the login-scoped client.
+    ///
+    /// The client keeps `renewal` and `expires_at`.
+    pub async fn activate(self) -> Result<AuthenticatedClient, Error> {
+        let mut client = AuthenticatedClient { client: self.client, token: self.token, user: User { id: Uuid::nil(), username: String::new(), library_ids: Vec::new(), extra: Default::default() }, features: self.features, expires_at: self.expires_at, renewal: self.renewal };
         client.user = client.json(Method::GET, "/users/me").await?;
         Ok(client)
     }
 }
 
-#[derive(Deserialize)] struct LoginWire { access_token: Secret, token_type: String, user: User }
-#[derive(Deserialize)] struct RefreshWire { access_token: Secret, token_type: String }
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum RefreshKind { Personal, Login }
+
+/// Classify `^stx_sx(rt|ls)_[0-9a-f]{64}$`, the only refresh secrets the server accepts.
+fn refresh_kind(value: &str) -> Option<RefreshKind> {
+    let (kind, digest) = match value.strip_prefix("stx_sxls_") {
+        Some(rest) => (RefreshKind::Login, rest),
+        None => (RefreshKind::Personal, value.strip_prefix("stx_sxrt_")?),
+    };
+    (digest.len() == 64 && digest.bytes().all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase())).then_some(kind)
+}
+
+/// A rotating token and its expiry come together or not at all.
+fn pair_renewal(token: Option<Secret>, expires_at: Option<DateTime<Utc>>) -> Result<Option<LoginRenewal>, Error> {
+    match (token, expires_at) {
+        (None, None) => Ok(None),
+        (Some(token), Some(expires_at)) if refresh_kind(token.text()) == Some(RefreshKind::Login) => Ok(Some(LoginRenewal { refresh_token: token, refresh_expires_at: expires_at })),
+        _ => Err(Error::InvalidResponse),
+    }
+}
+
+fn check_access(token: &Secret, token_type: &str) -> Result<(), Error> {
+    if token_type != "Bearer" || !token.text().starts_with("stx_sx_") || token.text().len() > 2048 { return Err(Error::InvalidResponse); }
+    token.header()?;
+    Ok(())
+}
 
 fn require_contract(value: &Capabilities) -> Result<(), Error> {
     if value.protocol != "SXAPI" || value.version != "1.0"
@@ -191,11 +296,18 @@ impl Transport {
 }
 
 /// Original-login scoped API client; Debug never exposes its Bearer credential.
-pub struct AuthenticatedClient { client: Client, token: Secret, user: User, features:std::collections::BTreeMap<String,bool> }
+pub struct AuthenticatedClient { client: Client, token: Secret, user: User, features:BTreeMap<String,bool>, expires_at: Option<DateTime<Utc>>, renewal: Option<LoginRenewal> }
 
 impl AuthenticatedClient {
     /// Inspect the non-secret identity returned by login.
     pub fn user(&self) -> &User { &self.user }
+    /// When this login's access token expires, when the server says (0.9.0-rc.27 and later).
+    pub fn expires_at(&self) -> Option<DateTime<Utc>> { self.expires_at }
+    /// The rotating refresh token that came with this login, if the server offers one.
+    ///
+    /// Offered with `features.session_refresh`. Store it; `Client::refresh` exchanges it
+    /// for a new login.
+    pub fn renewal(&self) -> Option<&LoginRenewal> { self.renewal.as_ref() }
     fn request(&self, method: Method, suffix: &str) -> Result<RequestBuilder, Error> {
         self.request_for(method,suffix,RequestPurpose::Interaction)
     }
@@ -223,6 +335,24 @@ impl AuthenticatedClient {
         if let Some(value) = search { query.push(("search", value.to_owned())); }
         if let Some(value) = cursor { query.push(("cursor", value.to_owned())); }
         self.client.inner.json(self.request_for(Method::GET, "/media",purpose)?.query(&query)).await
+    }
+
+    /// One page of works removed at or after `since`, oldest first (`GET /media/removed`).
+    ///
+    /// Requires `features.media_removed` (server 0.9.0-rc.27). Pass `next_cursor` back
+    /// unchanged with the same `since`, and ignore IDs you do not hold. A `since` before the
+    /// complete history is `Error::RemovedHistoryUnavailable`.
+    pub async fn removed_media(&self, since: DateTime<Utc>, cursor: Option<&str>, limit: u16) -> Result<MediaRemovalPage, Error> {
+        if self.features.get("media_removed") != Some(&true) { return Err(Error::UnsupportedFeature); }
+        if !(1..=5000).contains(&limit) || !(1..=9999).contains(&since.year())
+            || cursor.is_some_and(|value| value.is_empty() || value.len() > 4096) { return Err(Error::InvalidInput); }
+        // The server compares microseconds; truncating keeps the inclusive bound inclusive.
+        let mut query = vec![("since", since.to_rfc3339_opts(SecondsFormat::Micros, true)), ("limit", limit.to_string())];
+        if let Some(value) = cursor { query.push(("cursor", value.to_owned())); }
+        let response = self.request(Method::GET, "/media/removed")?.query(&query).send().await.map_err(|_| Error::Transport)?;
+        if response.status() == StatusCode::GONE { return Err(removed_history_error(response).await); }
+        let raw = bounded(success(response).await?, JSON_CAP).await?;
+        serde_json::from_slice(&raw).map_err(|_| Error::InvalidResponse)
     }
 
     /// Fetch exact actual versions for one movie or episode.
@@ -273,8 +403,30 @@ impl AuthenticatedClient {
         let person = parts.len() == 7 && parts[..4] == ["", "sxapi", "v1", "persons"]
             && Uuid::parse_str(parts[4]).is_ok() && parts[5] == "images" && parts[6] == "profile";
         let media_or_library = (path.starts_with("/sxapi/v1/media/") || path.starts_with("/sxapi/v1/libraries/")) && path.contains("/images/");
-        if !(person || media_or_library) || cap == 0 || cap > 16 * 1024 * 1024 { return Err(Error::InvalidPath); }
-        let request = self.client.inner.request(Method::GET,path,RequestPurpose::Interaction)?.header(header::AUTHORIZATION, self.bearer()?);
+        if !(person || media_or_library) || cap == 0 || cap > IMAGE_CAP { return Err(Error::InvalidPath); }
+        self.image_bytes(path, &[], cap).await
+    }
+
+    /// Fetch a work's logo, optionally in a chosen language.
+    ///
+    /// `language` picks one of `Media.logos` by its `lang`, or takes any BCP 47 tag such as
+    /// `zh-Hant`, on servers with `features.logo_languages` (0.9.0-rc.27); `None` lets the
+    /// request's Accept-Language decide.
+    pub async fn logo(&self, media: Uuid, language: Option<&str>, cap: usize) -> Result<Vec<u8>, Error> {
+        if self.features.get("images") != Some(&true) { return Err(Error::UnsupportedFeature); }
+        let mut query = Vec::new();
+        if let Some(value) = language {
+            if self.features.get("logo_languages") != Some(&true) { return Err(Error::UnsupportedFeature); }
+            if !(1..=35).contains(&value.len()) || !value.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-') { return Err(Error::InvalidInput); }
+            query.push(("language", value));
+        }
+        if cap == 0 || cap > IMAGE_CAP { return Err(Error::InvalidInput); }
+        self.image_bytes(&format!("/sxapi/v1/media/{media}/images/logo"), &query, cap).await
+    }
+
+    async fn image_bytes(&self, path: &str, query: &[(&str, &str)], cap: usize) -> Result<Vec<u8>, Error> {
+        let mut request = self.client.inner.request(Method::GET,path,RequestPurpose::Interaction)?.header(header::AUTHORIZATION, self.bearer()?);
+        if !query.is_empty() { request = request.query(query); }
         let response = success(request.send().await.map_err(|_| Error::Transport)?).await?;
         let content_type = response.headers().get(header::CONTENT_TYPE).and_then(|x| x.to_str().ok()).unwrap_or("");
         if !["image/jpeg", "image/png", "image/webp", "image/avif"].contains(&content_type.split(';').next().unwrap_or("")) { return Err(Error::InvalidResponse); }
@@ -418,7 +570,25 @@ async fn success(response: Response) -> Result<Response, Error> {
     if response.status().is_success() { return Ok(response); }
     let status = response.status().as_u16();
     let retry_after = parse_retry_after(response.headers());
-    let code = bounded(response, 16 * 1024).await.ok().and_then(|raw| serde_json::from_slice::<Value>(&raw).ok())
+    let raw = bounded(response, ERROR_CAP).await.ok();
+    Err(http_error(status, retry_after, raw.as_deref()))
+}
+
+/// Map 410 `removed_history_unavailable` to its typed error; any other 410 stays an HTTP error.
+async fn removed_history_error(response: Response) -> Error {
+    #[derive(Deserialize)] struct Gone { error: GoneCode, tracked_since: Option<DateTime<Utc>> }
+    #[derive(Deserialize)] struct GoneCode { code: String }
+    let retry_after = parse_retry_after(response.headers());
+    let raw = bounded(response, ERROR_CAP).await.ok();
+    match raw.as_deref().and_then(|raw| serde_json::from_slice::<Gone>(raw).ok()) {
+        Some(gone) if gone.error.code == "removed_history_unavailable" => Error::RemovedHistoryUnavailable { tracked_since: gone.tracked_since },
+        _ => http_error(StatusCode::GONE.as_u16(), retry_after, raw.as_deref()),
+    }
+}
+
+/// Keep only a bounded, credential-free `error.code`; never the body or its message.
+fn http_error(status: u16, retry_after: Option<RetryAfter>, raw: Option<&[u8]>) -> Error {
+    let code = raw.and_then(|raw| serde_json::from_slice::<Value>(raw).ok())
         .and_then(|value| value.get("error")?.get("code")?.as_str().map(str::to_owned))
         .filter(|value| {
             // A credential-shaped code (stx_ prefix or a 64-hex digest) is never kept.
@@ -426,7 +596,7 @@ async fn success(response: Response) -> Result<Response, Error> {
             (1..=96).contains(&value.len()) && !secret_like
                 && value.bytes().all(|b| b.is_ascii_alphanumeric() || b"_.-".contains(&b))
         });
-    Err(Error::Http { status, code, retry_after })
+    Error::Http { status, code, retry_after }
 }
 
 fn parse_retry_after(headers: &header::HeaderMap) -> Option<RetryAfter> {

@@ -153,7 +153,7 @@ def inventory(client):
         ],
         "typed_sdk_schema_sha256": {
             name: sha256(json.dumps(client["components"]["schemas"][name], ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode())
-            for name in ["SessionRequest", "Session", "OwnCredentialRefresh", "OwnCredentialRefreshed", "User", "Library", "Media", "MediaPage", "Version", "VersionPage", "PlaybackProfile", "PlaybackRequest", "PlaybackSession", "PreparedPlayback", "StreamTicket", "PlaybackProgress", "ProgressAck", "SubtitleInventory", "SubtitleTicket"]
+            for name in ["SessionRequest", "Session", "OwnCredentialRefresh", "OwnCredentialRefreshed", "User", "Library", "Media", "MediaPage", "Version", "VersionPage", "PlaybackProfile", "PlaybackRequest", "PlaybackSession", "PreparedPlayback", "StreamTicket", "PlaybackProgress", "ProgressAck", "SubtitleInventory", "SubtitleTicket", "SessionRefreshed", "MediaRemoval", "MediaRemovalPage", "MediaRemovalHistoryUnavailable"]
         },
     }
 

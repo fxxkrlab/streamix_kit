@@ -13,7 +13,7 @@ Streamix/1.2.0 (Windows 10.0.26100; x64; build 812; beta) StreamixCore/0.9.0
 Version, Build, channel (`test`, `beta`, `release`) and Core version come from build metadata. The shared Core builds the string once; requests reuse it. Third-party players use their own product name with the Kit suffix, for example:
 
 ```text
-ExamplePlayer/1.0.0 (ExampleOS 1.0; x64; build 42; test) StreamixKit/0.1.0-rc.2
+ExamplePlayer/1.0.0 (ExampleOS 1.0; x64; build 42; test) StreamixKit/0.1.0-rc.3
 ```
 
 Do not concatenate product, platform and version into an unparseable token. Do not put account name, origin, IP, token or ticket in the UA. The only purpose information a UA may carry is the trailing purpose product described under [Request purpose](#request-purpose); the Kit SDK does not add one. Rust `BuildInfo` validates the fields and builds the common UA; it does not inspect the host name, login name or hardware serial number.

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Streamix SXAPI v1 — Player",
-    "version": "0.9.0-rc.26",
+    "version": "0.9.0-rc.27",
     "description": "Generated player-only view of the same release SXAPI v1 contract. Retained operations and referenced components are unchanged. OpenAPI info.version identifies the server release; capabilities.version identifies the SXAPI protocol. Presence is not runtime feature availability.",
     "x-nimbus-selected-hls-candidate": {
       "phase": "source-only-policy-capture-unavailable",
@@ -132,7 +132,7 @@
       "post": {
         "operationId": "sxapi_create_session_post",
         "summary": "Create password session",
-        "description": "Uses the existing rate budget, password verifier, current account check and revocable signed login token. ECAL and service credentials are not accepted here. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
+        "description": "Uses the existing rate budget, password verifier, current account check and revocable signed login token. ECAL and service credentials are not accepted here. streamix_server#265: also returns expires_at and a rotating refresh_token (stx_sxls_) for POST /sessions/refresh, so a client renews its login instead of asking for the password again. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
         "tags": [
           "SXAPI v1"
         ],
@@ -4168,7 +4168,7 @@
       "get": {
         "operationId": "sxapi_get_image_get",
         "summary": "Read artwork (original or scaled)",
-        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  #210: index reads an entry of the poster/backdrop gallery (GET /media/{id}/images); the ETag follows the entry's source URL. #210: poster?season=N reads the season's own TMDB poster (Season.has_poster); The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. No fallback to the series poster. Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  #210: index reads an entry of the poster/backdrop gallery (GET /media/{id}/images); the ETag follows the entry's source URL. #210: poster?season=N reads the season's own TMDB poster (Season.has_poster); The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. No fallback to the series poster. Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. streamix_server#265: logo picks among the stored TMDB logos of every language and the work's single logo by ?language= / Accept-Language; the response carries Vary: Accept-Language and, when the language is stored, Content-Language (zxx for a logo without text). A TMDB original over the 8 MiB / 16 Mi-pixel source budget is served from the largest TMDB size tier of the same image (logo w500, poster w780, backdrop w1280, still w300) instead of 502, also when no size is requested. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -4214,6 +4214,18 @@
                   "type": "string"
                 },
                 "description": "private, no-store, max-age=0."
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): Accept-Language."
+              },
+              "Content-Language": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): the served logo language (zh-TW, en, zxx ...) when stored; absent for the single logo of unknown language."
               }
             },
             "content": {
@@ -4327,6 +4339,18 @@
                   "type": "string"
                 },
                 "description": "private, no-store, max-age=0."
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): Accept-Language."
+              },
+              "Content-Language": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): the served logo language (zh-TW, en, zxx ...) when stored; absent for the single logo of unknown language."
               }
             }
           },
@@ -4478,13 +4502,24 @@
               "maximum": 50
             },
             "description": "#210: poster and backdrop only. Reads gallery entry N of GET /media/{id}/images (0..50); 0 is the same image as no index. An index past the end, or an entry the route cannot serve, is 404. Any other kind with index is 400, and so is index together with season (a season poster has no gallery). The size fields apply as usual."
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 35
+            },
+            "description": "streamix_server#265, kind=logo only (400 elsewhere): a BCP 47 language such as zh-Hans, zh-Hant, zh-CN, zh-TW, en, ja or zxx (no text). Without it the first usable Accept-Language ranges decide, then the server metadata language (simplified Chinese). The logo of the first language met is served (for Chinese: the same script, then zh without a region, then the other script); then a logo without text, English, the single logo of unknown language, other Chinese, Japanese, Korean and the rest. A malformed value is 400."
           }
         ]
       },
       "head": {
         "operationId": "sxapi_get_image_head",
         "summary": "Read artwork (original or scaled)",
-        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  #210: index reads an entry of the poster/backdrop gallery (GET /media/{id}/images); the ETag follows the entry's source URL. #210: poster?season=N reads the season's own TMDB poster (Season.has_poster); The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. No fallback to the series poster. Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "description": "Current SXAPI Bearer only. poster/backdrop/logo omit episode_id; still requires an exact file-backed episode of the path media. No source URL, upstream headers or poster fallback for backdrop. Reads actual metadata, validates public HTTP(S) URLs and every DNS answer/redirect destination through the shared pooled public-image client without ambient proxy, accepts only fully decoded JPEG/PNG/WebP sources. Maximum 8 MiB, 8192 per dimension and 16777216 pixels, 96 MiB decoder allocation. Queue 5s, network total 30s and decode wait 5s. RC11 #162 sizes: max_width/max_height (fit inside the box) and fill_width/fill_height (cover the box, a missing side counts as 1 pixel) are integers 1..4096; quality 1..100 is the JPEG quality of a scaled variant (default 90; ignored for PNG/WebP). Covering applies first, then the max box and the 4096 output edge; nothing is enlarged or cropped and the source format is kept. Without any size field the original bytes are returned. A size that leaves the image unchanged returns the original bytes unless JPEG quality asks for a new encoding. A sized TMDB request fetches the smallest TMDB size tier that is wide enough and falls back to the original. Server-side artwork cache (RC11 #162): delivered variants are kept on local disk under a configured size limit with least-recently-used eviction, keyed by the normalized source URL and the size; concurrent misses for one key share one fetch. Authorization (current identity, grants, item, metadata) runs once before the cache and before any image work, so a cached entry never bypasses it. The strong ETag \"sxi1-<32 hex>\" follows the source URL and the size, not the bytes, so If-None-Match is answered with 304 before any download or decode. Only bytes this request waited for (download, decode, or a concurrent production of the same key) are followed by one more identity/grant/item/metadata check before 200 (source changes 409 image_changed, grant changes 409 authorization_changed). Work slots scale with CPU cores (4..16), cover download and decode only and are not held by the response body; a timed-out decoder keeps its slot until it finishes. Range is ignored. Cache-Control stays private, no-store, max-age=0; the player keeps its own cache and revalidates with the ETag. Images neither reserve video leases nor charge the video byte ledger. #191: poster reads the first non-empty of the TMDB poster path, the PMMS cover and the PMMS poster; a reference outside the shared poster rule is 404, the same rule as Media.has_poster and the GET /media has_poster filter. The poster reference of a work is the first non-empty of its TMDB poster path, its PMMS cover and its PMMS poster, the source GET /media/{id}/images/poster reads. It counts as a poster when it is a TMDB relative path (one leading slash, no ?, # or backslash) or an absolute http/https URL whose host is an ASCII domain name with a dot (last label starting with a letter, no xn-- label, not .local or .localhost), with no user info, no port other than 80/443, at most 8156 bytes, and no whitespace or control characters. Anything else, including IP-literal or internationalized hosts, is no poster: a later PMMS image does not stand in for an unusable earlier reference.  #210: index reads an entry of the poster/backdrop gallery (GET /media/{id}/images); the ETag follows the entry's source URL. #210: poster?season=N reads the season's own TMDB poster (Season.has_poster); The reference is the season's TMDB poster path under the same rule as Media.has_poster (#191): a TMDB relative path or a public http/https URL, at most 8156 bytes, no whitespace or control characters. No fallback to the series poster. Original artwork output has an absolute30s active deadline and independent<=64KiB frames; a slow body may truncate after200. Shared artwork source guards use the existing mainline943 HostTransaction BEGIN cancellation owner and borrowed PgConnection authorization/source leaves; old Access Transaction APIs and original LOGIN/UHD/grants/item rechecks remain. Lock5s/SQL15s and existing fetch/decode/output budgets are unchanged; caller cancellation discards an unacknowledged BEGIN backend without introducing a whole-handler HTTP deadline. streamix_server#265: logo picks among the stored TMDB logos of every language and the work's single logo by ?language= / Accept-Language; the response carries Vary: Accept-Language and, when the language is stored, Content-Language (zxx for a logo without text). A TMDB original over the 8 MiB / 16 Mi-pixel source budget is served from the largest TMDB size tier of the same image (logo w500, poster w780, backdrop w1280, still w300) instead of 502, also when no size is requested. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
         "tags": [
           "SXAPI v1"
         ],
@@ -4530,6 +4565,18 @@
                   "type": "string"
                 },
                 "description": "private, no-store, max-age=0."
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): Accept-Language."
+              },
+              "Content-Language": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): the served logo language (zh-TW, en, zxx ...) when stored; absent for the single logo of unknown language."
               }
             }
           },
@@ -4574,6 +4621,18 @@
                   "type": "string"
                 },
                 "description": "private, no-store, max-age=0."
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): Accept-Language."
+              },
+              "Content-Language": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "kind=logo only (#265): the served logo language (zh-TW, en, zxx ...) when stored; absent for the single logo of unknown language."
               }
             }
           },
@@ -4711,6 +4770,17 @@
               "maximum": 50
             },
             "description": "#210: poster and backdrop only. Reads gallery entry N of GET /media/{id}/images (0..50); 0 is the same image as no index. An index past the end, or an entry the route cannot serve, is 404. Any other kind with index is 400, and so is index together with season (a season poster has no gallery). The size fields apply as usual."
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 35
+            },
+            "description": "streamix_server#265, kind=logo only (400 elsewhere): a BCP 47 language such as zh-Hans, zh-Hant, zh-CN, zh-TW, en, ja or zxx (no text). Without it the first usable Accept-Language ranges decide, then the server metadata language (simplified Chinese). The logo of the first language met is served (for Chinese: the same script, then zh without a region, then the other script); then a logo without text, English, the single logo of unknown language, other Chinese, Japanese, Korean and the rest. A malformed value is 400."
           }
         ]
       },
@@ -16643,8 +16713,8 @@
     "/sessions/refresh": {
       "post": {
         "operationId": "sxapi_own_refresh_credential_post",
-        "summary": "Exchange only personal SXAPI secret for a child login",
-        "description": "Public exactPOST only; closed1024byte JSON/no query. Body accepts only stx_sxrt_ plus64 lowercasehex, other domains401; it is never a Bearer credential. Real ConnectInfo peer only, forwarded headers ignored, missingpeer503. Redis2s budget, SHAonlycachekeys, secret10/300s and peer1000/300s; peer rejection occurs before rotated-secret cache allocation,429; Redis failure503. Current owner notdisabled/AV plus key active/unexpired, global advisory/account/key locks, current UHD expiry. Issues actual stx_sx_ client/login, not admin/M2M/native/ECAL, expiry min1hour/JWT declared exp/key/UHD; account128/perkey32 active-session bounds429. Hash remains unchanged, no refresh rotation or new secret response; use count/audit/login atomic, audit/dependency failure rolls back, late natural key/UHD clock rejection401. Parent inactive/hash/AV change/delete/shortened expiry fences children under actual154. Current grants on subsequent requests, no permission snapshot. Existing password sessions remain supported; complete clients/combined/scale acceptance still open. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
+        "summary": "Exchange a personal SXAPI secret or a session refresh token for a login",
+        "description": "Public exactPOST only; closed1024byte JSON/no query. Body accepts only stx_sxrt_ plus64 lowercasehex, other domains401; it is never a Bearer credential. Real ConnectInfo peer only, forwarded headers ignored, missingpeer503. Redis2s budget, SHAonlycachekeys, secret10/300s and peer1000/300s; peer rejection occurs before rotated-secret cache allocation,429; Redis failure503. Current owner notdisabled/AV plus key active/unexpired, global advisory/account/key locks, current UHD expiry. Issues actual stx_sx_ client/login, not admin/M2M/native/ECAL, expiry min1hour/JWT declared exp/key/UHD; account128/perkey32 active-session bounds429. Hash remains unchanged, no refresh rotation or new secret response; use count/audit/login atomic, audit/dependency failure rolls back, late natural key/UHD clock rejection401. Parent inactive/hash/AV change/delete/shortened expiry fences children under actual154. Current grants on subsequent requests, no permission snapshot. Existing password sessions remain supported; complete clients/combined/scale acceptance still open. streamix_server#265: a stx_sxls_ token from POST /sessions (or a previous refresh) is spent and answered with a new 24-hour stx_sx_ login and the next stx_sxls_ token of its chain (SessionRefreshed), under the same peer 1000/300s and per-token 10/300s budgets (429). It is 401 when unknown, expired, revoked (logout or termination of any login of the chain, credential revocation), when the account is disabled or its auth_version changed (password change, all sessions ended). A spent token presented again within 60 seconds while its successor is unused withdraws that successor and is answered again (a lost response); any other reuse revokes the whole chain and every login it minted. Clients refresh one request at a time and store the new refresh_token before using the new access_token. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting. Device/client/User-Agent labels are retained on this verified login or preparation. Labels follow session_history_retention_days; no automatic replacement of previous logins.",
         "tags": [
           "SXAPI v1"
         ],
@@ -16659,7 +16729,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OwnCredentialRefreshed"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OwnCredentialRefreshed"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SessionRefreshed"
+                    }
+                  ]
                 }
               }
             }
@@ -19990,6 +20067,207 @@
               "maxLength": 64
             },
             "description": "#198: only works whose Media.updated_at is at or after this instant (inclusive). RFC 3339 with an offset (Z or +hh:mm), at most 64 bytes, years 1..9999; a date without time, a local time or any other value is 400. Compared in UTC at microsecond precision, the precision of updated_at: a finer instant rounds up, so the result is exactly the works at or after it. Media.updated_at is the last change of the work's own record. Since #198 every write that really changes that record moves it (rewriting the same values, or only the TMDB refresh time or the derived pinyin name keys, does not), so title, overview, year, type, TMDB binding, poster/backdrop/logo paths, rating, genres, studios, language, countries, collection and status changes all move it. It does not move for data stored elsewhere: the account's own user_state, tags, episode_count and file inventory, TMDB discovery fields (runtime_minutes, community_rating_count, official_rating, external_ids.imdb), external_ids.tvdb and PMMS posters. Removed works (deleted, without files, or outside the account's libraries now) are never listed, so a change feed cannot name them; compare IDs with GET /media/ids for that. updated_at is the start time of the writing transaction: use the server Date header of your previous sync minus an overlap (10 minutes is ample) and deduplicate by id. ANDs with every other filter and works with every sort; total and the signed cursor count only the matching works. Bound to the signed cursor: a cursor from another instant or from none is 400. Omitted, nothing changes and earlier cursors keep their shape. When few works changed, membership is checked per work instead of catalogue-wide; results are identical either way."
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Entity tags from an earlier 200 response to this account. Weak comparison, comma-separated lists and * are accepted; a match returns 304 without a body. The server still runs the read: the tag is derived from the response it would send."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/StreamixUserAgent"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixClient"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceId"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixDeviceName"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixProtocol"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixPurpose"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixLanguage"
+        },
+        {
+          "$ref": "#/components/parameters/StreamixTraceparent"
+        }
+      ]
+    },
+    "/media/removed": {
+      "get": {
+        "operationId": "sxapi_list_media_removed_get",
+        "summary": "Works removed since an instant",
+        "description": "#266: the works that left the catalogue at or after since, oldest first (removed_at, then id), so an incremental client (GET /media?updated_since=, #198) can drop them without a full GET /media/ids reconciliation. A background sweep compares the works available now (not deleted, with a current file: the file condition of GET /media) with its previous result and records each work that was available and is not any more. A work that is available again is not listed. Rows are kept limits.media_removed_retention_days days. Visibility: a row carries the work's content domain (adult evidence) from when it was last available; an account sees the rows of the domains it has a library for, never an adult work without an adult library or the reverse. Library rules and grants are not evaluated, so a removed work of another library of the same domain can appear: ignore unknown IDs. Works that only left the account's libraries (rule or grant changes) are not listed; GET /media/ids still finds them. since before tracked_since (no sweep yet, or older than the retention) is a 410 removed_history_unavailable with tracked_since: reconcile with GET /media/ids, then continue from the response Date. Recommended loop: GET /media/removed?since=<previous Date minus 10 minutes>, drop those works, then GET /media?updated_since=<the same instant>. Credentials only in the Authorization header. Optional client headers are untrusted labels, never grants. Malformed optional labels are ignored and counted; only an unsupported protocol header rejects the request. Sec-Purpose prefetch uses isolated response-lifetime admission, with original quota accounting.",
+        "tags": [
+          "SXAPI v1"
+        ],
+        "x-source": {
+          "file": "src/api/sxapi/catalog/removed.rs",
+          "handler": "list_media_removed"
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaRemovalPage"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter, cursor or malformed/multiple byte range. Includes client_version_unsupported for a supplied unsupported/invalid/duplicate X-Streamix-Protocol.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired or revoked credential or parent login.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Authentication, policy, database, Redis or initialized playback proxy unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed on a registered path.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "removed_history_unavailable: since is before tracked_since.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaRemovalHistoryUnavailable"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": " Includes prefetch_busy; Retry-After:1; no queued wait and no normal-playback slot consumed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds before retrying background prefetch."
+              }
+            }
+          },
+          "403": {
+            "description": "Includes prefetch_disabled for a preload while the administrator has turned preloads off (#175).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified: If-None-Match matched this account's current representation. No body; carries the same ETag.",
+            "headers": {
+              "ETag": {
+                "description": "Per-account strong entity tag of this JSON representation: SHA-256 over the account (user and auth generation), the request path and query, and the body. A JSON object body with a top-level observed_at (the read time) is hashed member by member without that member (#246, RC21), so an unchanged list revalidates with 304 although observed_at moves; every other body is hashed as its exact bytes. Edge compression may present it as W/.",
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(W/)?\"sx1-[0-9a-f]{32}\"$"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "maxLength": 64
+            },
+            "description": "#266, required: only works removed at or after this instant (inclusive). The updated_since format: RFC 3339 with an offset (Z or +hh:mm), at most 64 bytes, years 1..9999; anything else, or no since, is 400. Compared in UTC at microsecond precision; a finer instant rounds up. Before tracked_since the list is incomplete: 410 removed_history_unavailable."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5000,
+              "default": 1000
+            },
+            "description": "Page size 1..5000, default 1000."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "description": "Opaque next_cursor of GET /media/removed, bound to the account, login and since; another login or another since is 400."
           },
           {
             "name": "If-None-Match",
@@ -24286,6 +24564,7 @@
               "media_lookup_by_external_id",
               "media_updated_since",
               "media_ids",
+              "media_removed",
               "episode_by_id",
               "media_detail_facts",
               "person_details",
@@ -24318,6 +24597,8 @@
               "administration_tmdb_refresh",
               "download_permissions",
               "prefetch_grants",
+              "logo_languages",
+              "session_refresh",
               "prefetch",
               "prefetch_user_agent_purpose",
               "prefetch_stream_limit_exempt",
@@ -24625,6 +24906,11 @@
                 "const": true,
                 "description": "GET /media/ids (#198): ID and updated_at of the works GET /media lists, for removal detection in incremental sync."
               },
+              "media_removed": {
+                "type": "boolean",
+                "const": true,
+                "description": "GET /media/removed (#266): works deleted or without files since an instant."
+              },
               "episode_by_id": {
                 "type": "boolean",
                 "const": true,
@@ -24770,6 +25056,16 @@
                 "type": "boolean",
                 "description": "POST /prefetch/grants and the STREAMIX-Grant stream header are honoured: playback is available and either the server is not in Nimbus private mode or its composed private runtime declares grant checks on its stream host (#175)."
               },
+              "logo_languages": {
+                "type": "boolean",
+                "const": true,
+                "description": "Media.logos and GET /media/{id}/images/logo?language= pick among stored TMDB logos of every language (streamix_server#265)."
+              },
+              "session_refresh": {
+                "type": "boolean",
+                "const": true,
+                "description": "POST /sessions returns a rotating stx_sxls_ refresh token that POST /sessions/refresh exchanges for a new login (streamix_server#265)."
+              },
               "prefetch": {
                 "type": "boolean",
                 "description": "Preloads are currently allowed: site setting prefetch_enabled is not false. When false, every preload returns 403 prefetch_disabled; skip preloading (#175)."
@@ -24845,6 +25141,8 @@
               "avatar_edge_max",
               "media_external_ids_max",
               "media_ids_page_size_max",
+              "media_removed_page_size_max",
+              "media_removed_retention_days",
               "media_lookup_ids_max",
               "person_external_ids_max",
               "prefetch_max_bytes_ceiling"
@@ -25063,6 +25361,16 @@
                 "type": "integer",
                 "const": 5000,
                 "description": "Largest GET /media/ids page (#198)."
+              },
+              "media_removed_page_size_max": {
+                "type": "integer",
+                "const": 5000,
+                "description": "Largest GET /media/removed page (#266)."
+              },
+              "media_removed_retention_days": {
+                "type": "integer",
+                "const": 30,
+                "description": "Days GET /media/removed keeps a removal (#266)."
               },
               "media_lookup_ids_max": {
                 "type": "integer",
@@ -27222,7 +27530,8 @@
           "collection",
           "has_backdrop",
           "best_version",
-          "version_count"
+          "version_count",
+          "logos"
         ],
         "properties": {
           "id": {
@@ -27440,7 +27749,7 @@
           },
           "has_logo": {
             "type": "boolean",
-            "description": "RC11 #152: true when GET /media/{id}/images/logo has a stored non-SVG logo to read for this ordinary movie/TV work (same source and rule), so clients need no probe request. Says nothing about upstream reachability; the image read can still be 502/503."
+            "description": "RC11 #152, #265: true when GET /media/{id}/images/logo has a non-SVG logo to read for this ordinary movie/TV work: a stored TMDB logo of any language, or the work's single logo (its own TMDB logo, else the discovery logo of the same TMDB ID and type). Says nothing about upstream reachability; the image read can still be 502/503."
           },
           "user_state": {
             "$ref": "#/components/schemas/MediaUserState"
@@ -27599,6 +27908,51 @@
             "format": "int64",
             "minimum": 0,
             "description": "Number of versions of the work: the total of GET /media/{id}/versions without episode_id. streamix#1911: read for every work of the page in one more statement, never one request per work. The versions are those GET /media/{id}/versions lists without episode_id: current file-backed main versions (existing, not superseded, on a live non-folder path of an enabled source; episode files only when the episode belongs to the work; local extras and trailers are not versions), so a series takes the files of all its episodes. "
+          },
+          "logos": {
+            "type": "array",
+            "maxItems": 50,
+            "description": "streamix_server#265: the stored TMDB logos, one per language (the best of each), in the order GET /media/{id}/images/logo would choose them for this request's Accept-Language (else the server metadata language, simplified Chinese). Empty when only the single logo of unknown language exists, when there is none, and outside ordinary movie/TV works. Pass a lang as ?language= to read that logo.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "lang",
+                "w",
+                "h"
+              ],
+              "properties": {
+                "lang": {
+                  "type": "string",
+                  "pattern": "^(xx|[a-z]{2}|zh-[A-Z]{2})$",
+                  "description": "Logo language in the MVDB logos[].lang form (mvdb#270): xx without text, zh-CN / zh-SG / zh-TW / zh-HK / zh-MO ... for Chinese with a TMDB region (TW, HK and MO are traditional, other regions simplified), zh without one, otherwise the ISO 639-1 code (en, ja, ko)."
+                },
+                "w": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "description": "Original width as TMDB reported it."
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "h": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "description": "Original height as TMDB reported it."
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       },
@@ -27949,6 +28303,106 @@
                 "type": "null"
               }
             ]
+          }
+        }
+      },
+      "MediaRemoval": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "removed_at",
+          "reason"
+        ],
+        "description": "#266: one work that left the catalogue.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "removed_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the server noticed the removal: never earlier than it, usually within about three minutes (a sweep every two minutes while the catalogue changes)."
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "deleted",
+              "unavailable"
+            ],
+            "description": "deleted: the work was deleted or merged into another one. unavailable: it lost its last current file (file deleted, source path gone, storage source disabled)."
+          }
+        }
+      },
+      "MediaRemovalHistoryUnavailable": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "error",
+          "tracked_since"
+        ],
+        "description": "#266: 410 body: the error object plus tracked_since (null until the first sweep).",
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "const": "removed_history_unavailable"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          },
+          "tracked_since": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "MediaRemovalPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "next_cursor",
+          "tracked_since"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaRemoval"
+            }
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tracked_since": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The list is complete from this instant: the later of the first sweep after deployment and the retention boundary (limits.media_removed_retention_days)."
           }
         }
       },
@@ -28775,7 +29229,8 @@
         "properties": {
           "refresh_token": {
             "type": "string",
-            "pattern": "^stx_sxrt_[0-9a-f]{64}$"
+            "pattern": "^stx_sx(rt|ls)_[0-9a-f]{64}$",
+            "description": "stx_sxrt_: a personal SXAPI credential secret. stx_sxls_ (#265): the refresh token of a password login from POST /sessions or a previous refresh."
           }
         }
       },
@@ -33475,7 +33930,10 @@
         "required": [
           "access_token",
           "token_type",
-          "user"
+          "user",
+          "expires_at",
+          "refresh_token",
+          "refresh_expires_at"
         ],
         "properties": {
           "access_token": {
@@ -33487,6 +33945,75 @@
           },
           "user": {
             "$ref": "#/components/schemas/User"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "streamix_server#265: when access_token expires (24 hours by default)."
+          },
+          "refresh_token": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^stx_sxls_[0-9a-f]{64}$",
+                "description": "streamix_server#265: rotating refresh token for POST /sessions/refresh. Shown once; only its SHA-256 is stored. Keep it like a password. Null only on a server whose database lacks migration 303 (features.session_refresh says whether it is offered)."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "refresh_expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "description": "streamix_server#265: when refresh_token expires unless it is used first: 30 days, renewed by each refresh, never more than 365 days after this login. Null together with refresh_token."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "SessionRefreshed": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_at",
+          "login_id",
+          "refresh_token",
+          "refresh_expires_at"
+        ],
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "pattern": "^stx_sx_"
+          },
+          "token_type": {
+            "const": "Bearer"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The new access token expires 24 hours later by default."
+          },
+          "login_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "refresh_token": {
+            "type": "string",
+            "pattern": "^stx_sxls_[0-9a-f]{64}$",
+            "description": "The next token of the chain; the presented one is spent."
+          },
+          "refresh_expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "30 days from now, never after the chain end (365 days after the password login)."
           }
         }
       },

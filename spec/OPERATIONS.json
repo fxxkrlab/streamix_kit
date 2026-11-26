@@ -133,6 +133,11 @@
       "operation_id": "sxapi_list_pmms_studios_get"
     },
     {
+      "method": "GET",
+      "path": "/media/removed",
+      "operation_id": "sxapi_list_media_removed_get"
+    },
+    {
       "method": "POST",
       "path": "/media/studio-counts",
       "operation_id": "sxapi_count_studios_post"
@@ -605,12 +610,12 @@
   ],
   "typed_sdk_schema_sha256": {
     "SessionRequest": "dce0d18d6afd35becd699333b21675add7dec7bc2d626802a688189bbe81b2fb",
-    "Session": "78b1f9b58a054b57ca4c402770694bb340009b465de5f52614168965b5f661f4",
-    "OwnCredentialRefresh": "3e3320194b1b313ec2507161dd8efbc950dd7d243dac9dc74248cf4093e6e0b7",
+    "Session": "3a366ad2f738fa6cb115424869ec35887f74569976c4b753942732cea25f231a",
+    "OwnCredentialRefresh": "60f7bbc01b26257e6330b9998fd0cf96eeaf42889c8d5b89013f43a9833d0fd4",
     "OwnCredentialRefreshed": "fd6c2bb22774089768cdaefa0a108f1d883e139e3c69d9f1061ccc070c710837",
     "User": "ab663f5eee9e24a583bf3ea2188e1273bb183e1dac63711d1022b692815ceec6",
     "Library": "ac606588e1b7b78faee259be1107ec8f9978fc7ce520c329dd5eedc125f706e8",
-    "Media": "accf5710530803e96bb3015b187606263c7044630da82381a79b4aade3f444b8",
+    "Media": "f7ff71dd97c35294439ac5487916177f44b61c78342d9dd23f1a4cd1ad8b517a",
     "MediaPage": "864e9ff6fb97e26bac17a7233d89fcae00f57d185e1dee996e2066ad26d957ab",
     "Version": "4f60dd0dcd069daf30b41c699848ab9e3e8ad7815f5c19bf120e78a1ee67423d",
     "VersionPage": "ed0508a7cdbd5d19ba40c5880ac464fe4dfada1497737fe199a424aa07bfeda7",
@@ -622,6 +627,10 @@
     "PlaybackProgress": "7c8a0021c33f9ef98c68636e918376b8eca06df444cf7612eceb74b306b4a0fc",
     "ProgressAck": "cc77888575907c3acd79ae20776117a703e381358b3808cb8176e4b7d5ab1d6a",
     "SubtitleInventory": "35bbd92a3eeb4aa21eade51e2fe728b0e0a6f130b544fa9cb17c34b35c842751",
-    "SubtitleTicket": "fec05e5556fe959566781ea8e4630b88a4e39b0010cc0592e294c3798056d7f8"
+    "SubtitleTicket": "fec05e5556fe959566781ea8e4630b88a4e39b0010cc0592e294c3798056d7f8",
+    "SessionRefreshed": "2251b636cff1a0b7958c8089ea538e02cc153d90e10c2296b616f6a2cd2be150",
+    "MediaRemoval": "ed01ee06554b07c3c1981c6eb5d9446705af6641f118cd5a663f50b1480c80af",
+    "MediaRemovalPage": "c81806ba5f934016770768aa04c7c4dac177307d83eaaef098e9bad1cf1f4fcf",
+    "MediaRemovalHistoryUnavailable": "5a211273bb2869855461c643894962f5178dc6afa25d21dc6b4bbb759422b81b"
   }
 }

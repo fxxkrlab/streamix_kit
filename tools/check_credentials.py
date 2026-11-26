@@ -9,9 +9,9 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 EXTENSIONS = {".md", ".json", ".rs", ".toml", ".sh", ".yml", ".yaml", ".py", ".txt"}
 QUERY_SECRET = re.compile(r"[?&](?:ticket|token|api_key|access_token|refresh_token|x-emby-token|authorization|credential)\s*=", re.I)
-PATH_SECRET = re.compile(r"/(?:stx_sxplay_|stx_sxsub_|stx_sxrt_|stx_sx_)[A-Za-z0-9_-]+", re.I)
+PATH_SECRET = re.compile(r"/(?:stx_sxplay_|stx_sxsub_|stx_sxrt_|stx_sxls_|stx_sx_)[A-Za-z0-9_-]+", re.I)
 PRIVATE_PATH_SECRET = re.compile(r"/nimbus-play/v1/sxapi(?:-subtitle)?/[0-9a-f]{64}", re.I)
-REAL_TOKEN = re.compile(r"\b(?:stx_sxplay_|stx_sxsub_|stx_sxrt_|stx_sx_)[A-Za-z0-9_-]{32,}\b")
+REAL_TOKEN = re.compile(r"\b(?:stx_sxplay_|stx_sxsub_|stx_sxrt_|stx_sxls_|stx_sx_)[A-Za-z0-9_-]{32,}\b")
 # A home directory such as /Users/<name>/ is private; an OpenAPI path template such as the ECAL
 # route /Users/{Id}/Images/Primary named in a description is not.
 PRIVATE_DATA = re.compile(r"(?<![A-Za-z0-9])(?:/Users/[^\s/{][^\s/]*/|/root/|/opt/github-runners/)|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")
